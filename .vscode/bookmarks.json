@@ -1,0 +1,54 @@
+{
+	"files": [
+		{
+			"path": "app/api/posts/create/route.js",
+			"bookmarks": [
+				{
+					"line": 4,
+					"column": 0,
+					"label": "Create Post"
+				}
+			]
+		},
+		{
+			"path": "app/api/posts/get-post/[postID]/route.js",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 0,
+					"label": "Get post with ID"
+				}
+			]
+		},
+		{
+			"path": "app/api/posts/user/[username]/route.js",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 0,
+					"label": "Get users Posts"
+				}
+			]
+		},
+		{
+			"path": "app/api/posts/delete/[postID]/route.js",
+			"bookmarks": [
+				{
+					"line": 6,
+					"column": 0,
+					"label": "Delete Post"
+				}
+			]
+		},
+		{
+			"path": "app/api/posts/route.js",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 0,
+					"label": "Get Posts"
+				}
+			]
+		}
+	]
+}

@@ -2,8 +2,8 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "@/models/User"; // Import the User model from the specified path
-import connect from "@/utils/db"; // Import the connect function from the specified path
+import User from "@/models/user/User"; // Import the User model from the specified path
+import { connectUserDB } from "@/utils/db"; // Import the connectUserDB function from the specified path
 import bcrypt from "bcryptjs"; // Import the bcrypt library for password hashing
 
 // Define a NextAuth handler for authentication
@@ -16,7 +16,7 @@ const handler = NextAuth({
       name: "Credentials", // Display name for this provider
       async authorize(credentials) {
         // Check if the user exists in the database
-        await connect(); // Connect to the database using the utility function
+        await connectUserDB(); // connectUserDB to the database using the utility function
 
         try {
           // Find the user in the database by email
@@ -54,6 +54,7 @@ const handler = NextAuth({
       clientSecret: process.env.GitHub_SECRET,
     }),
   ],
+  secret: process.env.NEXTAUTH_URL,
   // Customize error page redirection
   pages: {
     error: "/dashboard/login",

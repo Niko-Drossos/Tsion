@@ -45,13 +45,13 @@ const Navbar = () => {
     <nav className={styles.nav}>
       <div className={`${styles.nav_items} ${styles.name_nav}`}>
         <Link href="/">
-          Niko Drossos
+          Barter Kingdom
         </Link>
       </div>
       <div className={styles.space} />
       {links.map(link => {
         return (
-          <div className={`${styles.nav_items} ${styles.sideNav}`}>
+          <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name} >
             <Link
               href={link.link}
               className={styles.link}
