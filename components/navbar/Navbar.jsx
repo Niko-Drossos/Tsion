@@ -37,7 +37,13 @@ const links = [
     name: "Dashboard",
     url: "/dashboard",
     link: "/dashboard",
-  }
+  },
+  {
+    name: "Blog",
+    url: "/blog",
+    link: "/blog",
+  },
+
 ]
 
 const Navbar = () => {
@@ -45,7 +51,7 @@ const Navbar = () => {
     <nav className={styles.nav}>
       <div className={`${styles.nav_items} ${styles.name_nav}`}>
         <Link href="/">
-          Barter Kingdom
+          Social App
         </Link>
       </div>
       <div className={styles.space} />
