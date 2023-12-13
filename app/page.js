@@ -8,14 +8,13 @@ export default function Home() {
     <div className={styles.container}>
     <div className={styles.item}>
       <h1 className={styles.title}>
-        Niko Drossos
+        Social Chat
       </h1>
       {/* <p className={styles.desc}>
         
       </p> */}
     </div>
     <div className={styles.item}>
-      <Image src={Hero} alt="" className={styles.img} />
     </div>
   </div>
 

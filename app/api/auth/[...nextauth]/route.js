@@ -33,6 +33,9 @@ const handler = NextAuth({
 
             if (isPasswordCorrect) {
               // If the password is correct, return the user
+              const user = await User.findOne({
+                email: credentials.email,
+              });
               return user;
             } else {
               // If the password is incorrect, throw an error

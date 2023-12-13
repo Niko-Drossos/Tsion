@@ -6,13 +6,12 @@ export async function GET(request, context) {
   const postID = params.postID;
 
   try {
-    const result = await Post.findById(postID);
-
+    const result = await Post.findById(postID).populate('comments').exec()
     if (result) {
       return NextResponse.json({
         success: true,
         message: `Found post with _id: ${postID}`,
-        data: result,
+        post: result
       })
     } else {
       return NextResponse.json({
@@ -23,7 +22,7 @@ export async function GET(request, context) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      message: `Error finding post with _id: ${postID}`,
+      message: `Error fetching post with _id: ${postID}`,
       errorMessage: err.message,
       error: err,
     });

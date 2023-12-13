@@ -17,7 +17,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Extract user input from the form
-    const name = e.target[0].value;
+    const username = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
 
@@ -30,7 +30,7 @@ const Register = () => {
         },
         // Convert user input to JSON and include it in the request body
         body: JSON.stringify({
-          name,
+          username,
           email,
           password,
         }),

@@ -35,7 +35,7 @@ const userSchema = new Schema({
   },
   admin: { type: Boolean, required: true },
   userAuthID: { type: String, required: true },
-  walletAddress: { type: String, unique: false, required: true }, //make unique true when posted
+  walletAddress: { type: String, unique: false, required: false }, //make unique true when posted
   tribe: {type: String, enum: tribes, default: "", required: false }
 },
 {

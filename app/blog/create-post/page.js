@@ -10,10 +10,19 @@ import cloudinaryConfig from "@/config/cloudinary";
 const Blog = () => {
   const [imageUrl, setImageUrl] = useState("");
   const session = useSession();
+  const [user, setUser] = useState()
   //NEW WAY TO FETCH DATA
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  // username=${session?.data?.user.name}
-
+  const { data, mutate, error, isLoading } = useSWR(
+    `/api/user/${user}`,
+    fetcher,
+    {
+      onSuccess: (fetchedData) => {
+        setUser(fetchedData);
+      },
+    }
+  );
+  console.log(session)
   if (session.status === "loading") {
     return <p>Loading...</p>;
   }
@@ -60,6 +69,7 @@ const Blog = () => {
       await fetch("/api/posts/create", {
         method: "POST",
         body: JSON.stringify({
+          // profilePhoto: ,
           title,
           imageUrl,
           content,

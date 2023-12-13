@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import TESTPHOTO from '@/public/1.png'
 
@@ -48,10 +49,12 @@ const Blog = () => {
                 )}
               </div> */}
               <div className={styles.head}>
-                <Image src={TESTPHOTO} className={styles.profile_photo} />
+                <Image src={TESTPHOTO} alt="Profile photo" className={styles.profile_photo} />
                 <div className={styles.postTitle}>
                   <h2>{post.title}</h2>
-                  <h4 className={styles.username}>@{post.author}</h4>
+                  <h4 className={styles.username}>
+                    <Link href={`/profile/${post.posterID}`}>@{post.author}</Link>
+                  </h4>
                   <h4 className={styles.date_posted}>posted: {post.createdAt.toLocaleString()}</h4>
                 </div>
               </div>
