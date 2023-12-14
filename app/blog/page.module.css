@@ -1,10 +1,5 @@
 .container {
   display: flex;
-  gap: 100px;
-}
-
-.container {
-  display: flex;
   justify-content: center;
 }
 
@@ -30,7 +25,8 @@
 .head {
   display: flex;
   align-items: center;
-  height: 80px;
+  height: fit-content;
+  margin-bottom: 15px;
 }
 
 .postTitle > h2 {
@@ -65,15 +61,31 @@
   color: black
 }
 
-.icons {
+.iconContainer {
   display: flex;
   justify-content: flex-start;
+  margin-top: 15px;
+}
+
+.iconContainer > button {
+  background-color: transparent;
+  border: none;
+}
+
+.icons {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.icons:hover {
+  background-color: #4D4949;
 }
 
 .button {
   padding: 20px;
   cursor: pointer;
-  background-color: #53c28b;
+  background-color: #363779;
   border: none;
   border-radius: 5px;
   color: #eee;

@@ -7,7 +7,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Button from '@/components/Button/Button'
+
 import TESTPHOTO from '@/public/1.png'
+
+import Heart from '@/public/heart.png'
+import Comment from '@/public/comment.png'
+import Share from '@/public/share.png'
 
 const Blog = () => {
   const [pageSize, setPageSize] = useState(5)
@@ -37,9 +42,6 @@ const Blog = () => {
   
   return (
     <div className={styles.container}>
-      <div>
-        <Button text={"Create post"} url={`/blog/create-post`} />
-      </div>
       <div className={styles.posts}>
       {isLoading
         ? "loading"
@@ -67,15 +69,18 @@ const Blog = () => {
                 {post.content}
               </div>
 
-              <div className={styles.icons}>
-                <button>like</button>
-                <button>comment</button>
-                <button>share</button>
+              <div className={styles.iconContainer}>
+                <button><Image src={Heart} alt={"Like"}  className={styles.icons}/></button>
+                <button><Image src={Comment} alt={"Comment"}  className={styles.icons}/></button>
+                <button><Image src={Share} alt={"Share"}  className={styles.icons}/></button>
               </div>
             </div>
           ))}
       </div>
       <div>
+        <div>
+          <Button text={"Create post"} url={`/blog/create-post`} className={styles.button} />
+        </div>
         <button onClick={() => setPageNumber(pageNumber - 1)} className={styles.button}>-</button>
         <h4>PageNumber: {pageNumber}</h4>
         <button onClick={() => setPageNumber(pageNumber + 1)} className={styles.button}>+</button>
