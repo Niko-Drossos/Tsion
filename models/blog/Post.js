@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 const blogDB = require('@/connections/blogDB')
-const Comment = require('./commentModel'); // Import the Comment model
 require('dotenv').config()
 
 
 let postSchema = new Schema({
-  author: { type: String, required: true }, 
-  profilePhoto: { type: String, required: true},
-  posterID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
+  user: {
+    author: { type: String, required: true }, 
+    avatar: { type: String, required: true},
+    posterID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  },
   title: { type: String, required: true },
   content: { type: String, required: true },
   votes: { type: Array, required: false },

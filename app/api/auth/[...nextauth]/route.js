@@ -5,6 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/user/User"; // Import the User model from the specified path
 import { connectUserDB } from "@/utils/db"; // Import the connectUserDB function from the specified path
 import bcrypt from "bcryptjs"; // Import the bcrypt library for password hashing
+import { getIdWithName, getUserWithName } from '@/utils/routeMethods.js'
+
 
 // Define a NextAuth handler for authentication
 const handler = NextAuth({
@@ -20,9 +22,10 @@ const handler = NextAuth({
 
         try {
           // Find the user in the database by email
-          const user = await User.findOne({
+          let user = await User.findOne({
             email: credentials.email,
           });
+          console.log(user)
 
           if (user) {
             // If the user exists, check if the provided password is correct
@@ -33,10 +36,12 @@ const handler = NextAuth({
 
             if (isPasswordCorrect) {
               // If the password is correct, return the user
-              const user = await User.findOne({
+              user = await User.findOne({
                 email: credentials.email,
-              });
-              return user;
+              })
+              // await getIdWithName(user.username)
+
+              return user
             } else {
               // If the password is incorrect, throw an error
               throw new Error("Wrong Credentials!");
@@ -62,6 +67,16 @@ const handler = NextAuth({
   pages: {
     error: "/dashboard/login",
   },
+  /* callbacks: {
+    session: async (session, user) => {
+      // Check if user is defined before accessing its properties
+      if (user && user._id) {
+        // Attach the MongoDB user._id to the session
+        session.user._id = user._id; // Assuming user._id is the MongoDB _id
+      }
+      return Promise.resolve(session);
+    },
+  }, */
 });
 
 // Export the NextAuth handler for both GET and POST requests

@@ -19,7 +19,7 @@ export const POST = async (request) => {
     }
 
     const userAuthID = generateUserAuthID()
-    // Create a user object but don't post to the DB with the .create() method
+
     const newUser = await User.create({
       username: username, 
       email: email || "",

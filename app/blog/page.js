@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Button from '@/components/Button/Button'
 import TESTPHOTO from '@/public/1.png'
 
 const Blog = () => {
@@ -36,6 +37,9 @@ const Blog = () => {
   
   return (
     <div className={styles.container}>
+      <div>
+        <Button text={"Create post"} url={`/blog/create-post`} />
+      </div>
       <div className={styles.posts}>
       {isLoading
         ? "loading"
@@ -71,11 +75,11 @@ const Blog = () => {
             </div>
           ))}
       </div>
-          <div>
-            <button onClick={() => setPageNumber(pageNumber - 1)} className={styles.button}>-</button>
-            <h4>PageNumber: {pageNumber}</h4>
-            <button onClick={() => setPageNumber(pageNumber + 1)} className={styles.button}>+</button>
-          </div>
+      <div>
+        <button onClick={() => setPageNumber(pageNumber - 1)} className={styles.button}>-</button>
+        <h4>PageNumber: {pageNumber}</h4>
+        <button onClick={() => setPageNumber(pageNumber + 1)} className={styles.button}>+</button>
+      </div>
     </div>
   );
 };

@@ -69,11 +69,14 @@ const Blog = () => {
       await fetch("/api/posts/create", {
         method: "POST",
         body: JSON.stringify({
-          // profilePhoto: ,
+          user: {
+            author: session.data.user.name,
+            posterID: session.data.user._id,
+            // avatar: 
+          },
           title,
           imageUrl,
           content,
-          author: session.data.user.name,
         }),
       });
       mutate();
