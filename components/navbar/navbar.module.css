@@ -1,5 +1,8 @@
 .nav {
   display: flex;
+  /* position: fixed; */
+  /* top: 0; */
+  /* margin-bottom: 85px; */
   flex-direction: row;
   background-color: #E8ECEB;
   width: 100%;
