@@ -22,14 +22,14 @@ const Blog = () => {
       },
     }
   );
-  console.log(session)
+  
   if (session.status === "loading") {
     return <p>Loading...</p>;
   }
 
   const handleImageUpload = (event) => {
     const imageFile = event.target.files[0];
-    console.log(imageFile);
+    console.log(`Image File: ${imageFile}`);
     const formData = new FormData();
     formData.append("file", imageFile);
     formData.append("upload_preset", "Blog_Images");
@@ -62,7 +62,6 @@ const Blog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target[0].value;
-    const image = e.target[1].value;
     const content = e.target[2].value;
 
     try {

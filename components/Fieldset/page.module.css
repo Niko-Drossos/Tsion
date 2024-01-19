@@ -1,0 +1,59 @@
+
+.fieldset {
+  display: grid;
+  border-radius: 10px;
+  width: 300px;
+  height: fit-content;
+  padding: 10px;
+}
+
+.legendText {
+  white-space: nowrap;
+  font-size: 27px;
+}
+
+/* ------------------------------ Color Coding ------------------------------ */
+
+.time {
+  color: aqua;
+}
+
+.planet {
+  color: darkgoldenrod;
+}
+
+.chakra {
+  color: deepskyblue;
+}
+
+.angel {
+  color: brown;
+}
+
+.hebrewDay {
+  color: blueviolet;
+}
+
+.shape {
+  color:cadetblue;
+}
+
+.law {
+  color: gold;
+}
+
+.moon {
+  color: lightslategray;
+}
+
+.principle {
+  color: mediumvioletred;
+}
+
+/* -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+  .legendText {
+    font-size: 2rem;
+  }
+}

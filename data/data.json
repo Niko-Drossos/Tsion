@@ -1,0 +1,289 @@
+[
+  {
+    "hebrewDay": {
+      "day": "Yom Sheni",
+      "sephira": "Yesod (Foundation)",
+      "choir": "Elim (gods)",
+      "archangel": "Gabriel (EL is My Strength)",
+      "psalm": "48",
+      "letter": {
+        "symbol": "ת",
+        "name": "Tav"
+      }
+    },
+    "planet": {
+      "number": "2nd",
+      "name": "Moon"
+    },
+    "chakra": {
+      "number": "1st",
+      "name": "Muladhara",
+      "frequency": "396hz",
+      "note": "C"
+    },
+    "aura": "Etheric Body",
+    "geometry": {
+      "name": "Hexahedron",
+      "faces": "6",
+      "edges": "12",
+      "vertices": "8",
+      "interiorAngle": "90",
+      "exteriorAngle": "90",
+      "totalAngles": "2160"
+    },
+    "element": {
+      "name": "Earth"
+    },
+    "principle": {
+      "name": "Gender",
+      "text": "Gender is in everything; everything has its Masculine and Feminine Principles."
+    },
+    "science": "Grammer: The Art of Letters"
+  },
+  {
+    "hebrewDay": {
+      "day": "Yom Revi'i",
+      "sephira": "Hod (Splendour)",
+      "choir": "Arelim (Valiant Ones)",
+      "archangel": "Raphael (Healing of EL)",
+      "psalm": "94",
+      "letter": {
+        "symbol": "ר",
+        "name": "Resh"
+      }
+    },
+    "planet": {
+      "number": "6th",
+      "name": "Mercury"
+    },
+    "chakra": {
+      "number": "2nd",
+      "name": "Svadhishthana",
+      "frequency": "417hz",
+      "note": "D"
+    },
+    "aura": "Emotional Body",
+    "geometry": {
+      "name": "Icosahedron",
+      "faces": "20",
+      "edges": "30",
+      "vertices": "12",
+      "interiorAngle": "60",
+      "exteriorAngle": "120",
+      "totalAngles": "3600"
+    },
+    "element": { 
+      "name": "Water" 
+    },
+    "principle": {
+      "name": "Cause and Effect",
+      "text": "Every Cause has its Effect; Every Effect has its Cause; everything happens according to Law. Chance is but a name for Law not recognized."
+    },
+    "science": "Rhetoric: Self Expression"
+  },
+  {
+    "hebrewDay": {
+      "day": "Yom Shishi",
+      "sephira": "Netzach (Endurance)",
+      "choir": "Hashmalim (Electric Ones)",
+      "archangel": "Yophiel (EL is My Beauty)",
+      "psalm": "93",
+      "letter": {
+        "symbol": "פ",
+        "name": "Peh"
+      }
+    },
+    "planet": { 
+      "number": "3rd", 
+      "name": "Venus" 
+    },
+    "chakra": {
+      "number": "3rd",
+      "name": "Manipura",
+      "frequency": "528hz",
+      "note": "E"
+    },
+    "aura": "Mental Body",
+    "geometry": {
+      "name": "Tetrahedron",
+      "faces": "4",
+      "edges": "6",
+      "vertices": "4",
+      "interiorAngle": "60",
+      "exteriorAngle": "120",
+      "totalAngles": "720"
+    },
+    "element": { 
+      "name": "Fire" 
+    },
+    "principle": {
+      "name": "Rhythm",
+      "text": "Everything flows, out and in; everything has its tides; all things rise and fall; the pendulum-swing."
+    },
+    "science": "Logic: Study of Reasoning"
+  },
+  {
+    "hebrewDay": {
+      "day": "Yom Rishon",
+      "sephira": "Tifereth (Glory/ Equilibrium)",
+      "choir": "Malakim (Messengers)",
+      "archangel": "Mikael (He who is like Unto EL)",
+      "psalm": "24",
+      "letter": {
+        "symbol": "כ",
+        "name": "Kaf"
+      }
+    },
+    "planet": { 
+      "number": "1st", 
+      "name": "Sun" 
+    },
+    "chakra": {
+      "number": "4th",
+      "name": "Anahata",
+      "frequency": "639hz",
+      "note": "F"
+    },
+    "aura": "Astral Body",
+    "geometry": {
+      "name": "Octahedron",
+      "faces": 8,
+      "edges": 12,
+      "vertices": 6,
+      "interiorAngle": "60",
+      "exteriorAngle": "120",
+      "totalAngles": "1440"
+    },
+    "element": { 
+      "name": "Air" 
+    },
+    "principle": {
+      "name": "Polarity",
+      "text": "Everything is Dual, and has poles or opposites; opposites are identical in nature, but different in degree. All truths are but half-truths, all paradoxes may be reconciled."
+    },
+    "science": "Arithmetic: The Art of Numbers"
+  },
+  {
+    "hebrewDay": {
+      "day": "Yom Shlishi",
+      "sephira": "Gevurah (Strength)",
+      "choir": "Seraphim (Burning Ones)",
+      "archangel": "Remiel (EL is My Thunder)",
+      "psalm": "82",
+      "letter": {
+        "symbol": "ד",
+        "name": "Dalet"
+      }
+    },
+    "planet": { 
+      "number": "4th", 
+      "name": "Mars" 
+    },
+    "chakra": {
+      "number": "5th",
+      "name": "Vishuddha",
+      "frequency": "741hz",
+      "note": "G"
+    },
+    "aura": "Etheric Template",
+    "geometry": {
+      "name": "Dodecahedron",
+      "faces": "12",
+      "edges": "30",
+      "vertices": "20",
+      "interiorAngle": "108",
+      "exteriorAngle": "72",
+      "totalAngles": "6480"
+    },
+    "element": { 
+      "name": "Spirit" 
+    },
+    "principle": {
+      "name": "Vibration",
+      "text": "Everything moves, nothing rests; everything vibrates."
+    },
+    "science": "Geometry: Study of Sizes, Shapes, and Dimensions"
+  },
+  {
+    "hebrewDay": {
+      "day": "Yom Hamishi",
+      "sephira": "Hesed (Benevolence)",
+      "choir": "Ophanim (Wheels)",
+      "archangel": "Uriel (EL is My Light)",
+      "psalm": "81",
+      "letter": {
+        "symbol": "ג",
+        "name": "Gimel"
+      }
+    },
+    "planet": { 
+      "number": "5th", 
+      "name": "Jupiter" 
+    },
+    "chakra": {
+      "number": "6th",
+      "name": "Ajna",
+      "frequency": "852hz",
+      "note": "A"
+    },
+    "aura": "Celestial Body",
+    "geometry": {
+      "name": "Star Tetrahedron",
+      "faces": "8",
+      "edges": "12",
+      "vertices": "8",
+      "interiorAngle": "60",
+      "exteriorAngle": "120",
+      "totalAngles": "1440"
+    },
+    "element": {
+      "name": "Thinking"
+    },
+    "principle": {
+      "name": "Correspondence",
+      "text": "As above, so below; as below, so above. As within, so without; as without, so within."
+    },
+    "science": "Music: Study of Sound"
+  },
+  {
+    "hebrewDay": {
+      "day": "Yom Shabbat",
+      "sephira": "Daat (Genosis)",
+      "choir": "B'nai Elohim, Hyos Ha Koidesh (Holy Living creatures)",
+      "archangel": "Phanuel (Facing EL)",
+      "psalm": "92",
+      "letter": {
+        "symbol": "ב",
+        "name": "Bet"
+      }
+    },
+    "planet": {
+      "number": "7th",
+      "name": "Saturn"
+    },
+    "chakra": {
+      "number": "7th",
+      "name": "Sahasrara",
+      "frequency": "963hz",
+      "note": "B"
+    },
+    "aura": "Ketheric Template",
+    "geometry": {
+      "name": "Metatron's Cube",
+      "faces": "N/A",
+      "edges": "N/A",
+      "vertices": "N/A",
+      "interiorAngle": "N/A",
+      "exteriorAngle": "N/A",
+      "totalAngles": "N/A"
+    },
+    "element": {
+      "name": "Knowing"
+    },
+    "principle": {
+      "name": "Mentalism",
+      "text": "The ALL is Mind; the Universe is Mental."
+    },
+    "science": "Astronomy: Study of Extraterrestrial"
+  }
+]

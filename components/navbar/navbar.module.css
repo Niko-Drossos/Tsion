@@ -6,14 +6,27 @@
   height: 85px;
   font-size: 15px;
   /* font-family: "Bebas Neue", cursive; */
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+
+.links {
+  display: flex;
+  width: 40%
 }
 
 .link {
   text-decoration: none;
   color: black;
   transition: 0.25s;
+}
+
+.profileSection {
+  width: 200px
+}
+
+.profilePhoto {
+  border-radius: 50%;
 }
 
 .name_nav {
@@ -28,6 +41,7 @@
   padding: 55px;
   font-size: 32px;
   transition: 0.25s;
+  justify-content: center;
 }
 .nav_items:hover {
   color: #E09E50;
@@ -36,4 +50,52 @@
 
 .space {
   flex: 3;
+}
+
+.hamburgerIconContainer {
+  display: none
+}
+
+@media screen and (max-width: 800px) {
+  .nav {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 50px; /* Adjust as needed based on your layout */
+    left: 0;
+    background-color: #E8ECEB;
+    z-index: 1;
+  }
+
+  .links.show {
+    display: flex;
+  }
+
+  .nav_items {
+    padding: 15px;
+    font-size: 20px;
+  }
+
+  .name_nav,
+  .profileSection {
+    display: none;
+  }
+
+  .nav_items:last-child .profileSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hamburgerIconContainer {
+    display: block;
+  }
 }

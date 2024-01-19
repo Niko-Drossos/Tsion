@@ -27,9 +27,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
-          <button onClick={handleLogout}>Logout</button>
-
-      Dashboard
+      <button onClick={handleLogout} className={styles.logout}>Logout</button>
     </div>
   );
 };

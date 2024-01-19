@@ -57,26 +57,10 @@ const Login = ({ url }) => {
         <button className={styles.button}>Login</button>
         {error && error}
       </form>
-      <button
-        onClick={() => {
-          signIn("google");
-        }}
-        className={styles.button + " " + styles.google}
-      >
-        Login with GitHub
-      </button>
       <span className={styles.or}>- OR -</span>
       <Link className={styles.link} href="/dashboard/register">
         Create new account
       </Link>
-      {/* <button
-        onClick={() => {
-          signIn("github");
-        }}
-        className={styles.button + " " + styles.github}
-      >
-        Login with Github
-      </button> */}
     </div>
   );
 };

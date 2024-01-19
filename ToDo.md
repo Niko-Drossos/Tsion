@@ -11,4 +11,16 @@
 - Add like functionality
 - Add share functionality
 
+
+## Additional pages to add
+- /profile/favorites
+- /messages
+- /friends
+
+## Living Stones
+- Malki
+- Paul
+- Christ
+- 144,000 Cap stones
+ 
 ## Updates

@@ -7,12 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Button from '@/components/Button/Button'
-
-import TESTPHOTO from '@/public/1.png'
-
-import Heart from '@/public/heart.png'
-import Comment from '@/public/comment.png'
-import Share from '@/public/share.png'
+import TestPhoto from '@/public/1.png'
 
 const Blog = () => {
   const [pageSize, setPageSize] = useState(5)
@@ -35,7 +30,7 @@ const Blog = () => {
       },
     }
   );
-
+  console.log(data)
   if (session.status === "loading") {
     return <p>Loading posts...</p>;
   }
@@ -55,11 +50,11 @@ const Blog = () => {
                 )}
               </div> */}
               <div className={styles.head}>
-                <Image src={TESTPHOTO} alt="Profile photo" className={styles.profile_photo} />
+                <Image src={TestPhoto} alt="Profile photo" className={styles.profile_photo} />
                 <div className={styles.postTitle}>
                   <h2>{post.title}</h2>
                   <h4 className={styles.username}>
-                    <Link href={`/profile/${post.posterID}`}>@{post.author}</Link>
+                    <Link href={`/profile/${post?.user?.posterID}`}>@{post?.user?.author}</Link>
                   </h4>
                   <h4 className={styles.date_posted}>posted: {post.createdAt.toLocaleString()}</h4>
                 </div>
@@ -69,17 +64,17 @@ const Blog = () => {
                 {post.content}
               </div>
 
-              <div className={styles.iconContainer}>
-                <button><Image src={Heart} alt={"Like"}  className={styles.icons}/></button>
-                <button><Image src={Comment} alt={"Comment"}  className={styles.icons}/></button>
-                <button><Image src={Share} alt={"Share"}  className={styles.icons}/></button>
+              <div className={styles.icons}>
+                <button>like</button>
+                <button>comment</button>
+                <button>share</button>
               </div>
             </div>
           ))}
       </div>
       <div>
         <div>
-          <Button text={"Create post"} url={`/blog/create-post`} className={styles.button} />
+          <Link href={`/blog/create-post`} className={styles.create_post}>Create post</Link>
         </div>
         <button onClick={() => setPageNumber(pageNumber - 1)} className={styles.button}>-</button>
         <h4>PageNumber: {pageNumber}</h4>
