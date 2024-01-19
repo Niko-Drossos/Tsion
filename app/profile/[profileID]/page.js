@@ -10,7 +10,7 @@ export default function Home(request) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/users/${profileID}`);
+        const response = await fetch(`/api/user/${profileID}`);
         const data = await response.json();
         setUser(data.user);
         console.log(`Data: ${data}`); // Log the updated value of data
