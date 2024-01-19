@@ -37,8 +37,8 @@ const Navbar = () => {
   useEffect(() => {
     if (!session) {
       // Automatically redirect to the login screen
-      router.replace('/dashboard/login');
-      return null; // Return null or loading state to prevent rendering the rest of the navbar
+      router.replace('/dashboard/login')
+      return
     }
   }, [session, router])
     
