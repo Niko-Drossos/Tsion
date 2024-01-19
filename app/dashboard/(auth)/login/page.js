@@ -11,6 +11,7 @@ const Login = ({ url }) => {
   const params = useSearchParams();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setError(params.get("error"));
@@ -18,7 +19,7 @@ const Login = ({ url }) => {
   }, [params]);
 
   if (session.status === "loading") {
-    return <p>Loading...</p>;
+    return <h1>Loading...</h1>;
   }
 
   if (session.status === "authenticated") {
@@ -29,18 +30,19 @@ const Login = ({ url }) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-
+    setLoading(true)
     signIn("credentials", {
       email,
       password,
     });
+    setLoading(false)
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{success ? success : "Welcome Back"}</h1>
       <h2 className={styles.subtitle}>Please sign in to see the dashboard.</h2>
-
+      { loading ? <h1>Loading...</h1> : "" }
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"

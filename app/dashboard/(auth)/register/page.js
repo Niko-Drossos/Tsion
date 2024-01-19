@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 const Register = () => {
   // State to manage error messages
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Next.js router
   const router = useRouter();
@@ -23,6 +24,7 @@ const Register = () => {
 
     try {
       // Send a POST request to the "/api/auth/register" endpoint
+      setLoading(true)
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -37,10 +39,11 @@ const Register = () => {
       });
 
       // Check if the registration was successful (status code 201)
-      res.status === 201 &&
-        router.push("/dashboard/login?success=Account has been created");
+      res.status === 201 && router.push("/dashboard/login?success=Account has been created");
+      setLoading(false)
     } catch (err) {
       // Handle errors and log them to the console
+      setLoading(false)
       setError(err);
       console.log(err);
     }
@@ -52,6 +55,7 @@ const Register = () => {
       <h1 className={styles.title}>Create an Account</h1>
       <h2 className={styles.subtitle}>Please sign up to see the dashboard.</h2>
       {/* Registration form */}
+      { loading ? <h1>Loading...</h1> : "" }
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
