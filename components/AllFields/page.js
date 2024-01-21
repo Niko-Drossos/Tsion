@@ -185,15 +185,15 @@ export default function AllFields() {
       { "Phase": Moon.lunarPhaseEmoji() }, 
       { "Lunar Phase": Moon.lunarPhase() },
       { "": ""},
-      { "Moon Entered": moonDate},
-      { "Moon Sign": <span>{moonSign} - <Image 
-        src={`/images/zodiac/${moonSign}.png`} 
-        alt={moonSign}
-        height={20}
-        width={20}
-        style={{ verticalAlign: 'middle' }} 
-        />
-        </span>
+      { "Moon Entered": <span>{moonSign} - <Image 
+      src={`/images/zodiac/${moonSign}.png`} 
+      alt={moonSign}
+      height={20}
+      width={20}
+      style={{ verticalAlign: 'middle' }} 
+      />
+      </span>},
+      { "At": moonDate 
       },
       { "Family Sign": moonSignData.familyMember },
       { "": ""},

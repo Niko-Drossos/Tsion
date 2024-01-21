@@ -1,4 +1,11 @@
 # ToDO
+- restructure moon data
+- add search functunality to Tsion page
+- check DB blog connections
+-
+-
+-
+- fix login password confirmation
 - Do figma for profile page
 - Finish Login
 - Add chat functionality
@@ -24,3 +31,4 @@
 - 144,000 Cap stones
  
 ## Updates
+- Hamburger menu to right side

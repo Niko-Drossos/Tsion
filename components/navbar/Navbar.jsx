@@ -8,6 +8,11 @@ import styles from "./navbar.module.css";
 
 const links = [
   {
+    name: "Dashboard",
+    url: "/dashboard",
+    link: "/dashboard",
+  },
+  {
     name: "About",
     url: "/about",
     link: "/about"
@@ -16,11 +21,6 @@ const links = [
     name: "Blog",
     url: "/blog",
     link: "/blog",
-  },
-  {
-    name: "Dashboard",
-    url: "/dashboard",
-    link: "/dashboard",
   },
   {
     name: "Tsion",
@@ -61,15 +61,6 @@ const Navbar = () => {
         <Link href="/">Tsion</Link>
       </div>
 
-      <Image 
-        className={styles.hamburgerIconContainer }
-        onClick={toggleMenu}
-        src={"/hamburger-menu.png"}
-        width={32}
-        height={32}
-        alt={"Hamburger Menu"}
-      />
-
       <div className={styles.links + (showMenu ? ` ${styles.show}` : '')}>
         {links.map((link) => {
           return (
@@ -81,9 +72,9 @@ const Navbar = () => {
           );
         })}
 
-        <div className={`${styles.nav_items} ${styles.sideNav}`} key={"SighOut"}>
+        {/* <div className={`${styles.nav_items} ${styles.sideNav}`} key={"SighOut"}>
           <button onClick={handleSignOut}>Sign Out</button>
-        </div>
+        </div> */}
       </div>
 
       {/* <div className={`${styles.nav_items} ${styles.name_nav}`}>
@@ -102,6 +93,14 @@ const Navbar = () => {
           </Link>
         )}
       </div> */}
+      <Image 
+        className={styles.hamburgerIconContainer }
+        onClick={toggleMenu}
+        src={"/hamburger-menu.png"}
+        width={32}
+        height={32}
+        alt={"Hamburger Menu"}
+      />
     </nav>
   );
 };
