@@ -23,10 +23,6 @@ const Login = ({ url }) => {
     return <h1>Loading...</h1>;
   }
 
-  if (session.status === "authenticated") {
-    router?.push("/dashboard");
-  }
-
   function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
   
@@ -47,6 +43,11 @@ const Login = ({ url }) => {
       password,
     });
     setLoading(false)
+    if (session.status === "authenticated") {
+      router.push("/")
+    } else {
+      setError("Wrong username or password.");
+    }
   };
 
   return (

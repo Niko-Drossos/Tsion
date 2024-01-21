@@ -65,8 +65,8 @@ const Navbar = () => {
 
   return (
     <nav className={styles.nav}>
-      <div className={`${styles.nav_items} ${styles.name_nav}`}>
-        <Link href="/">Tsion</Link>
+      <div className={`${styles.nav_items} ${styles.name_nav} ${styles.computer_nav}`}>
+        <Link href="/" onClick={() => checkSessionAndNavigate("/")}>Tsion</Link>
       </div>
 
       <div className={styles.links + (showMenu ? ` ${styles.show}` : '')}>
@@ -102,9 +102,9 @@ const Navbar = () => {
         )}
       </div> */}
       <div className={styles.mobileNav}>
-        <h1 className={styles.title} >
+        <h4 className={styles.title} onClick={() => checkSessionAndNavigate("/")}>
           Tsion
-        </h1>
+        </h4>
         <Image
           className={styles.hamburgerIconContainer }
           onClick={() => setShowMenu(!showMenu)}

@@ -74,6 +74,10 @@
     padding: 15px;
   }
 
+  .computer_nav {
+    display: none
+  }
+
   .links {
     display: none;
     flex-direction: column;

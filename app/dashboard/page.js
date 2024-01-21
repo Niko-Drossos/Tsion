@@ -6,13 +6,22 @@ import styles from './page.module.css';
 
 // Your component
 const Dashboard = () => {
+  const session = useSession();
   const handleLogout = async () => {
     // Sign out the user
     await signOut();
   };
 
+  console.log(session)
+
   return (
     <div className={styles.container}>
+      { 
+        session && session?.data?.user?.email && 
+        <div>
+          {session.data.user.email}
+        </div>
+      }
       <button onClick={handleLogout} className={styles.logout}>Logout</button>
     </div>
   );
