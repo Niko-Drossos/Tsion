@@ -15,10 +15,9 @@
   justify-content: center;
   height: fit-content;
   border-radius: 15px;
-  width: 500px;
+  width: 333px;
   padding: 15px;
   background-color: #D9D9D9;
-  max-height: 500px;
   margin: 25px 25px;
 }
 
@@ -82,6 +81,21 @@
   background-color: #4D4949;
 }
 
+.buttons {
+  display: flex;
+  width: 300px;
+  margin-top: 20px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pageButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 175px
+}
+
 .button {
   padding: 20px;
   cursor: pointer;
@@ -93,11 +107,19 @@
 }
 
 .create_post {
-  width: 9.3125rem;
-  height: 3.0625rem;
+  width: 9rem;
+  height: 3rem;
   flex-shrink: 0;
   border-radius: 0.625rem;
+  padding: 10px;
   border: 1px solid #000;
   background: var(--gray, #5D5D5D);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }

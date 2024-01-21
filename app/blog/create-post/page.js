@@ -61,11 +61,13 @@ const Blog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //! Add images later
     const title = e.target[0].value;
     const content = e.target[2].value;
 
     try {
-      await fetch("/api/posts/create", {
+      //! FIX SESSION NOT CONTAINING DATA
+      /* await fetch("/api/posts/create", {
         method: "POST",
         body: JSON.stringify({
           user: {
@@ -79,7 +81,18 @@ const Blog = () => {
         }),
       });
       mutate();
-      e.target.reset();
+      e.target.reset(); */
+    //! DEV LOGS
+    console.log({
+      user: {
+        author: session.data.user.name,
+        posterID: session.data.user._id,
+        // avatar: 
+      },
+      title,
+      imageUrl,
+      content,
+    })
     } catch (err) {
       console.log(err);
     }

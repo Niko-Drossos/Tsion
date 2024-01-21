@@ -36,6 +36,18 @@
   color: #E09E50;
 }
 
+.mobileNav {
+  width: 300px;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 32px;
+}
+
 .nav_items {
   padding: 55px;
   font-size: 32px;

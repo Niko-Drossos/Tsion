@@ -72,13 +72,15 @@ const Blog = () => {
             </div>
           ))}
       </div>
-      <div>
+      <div className={styles.buttons}>
+        <div className={styles.pageButtons}>
+          <button onClick={() => setPageNumber(pageNumber - 1)} className={styles.button}>-</button>
+          <h4>Page: {pageNumber}</h4>
+          <button onClick={() => setPageNumber(pageNumber + 1)} className={styles.button}>+</button>  
+        </div>
         <div>
           <Link href={`/blog/create-post`} className={styles.create_post}>Create post</Link>
         </div>
-        <button onClick={() => setPageNumber(pageNumber - 1)} className={styles.button}>-</button>
-        <h4>PageNumber: {pageNumber}</h4>
-        <button onClick={() => setPageNumber(pageNumber + 1)} className={styles.button}>+</button>
       </div>
     </div>
   );

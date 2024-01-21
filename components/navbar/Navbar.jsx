@@ -100,14 +100,19 @@ const Navbar = () => {
           </Link>
         )}
       </div> */}
-      <Image 
-        className={styles.hamburgerIconContainer }
-        onClick={() => setShowMenu(!showMenu)}
-        src={"/hamburger-menu.png"}
-        width={32}
-        height={32}
-        alt={"Hamburger Menu"}
-      />
+      <div className={styles.mobileNav}>
+        <h1 className={styles.title} >
+          Tsion
+        </h1>
+        <Image
+          className={styles.hamburgerIconContainer }
+          onClick={() => setShowMenu(!showMenu)}
+          src={"/hamburger-menu.png"}
+          width={32}
+          height={32}
+          alt={"Hamburger Menu"}
+        />
+      </div>
     </nav>
   );
 };

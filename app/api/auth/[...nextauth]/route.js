@@ -27,9 +27,6 @@ const handler = NextAuth({
 
             if (isPasswordCorrect) {
               // Add the MongoDB document ID to the user object
-              user = await User.findOne({
-                email: credentials.email,
-              });
               const userId = user._id.toString();
 
               const sessionUser = {
@@ -39,7 +36,7 @@ const handler = NextAuth({
                 // Add other properties as needed
               };
 
-              return sessionUser;
+              return sessionUser
             } else {
               throw new Error("Wrong Credentials!");
             }
@@ -57,6 +54,17 @@ const handler = NextAuth({
     signIn: "/",
     error: "/dashboard/login",
   },
+  /* callbacks: {
+    session: async (session, user) => {
+      // Add the MongoDB document ID to the session
+      // session.user._id = user._id;
+      console.log(`User : ${user}`)
+      console.log(session)
+      // Add the complete user document to the session
+      // session.user.userDocument = user.userDocument;
+      return Promise.resolve(session);
+    },
+  }, */
 });
 
 export { handler as GET, handler as POST };
