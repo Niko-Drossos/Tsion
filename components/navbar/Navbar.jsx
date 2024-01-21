@@ -23,6 +23,11 @@ const links = [
     link: "/blog",
   },
   {
+    name: "Esoterica",
+    url: "/esoterica",
+    link: "/esoterica",
+  },
+  {
     name: "Tsion",
     url: "/tsion",
     link: "/tsion",
