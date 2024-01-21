@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import { getProviders, signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Error from '@/components/Error/page'
 
 const Login = ({ url }) => {
   const session = useSession();
@@ -51,8 +52,10 @@ const Login = ({ url }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{success ? success : "Welcome Back"}</h1>
-      <h2 className={styles.subtitle}>Please sign in to see the dashboard.</h2>
+      <h2 className={styles.subtitle}>Please sign in to use application.</h2>
+      {/* Conditional loading and error components */}
       { loading ? <h1>Loading...</h1> : "" }
+      {error && <Error error={error} />}
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
@@ -79,7 +82,6 @@ const Login = ({ url }) => {
           </label>
         </div>
         <button className={styles.button}>Login</button>
-        {error && error}
       </form>
       <span className={styles.or}>- OR -</span>
       <Link className={styles.link} href="/dashboard/register">

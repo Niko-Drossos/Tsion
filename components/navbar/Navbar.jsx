@@ -39,17 +39,19 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter()
 
-  useEffect(() => {
-    if (!session) {
-      // Automatically redirect to the login screen
-      router.replace('/dashboard/login')
-      return
+  const checkSessionAndNavigate = (link) => {
+    // If user is not logged in, redirect to the login page
+    setShowMenu(false);
+    if (session == null || session?.status === 'unauthenticated' || !session) {
+      router.replace('/dashboard/login');
+    } else {
+      router.push(link);
     }
-  }, [session, router])
-    
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
   };
+    
+  /* const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  }; */
 
   const handleSignOut = async () => {
     try {
@@ -70,16 +72,16 @@ const Navbar = () => {
         {links.map((link) => {
           return (
             <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
-              <Link href={link.link} className={styles.link} onClick={toggleMenu}>
+              <h4 href={link.link} className={styles.link} onClick={() => checkSessionAndNavigate(link.link)}>
                 {link.name}
-              </Link>
+              </h4>
             </div>
           );
         })}
 
-        {/* <div className={`${styles.nav_items} ${styles.sideNav}`} key={"SighOut"}>
+        <div className={`${styles.nav_items} ${styles.sideNav}`} key={"SighOut"}>
           <button onClick={handleSignOut}>Sign Out</button>
-        </div> */}
+        </div>
       </div>
 
       {/* <div className={`${styles.nav_items} ${styles.name_nav}`}>
@@ -100,7 +102,7 @@ const Navbar = () => {
       </div> */}
       <Image 
         className={styles.hamburgerIconContainer }
-        onClick={toggleMenu}
+        onClick={() => setShowMenu(!showMenu)}
         src={"/hamburger-menu.png"}
         width={32}
         height={32}

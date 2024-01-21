@@ -3,6 +3,17 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 const Carousel = () => {
+  // Use the useSession hook to access the session data
+  const session = useSession();
+
+  // Use the useRouter hook to access the router
+  const router = useRouter();
+
+  // Redirect to the login page if the user is unauthenticated
+  if (session.status === 'unauthenticated') {
+    router?.push('/dashboard/login');
+  }
+
   const numImages = 226; // Replace with the actual number of images you have
   const [currentIndex, setCurrentIndex] = useState(1);
 

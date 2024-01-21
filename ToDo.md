@@ -1,16 +1,11 @@
 # ToDO
-- Add Esoterica images
-- add search functunality to Tsion page
+- add search functionality to Tsion page
 - check DB blog connections
--
--
--
+
 - Do figma for profile page
 - Add chat functionality
-- Finish doing post css
 - Make user._id saved in session storage
 - Make homepage in figma
-- Fix blogs not loading without login
 - Add comment functionality
 - Add like functionality
 - Add share functionality
@@ -28,6 +23,8 @@
 - 144,000 Cap stones
  
 ## Updates
+- Fix bypass auth bug
+- Add Esoterica images
 - Hamburger menu to right side
 - restructure moon data
 - fix login password confirmation

@@ -25,6 +25,33 @@ const Register = () => {
     }
   }  
 
+  // Password regex
+  function isStrongPassword(password) {
+    const errors = [];
+  
+    if (!/(?=.*[a-z])/.test(password)) {
+      errors.push("Password must contain at least one lowercase letter.");
+    }
+  
+    if (!/(?=.*[A-Z])/.test(password)) {
+      errors.push("Password must contain at least one uppercase letter.");
+    }
+  
+    if (!/(?=.*\d)/.test(password)) {
+      errors.push("Password must contain at least one digit.");
+    }
+  
+    if (!/(?=.*[@$!%*?&])/.test(password)) {
+      errors.push("Password must contain at least one special character among @$!%*?&.");
+    }
+  
+    if (!/[A-Za-z\d@$!%*?&]{8,}/.test(password)) {
+      errors.push("Password must have a minimum length of 8 characters.");
+    }
+  
+    return errors.length === 0 ? null : errors;
+  }
+
   const handleVerification = async (email) => {
     setLoading(true)
     let result = await fetch(`/api/user/verify/${email}`)
@@ -46,6 +73,13 @@ const Register = () => {
     try {
       setError(false)
 
+      const errors = isStrongPassword(password)
+      if (errors?.length > 0) {
+        setLoading(false)
+        setError(...errors)
+        return false
+      }
+
       // Check if email is allow to make account
       const verify = await handleVerification(email)
       if (verify.success == false) {
@@ -55,7 +89,7 @@ const Register = () => {
       }
 
       if (password != confirmPassword) {
-        console.log("no")
+        setLoading(false)
         setError("Passwords do not match")
         return false
       }
