@@ -1,32 +1,42 @@
-/* YourComponent.module.css or your preferred CSS file */
-
-.carousel-container {
+.carousel_container {
   display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  justify-content: center;
 }
 
-.carousel-item {
-  min-width: 100%;
-}
-
-.carousel-buttons {
+.carousel_item {
   display: flex;
+  margin: 10px;
   justify-content: center;
   align-items: center;
-  margin-top: 10px; /* Adjust margin as needed */
+  flex-direction: column;
 }
 
-.carousel-button {
+.carousel_buttons {
+  display: flex;
+  width: 300px;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.carousel_button {
   cursor: pointer;
   padding: 10px;
+  color: black;
   background-color: #ddd;
   border: 1px solid #aaa;
+  border-radius: 5px;
 }
 
 .active {
@@ -35,6 +45,11 @@
 
 .notActive {
   display: none
+}
+
+.random {
+  background-color: rgb(69, 186, 157);
+  color: white
 }
 
 @media (max-width: 600px) {
