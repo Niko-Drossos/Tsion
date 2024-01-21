@@ -5,6 +5,10 @@
   gap: 20px;
 }
 
+.showPassword {
+  margin-right: 10px;
+}
+
 .title{
   color: #bbb;
 }

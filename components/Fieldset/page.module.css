@@ -2,7 +2,7 @@
 .fieldset {
   display: grid;
   border-radius: 10px;
-  width: 300px;
+  width: 333px;
   height: fit-content;
   padding: 10px;
 }

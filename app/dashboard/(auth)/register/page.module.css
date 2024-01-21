@@ -6,6 +6,10 @@
   justify-content: center;
 }
 
+.showPassword {
+  margin-right: 10px
+}
+
 .form{
   width: 300px;
   display: flex;

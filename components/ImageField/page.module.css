@@ -2,7 +2,7 @@
 .fieldset {
   display: grid;
   border-radius: 10px;
-  width: 300px;
+  width: 333px;
   height: fit-content;
   padding: 10px;
 }
@@ -13,8 +13,8 @@
 }
 
 .img {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   justify-self: center;
 }
 

@@ -1,11 +1,9 @@
 # ToDO
-- restructure moon data
 - add search functunality to Tsion page
 - check DB blog connections
 -
 -
 -
-- fix login password confirmation
 - Do figma for profile page
 - Finish Login
 - Add chat functionality
@@ -32,3 +30,5 @@
  
 ## Updates
 - Hamburger menu to right side
+- restructure moon data
+- fix login password confirmation

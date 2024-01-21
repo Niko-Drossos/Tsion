@@ -197,7 +197,6 @@ export default function AllFields() {
       },
       { "Family Sign": moonSignData.familyMember },
       { "": ""},
-      { "Next Date": nextDate },
       { "Next Sign": <span>{nextSign} - <Image 
         src={`/images/zodiac/${nextSign}.png`} 
         alt={nextSign} 
@@ -205,8 +204,8 @@ export default function AllFields() {
         width={20}
         style={{ verticalAlign: 'middle' }} 
         />
-        </span>
-      },
+        </span> },
+      { "At": nextDate },
       { "Next Family Sign": moonSignData.nextFamilyMember }
     ]
   }
@@ -220,8 +219,8 @@ export default function AllFields() {
     image: {
       src: `/images/chakras/${chakra.name}.png`,
       alt: "Gate photo for day",
-      width: 250,
-      height: 250,
+      width: 300,
+      height: 300,
     },
   };
 
@@ -233,8 +232,8 @@ export default function AllFields() {
     image: {
       src: `/images/aura/${bulkData[currentDay].aura}.gif`,
       alt: bulkData[currentDay].aura,
-      width: 250,
-      height: 300,
+      width: 300,
+      height: 350,
     }
   }
 
@@ -254,8 +253,8 @@ export default function AllFields() {
     image: {
       src: `/images/planets/${planet.name}.png`,
       alt: "Planet for day",
-      width: 250,
-      height: 250,
+      width: 300,
+      height: 300,
     },
   };
 
@@ -275,8 +274,8 @@ export default function AllFields() {
     image: {
       src: `/images/geometry/${geometry.name}.png`,
       alt: geometry.name,
-      width: 250,
-      height: 250,
+      width: 300,
+      height: 300,
     },
   }
   

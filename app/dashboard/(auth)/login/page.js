@@ -26,6 +26,16 @@ const Login = ({ url }) => {
     router?.push("/dashboard");
   }
 
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password');
+  
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  }  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target[0].value;
@@ -53,9 +63,21 @@ const Login = ({ url }) => {
         <input
           type="password"
           placeholder="Password"
+          id="password"
           required
           className={styles.input}
         />
+        <div>
+          <input
+            type="checkbox"
+            id="showPassword"
+            className={styles.showPassword}
+            onClick={togglePasswordVisibility}
+          />
+          <label>
+            Show Password
+          </label>
+        </div>
         <button className={styles.button}>Login</button>
         {error && error}
       </form>
