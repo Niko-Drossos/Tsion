@@ -133,6 +133,16 @@ export default function AllFields() {
     };
   }
 
+  /* const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    // Use regex to filter data based on the search query
+    const regex = new RegExp(query, "i");
+    const filtered = bulkData.filter((item) => regex.test(item.name)); // Replace "name" with the key you want to search
+    setFilteredData(filtered);
+  }; */
+
 /* -------------------------------------------------------------------------- */
 /*                           START OF COMPONENT DATA                          */
 /* -------------------------------------------------------------------------- */
@@ -291,6 +301,14 @@ export default function AllFields() {
 
   return (
     <>
+      {/* Search fields */}
+      {/* <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={handleSearch}
+      /> */}
+      
       {/* Time data block */}
       { // Sometimes sunTimes is null :/
         sunTimes && 
@@ -321,11 +339,6 @@ export default function AllFields() {
 
       {/* Law */}
       <Fieldset params={principleData} />
-
-      {/* Holiday
-      <fieldset>
-        <legend>Holiday</legend>
-      </fieldset> */}
     </>
   )
 }

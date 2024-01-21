@@ -23,6 +23,11 @@ const links = [
     link: "/blog",
   },
   {
+    name: "Calender",
+    url: "/calender",
+    link: "/calender",
+  },
+  {
     name: "Esoterica",
     url: "/esoterica",
     link: "/esoterica",
@@ -48,10 +53,6 @@ const Navbar = () => {
       router.push(link);
     }
   };
-    
-  /* const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  }; */
 
   const handleSignOut = async () => {
     try {
