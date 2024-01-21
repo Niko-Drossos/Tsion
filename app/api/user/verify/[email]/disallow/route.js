@@ -6,13 +6,12 @@ export async function POST(request, context) {
   
   try {
     const result = await allowUser.deleteOne({ email: email})
-
-    if (!result) throw new Error("User no longer verified")
+    if (result.deletedCount === 0) throw new Error("No user to remove from MongoDB")
 
     return NextResponse.json({
       success: true,
       message: `Successfully deleted user`,
-      user: result
+      result
     })
   } catch (err) {
     return NextResponse.json({

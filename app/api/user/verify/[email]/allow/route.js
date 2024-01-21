@@ -1,7 +1,7 @@
 import allowUser from "@/models/user/allowUser"
 import { NextResponse } from "next/server"
 
-export async function GET(request, context) {
+export async function POST(request, context) {
   let { email } = await context.params
   
   try {

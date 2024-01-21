@@ -6,6 +6,7 @@ require("dotenv").config()
 const allowUserSchema = new Schema({
   email: {
     type: String,
+    unique: true,
     required: true
   }
 }, {

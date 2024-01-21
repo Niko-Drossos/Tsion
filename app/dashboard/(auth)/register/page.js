@@ -25,6 +25,15 @@ const Register = () => {
     }
   }  
 
+  const handleVerification = async (email) => {
+    setLoading(true)
+    let result = await fetch(`/api/user/verify/${email}`)
+    let response = await result.json()
+
+    console.log(response)
+    return response
+  }
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +45,15 @@ const Register = () => {
 
     try {
       setError(false)
+
+      // Check if email is allow to make account
+      const verify = await handleVerification(email)
+      if (verify.success == false) {
+        setLoading(false)
+        setError(verify.errorMessage)
+        return false
+      }
+
       if (password != confirmPassword) {
         console.log("no")
         setError("Passwords do not match")
@@ -57,13 +75,12 @@ const Register = () => {
       });
 
       // Check if the registration was successful (status code 201)
-      res.status === 201 && router.push("/dashboard/login?success=Account has been created");
+      if (res.status === 201) { router.push("/dashboard/login?success=Account has been created") }
       setLoading(false)
     } catch (err) {
       // Handle errors and log them to the console
       setLoading(false)
-      setError(err);
-      console.log(err);
+      setError(err.message);
     }
   };
 
@@ -75,7 +92,7 @@ const Register = () => {
       {/* Registration form */}
       { loading ? <h1>Loading...</h1> : "" }
       {/* Display error message if there is an error */}
-      {error && <Error error={error} />}
+      { error && <Error error={error} /> }
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
