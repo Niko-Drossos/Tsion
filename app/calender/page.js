@@ -43,6 +43,7 @@ export default function Calender() {
           <h3>Holiday: <span className={styles.data}>{dayData.title}</span></h3>
           <h4>Hebrew Date: <span className={styles.data}>{dayData.hdate}</span></h4>
           <h4>Hebrew: <span className={styles.data}>{dayData.hebrew}</span></h4>
+          <h4>Description: <span className={styles.data}>{dayData.memo}</span></h4>
           <h4>  
             <a href={dayData.link} target="_blank">
               <span className={styles.info}>
