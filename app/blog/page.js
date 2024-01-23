@@ -39,7 +39,7 @@ const Blog = () => {
     <div className={styles.container}>
       <div className={styles.posts}>
       {isLoading
-        ? "loading..."
+        ? "Loading..."
         : data.data?.map((post) => (
             <div className={styles.post} key={post._id}>
               {/* <div className={styles.imgContainer}>

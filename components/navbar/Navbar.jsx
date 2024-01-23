@@ -28,6 +28,11 @@ const links = [
     link: "/calender",
   },
   {
+    name: "Timer",
+    url: "/timer",
+    link: "/timer",
+  },
+  {
     name: "Esoterica",
     url: "/esoterica",
     link: "/esoterica",

@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose')
 const { MONGO_URL_USER } = process.env
 

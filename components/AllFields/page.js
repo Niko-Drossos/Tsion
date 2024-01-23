@@ -166,9 +166,9 @@ export default function AllFields() {
     keys: [
       { "Hebrew Day": hebrewDay.day },
       { "Sephira": hebrewDay.sephira },
-      { "psalm": hebrewDay.psalm },
-      { "choir": hebrewDay.choir },
-      { "archangel": hebrewDay.archangel },
+      { "Sunset Psalm": hebrewDay.psalm },
+      { "Choir": hebrewDay.choir },
+      { "Archangel": hebrewDay.archangel },
       { "Hebrew Letter": `${hebrewDay.letter.name} - ${hebrewDay.letter.symbol}` }
     ],
   };

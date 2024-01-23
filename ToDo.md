@@ -24,6 +24,7 @@
 - 144,000 Cap stones
  
 ## Updates
+- Added "Clean" Timer & Timer Database
 - Fix bypass auth bug
 - Add Esoterica images
 - Hamburger menu to right side
