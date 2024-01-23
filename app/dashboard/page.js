@@ -12,8 +12,6 @@ const Dashboard = () => {
     await signOut();
   };
 
-  console.log(session)
-
   return (
     <div className={styles.container}>
       { 

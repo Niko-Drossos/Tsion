@@ -40,8 +40,8 @@ const links = [
   {
     // Placeholder for new page
     name: "",
-    url: "",
-    link: "",
+    url: "/",
+    link: "/",
   },
   {
     name: "Tsion",
@@ -65,14 +65,14 @@ const Navbar = () => {
     }
   };
 
-  const handleSignOut = async () => {
+  /* const handleSignOut = async () => {
     try {
       await signOut()
       console.log("Signed out")
     } catch (err) {
       console.error(err)
     }
-  }
+  } */
 
   return (
     <nav className={styles.nav}>
@@ -82,13 +82,13 @@ const Navbar = () => {
       <div className={styles.links + (showMenu ? ` ${styles.show}` : '')}>
         {links.map((link, index) => {
           // Check if it's the "Sign Out" button
-          if (link.name === "Sign Out") {
+          /* if (link.name === "Sign Out") {
             return (
               <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
                 <button onClick={handleSignOut}>Sign Out</button>
               </div>
             );
-          }
+          } */
 
           // For regular links, group them into pairs
           if (index % 2 === 0) {

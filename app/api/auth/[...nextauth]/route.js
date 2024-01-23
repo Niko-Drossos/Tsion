@@ -54,17 +54,6 @@ const handler = NextAuth({
     signIn: "/",
     error: "/dashboard/login",
   },
-  /* callbacks: {
-    session: async (session, user) => {
-      // Add the MongoDB document ID to the session
-      // session.user._id = user._id;
-      console.log(`User : ${user}`)
-      console.log(session)
-      // Add the complete user document to the session
-      // session.user.userDocument = user.userDocument;
-      return Promise.resolve(session);
-    },
-  }, */
 });
 
 export { handler as GET, handler as POST };
