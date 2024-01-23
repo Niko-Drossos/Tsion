@@ -4,7 +4,8 @@ import { NextResponse } from "next/server"
 export async function GET(request) {
   try {
     const searchParams = request.nextUrl.searchParams
-    const resetDescription = searchParams.get('description')
+    let resetDescription = searchParams.get('description')
+    if (resetDescription == null) resetDescription = ""
     const result = await Timer.create({ 
       description: resetDescription
     });

@@ -19,6 +19,7 @@ export default function CleanTimer() {
   async function resetTimer() {
     const description = prompt("Would you like a description for reset? (optional)")
     let urlString = "/api/data/timer/reset-timer"
+    if (description === null) return
     if (description) {
       urlString = urlString.concat(`?description=${description}`)
     }
@@ -57,7 +58,7 @@ export default function CleanTimer() {
       <div className={styles.clock}>
         <div className={styles.inner_container}>
           <div>
-            Date Started: { startTime ? startTime.toLocaleDateString() : "Loading..." }
+            Started: { startTime ? startTime.toLocaleDateString() : "Loading..." }
           </div>
 
           <div>
@@ -69,7 +70,7 @@ export default function CleanTimer() {
           </div>
           
           <div>
-            Total Resets: { totalResets ? totalResets : "Loading..."}
+            Total Resets: { totalResets ? totalResets - 1 : "Loading..."}
           </div>
 
           <br />

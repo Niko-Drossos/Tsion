@@ -1,4 +1,6 @@
 # ToDO
+- Add star data from https://api-ninjas.com/api/stars
+- Sirius data
 - Add enoch calender, moon calender
 - add search functionality to Tsion page
 - check DB blog connections
