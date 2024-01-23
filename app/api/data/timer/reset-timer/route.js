@@ -5,7 +5,7 @@ export async function GET(request) {
   try {
     const searchParams = request.nextUrl.searchParams
     let resetDescription = searchParams.get('description')
-    if (resetDescription == null) resetDescription = ""
+
     const result = await Timer.create({ 
       description: resetDescription
     });

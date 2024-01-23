@@ -18,13 +18,11 @@ export default function CleanTimer() {
 
   async function resetTimer() {
     const description = prompt("Would you like a description for reset? (optional)")
-    let urlString = "/api/data/timer/reset-timer"
     if (description === null) return
-    if (description) {
-      urlString = urlString.concat(`?description=${description}`)
-    }
-    const result = await fetch(urlString)
+
+    const result = await fetch(`/api/data/timer/reset-timer?description=${description}`)
     const response = await result.json()
+    
     const newTime = new Date(response.data.createdAt)
     setTotalResets(totalResets + 1)
     setStartTime(newTime)
@@ -62,11 +60,11 @@ export default function CleanTimer() {
           </div>
 
           <div>
-            Hours elapsed: { elapsedTime ? formatHours(elapsedTime) : "Loading..."}
+            Hours elapsed: { startTime && elapsedTime ? formatHours(elapsedTime) : "Loading..."}
           </div>
           
           <div>
-            Days elapsed: { elapsedTime ? Math.floor(elapsedTime / (1000 * 60 * 60 * 24)) : "Loading..."}
+            Days elapsed: { startTime && elapsedTime ? Math.floor(elapsedTime / (1000 * 60 * 60 * 24)) : "Loading..."}
           </div>
           
           <div>
