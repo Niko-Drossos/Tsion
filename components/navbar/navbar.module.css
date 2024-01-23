@@ -94,11 +94,17 @@
     z-index: 3;
   }
 
+  .link {
+    text-decoration: none;
+    color: black;
+    transition: 0.25s;
+  }
+
   .nav_items {
     padding: 15px;
     font-size: 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     border-top: 2px solid black;
   }
 

@@ -13,14 +13,14 @@ const links = [
     link: "/dashboard",
   },
   {
+    name: "Timer",
+    url: "/timer",
+    link: "/timer",
+  },
+  {
     name: "About",
     url: "/about",
     link: "/about"
-  },
-  {
-    name: "Blog",
-    url: "/blog",
-    link: "/blog",
   },
   {
     name: "Calender",
@@ -28,14 +28,20 @@ const links = [
     link: "/calender",
   },
   {
-    name: "Timer",
-    url: "/timer",
-    link: "/timer",
+    name: "Blog",
+    url: "/blog",
+    link: "/blog",
   },
   {
     name: "Esoterica",
     url: "/esoterica",
     link: "/esoterica",
+  },
+  {
+    // Placeholder for new page
+    name: "",
+    url: "",
+    link: "",
   },
   {
     name: "Tsion",
@@ -73,22 +79,39 @@ const Navbar = () => {
       <div className={`${styles.nav_items} ${styles.name_nav} ${styles.computer_nav}`}>
         <Link href="/" onClick={() => checkSessionAndNavigate("/")}>Tsion</Link>
       </div>
-
       <div className={styles.links + (showMenu ? ` ${styles.show}` : '')}>
-        {links.map((link) => {
-          return (
-            <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
-              <h4 href={link.link} className={styles.link} onClick={() => checkSessionAndNavigate(link.link)}>
-                {link.name}
-              </h4>
-            </div>
-          );
-        })}
+        {links.map((link, index) => {
+          // Check if it's the "Sign Out" button
+          if (link.name === "Sign Out") {
+            return (
+              <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
+                <button onClick={handleSignOut}>Sign Out</button>
+              </div>
+            );
+          }
 
-        <div className={`${styles.nav_items} ${styles.sideNav}`} key={"SighOut"}>
-          <button onClick={handleSignOut}>Sign Out</button>
+          // For regular links, group them into pairs
+          if (index % 2 === 0) {
+            const nextLink = links[index + 1];
+            return (
+              <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
+                <h4 href={link.link} className={styles.link} onClick={() => checkSessionAndNavigate(link.link)}>
+                    {link.name}
+                  </h4>
+                  {nextLink && (
+                    <h4 href={nextLink.link} className={styles.link} onClick={() => checkSessionAndNavigate(nextLink.link)}>
+                      {nextLink.name}
+                    </h4>
+                  )}
+              </div>
+              );
+            }
+
+            // Skip links that are already handled in pairs
+            return null;
+          })}
         </div>
-      </div>
+
 
       {/* <div className={`${styles.nav_items} ${styles.name_nav}`}>
         {session ? (

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 export default function CleanTimer() {
-  const [ startTime, setStartTime ] = useState(null)
+  const [startTime, setStartTime] = useState(null)
   const [elapsedTime, setElapsedTime] = useState(null);
   const [totalResets, setTotalResets] = useState(null)
 
@@ -44,23 +44,39 @@ export default function CleanTimer() {
 
   }, [startTime]);
 
-  const formatTime = (milliseconds) => {
+  const formatHours = (milliseconds) => {
     const seconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
 
     return `${hours}:${minutes % 60}:${seconds % 60}`;
-  };
+  }
 
   return (
     <div className={styles.container}>
-      <button onClick={resetTimer}>Reset Timer</button>
-      <br />
-      Start Time: { startTime ? startTime.toLocaleString() : "Loading..." }
-      <br />
-      Time elapsed: { elapsedTime ? formatTime(elapsedTime) : "Loading..."}
-      <br />
-      Total Resets: { totalResets ? totalResets : "Loading..."}
+      <div className={styles.clock}>
+        <div className={styles.inner_container}>
+          <div>
+            Date Started: { startTime ? startTime.toLocaleDateString() : "Loading..." }
+          </div>
+
+          <div>
+            Hours elapsed: { elapsedTime ? formatHours(elapsedTime) : "Loading..."}
+          </div>
+          
+          <div>
+            Days elapsed: { elapsedTime ? Math.floor(elapsedTime / (1000 * 60 * 60 * 24)) : "Loading..."}
+          </div>
+          
+          <div>
+            Total Resets: { totalResets ? totalResets : "Loading..."}
+          </div>
+
+          <br />
+          <br />
+          <button className={styles.reset} onClick={resetTimer}>Reset Timer</button>
+        </div>
+      </div>
     </div>
   );
 }
