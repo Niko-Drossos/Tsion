@@ -21,9 +21,16 @@ export default function CleanTimer() {
     if (description === null) return
 
     const result = await fetch(`/api/data/timer/reset-timer?description=${description}`)
+
+    if (!result.ok) {
+      console.error(`Error: ${result.status} - ${result.statusText}`)
+      // Handle the error appropriately
+      return;
+    }
+
     const response = await result.json()
     
-    const newTime = new Date(await response.data.createdAt)
+    const newTime = new Date(response.data.createdAt)
     setTotalResets(totalResets + 1)
     setStartTime(newTime)
   };
