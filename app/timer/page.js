@@ -18,6 +18,7 @@ export default function CleanTimer() {
 
   async function resetTimer() {
     const description = prompt("Would you like a description for reset? (optional)")
+    console.log(description)
     if (description === null) return
 
     const result = await fetch(`/api/data/timer/reset-timer?description=${description}`)

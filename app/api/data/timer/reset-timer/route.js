@@ -3,8 +3,10 @@ import { NextResponse } from "next/server"
 
 export async function GET(request) {
   try {
-    const searchParams = request.nextUrl.searchParams
-    let resetDescription = searchParams.get('description')
+    /* const searchParams = request.nextUrl.searchParams
+    const resetDescription = searchParams.get('description') */
+    // This is hopefully the fix for SSR search params
+    const resetDescription = new URLSearchParams(window.location.search).get('description');
 
     const result = await Timer.create({ 
       description: resetDescription
