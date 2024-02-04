@@ -16,8 +16,10 @@ import moonSigns from "@/data/moonSign.json"
 /* -------------------------------------------------------------------------- */
 
 const desiredTimeZone = 'America/Phoenix'
-/* -------------------------- Change this manually -------------------------- */
+/* ---------------- Change this manually, I can't find an API --------------- */
 const lastEquinox = DateTime.fromObject({ year: 2023, month: 3, day: 20 }).setZone(desiredTimeZone);
+// Uncomment when past last equinox
+// const lastEquinox = DateTime.fromObject({ year: 2024, month: 3, day: 19 }).setZone(desiredTimeZone);
 /* ------------------------- For each Spring equinox ------------------------ */
 
 const familySigns = [
