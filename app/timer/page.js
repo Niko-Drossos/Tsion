@@ -6,13 +6,11 @@ import styles from './page.module.css';
 export default function CleanTimer() {
   const [startTime, setStartTime] = useState(null)
   const [elapsedTime, setElapsedTime] = useState(null);
-  const [totalResets, setTotalResets] = useState(null)
 
   async function fetchTimes() {
     const result = await fetch("/api/data/timer/get-times")
     const response = await result.json()
     const newDate = new Date(response.data[0].createdAt)
-    setTotalResets(response.data.length)
     setStartTime(newDate)
   }
 
@@ -31,14 +29,13 @@ export default function CleanTimer() {
 
     const response = await result.json()
     
-    const newTime = new Date(response.data.createdAt)
-    setTotalResets(totalResets + 1)
+    const newTime = new Date(response.createdAt)
     setStartTime(newTime)
   };
 
   useEffect(() => {
     fetchTimes();
-  }, [])
+  }, [startTime])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -73,10 +70,6 @@ export default function CleanTimer() {
           
           <div>
             Days elapsed: { startTime && elapsedTime ? Math.floor(elapsedTime / (1000 * 60 * 60 * 24)) : "Loading..."}
-          </div>
-          
-          <div>
-            Total Resets: { totalResets ? totalResets - 1 : "Loading..."}
           </div>
 
           <br />
