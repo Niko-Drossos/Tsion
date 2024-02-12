@@ -29,11 +29,9 @@ const familySigns = [
   { name: "Niko", sign: "Virgo" },
 ]
 
-export default function AllFields() {
+export default function AllFields({ params }) {
   const [sunTimes, setSunTimes] = useState(null)
-
-
-  const currentDate = DateTime.now().setZone(desiredTimeZone)
+  const { currentDate, setCurrentDate } = params
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -42,10 +40,14 @@ export default function AllFields() {
   const dayDifference = calculateDifference(currentDate);
   const angelOfDay = getAngel(dayDifference)
 
+  /* useEffect(() => {
+    console.log(currentDate)
+  }, [currentDate]) */
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`https://api.sunrisesunset.io/json?lat=33.359710&lng=-112.036873`);
+        const response = await fetch(`https://api.sunrisesunset.io/json?lat=33.359710&lng=-112.036873&date=${currentDate.toLocaleString()}`);
         
         // Check if the response status is ok
         if (!response.ok) {
@@ -67,7 +69,7 @@ export default function AllFields() {
     }
 
     fetchData();
-  }, []);
+  }, [currentDate]);
   
   // Destructured data
   const { chakra, planet, geometry, element, hebrewDay, principle } = bulkData[currentDay]
