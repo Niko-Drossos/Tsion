@@ -42,18 +42,19 @@ const Login = ({ url }) => {
       email,
       password,
     });
-    setLoading(false)
-    if (session.status === "authenticated") {
-      router.push("/")
-    } else {
+    console.log(session)
+    if (session.status !== "authenticated" && session.status !== "loading") {
       setError("Wrong username or password.");
+    } else if (session.status === "authenticated") {
+      router.push("/")
     }
+    setLoading(false)
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{success ? success : "Welcome Back"}</h1>
-      <h2 className={styles.subtitle}>Please sign in to use application.</h2>
+      <h2 className={styles.subtitle}>Please sign in to use Tsion.</h2>
       {/* Conditional loading and error components */}
       { loading ? <h1>Loading...</h1> : "" }
       {error && <Error error={error} />}

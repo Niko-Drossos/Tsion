@@ -12,7 +12,8 @@
 - Add comment functionality
 - Add like functionality
 - Add share functionality
-
+- Add links to channels, "God a minute" "Code Searcher" "torahcalendar.com" 
+- Add clocks, Purim, New year, Passover
 
 ## Additional pages to add
 - /profile/favorites

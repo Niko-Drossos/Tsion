@@ -49,7 +49,7 @@ const handler = NextAuth({
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_URL,
+  secret: process.env.SECRET_KEY,
   pages: {
     signIn: "/",
     error: "/dashboard/login",

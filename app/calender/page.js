@@ -27,6 +27,13 @@ export default function Calender() {
 
   return (
     <div className={styles.calenderContainer}>
+      <label id="calendars">Select a calendar</label>
+      <select id="calendars">
+        <option value="hebrew">Hebrew Calendar</option>
+        <option value="enoch">Enoch Calendar</option>
+        <option value="hebrew">Hebrew Calendar</option>
+        <option value="hebrew">Hebrew Calendar</option>
+      </select>
       <div className={styles.calender}>
         <FullCalendar
           plugins={[ dayGridPlugin, interactionPlugin ]}
