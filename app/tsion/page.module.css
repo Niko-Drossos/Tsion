@@ -23,6 +23,11 @@
   display: none;
 }
 
+.toggleBtn {
+  padding: 10px;
+  margin: 5px;
+}
+
 /* -------------------------------------------------------------------------- */
 
 @media screen and (max-width: 768px) {
