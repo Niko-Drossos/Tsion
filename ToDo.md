@@ -1,4 +1,5 @@
 # ToDO
+- Finish working on Parsha implementation
 - Add star data from https://api-ninjas.com/api/stars
 - Sirius data
 - Add enoch calender, moon calender

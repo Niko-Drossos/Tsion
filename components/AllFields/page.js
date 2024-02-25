@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react" 
 import { Moon } from "lunarphase-js";
 import { DateTime } from 'luxon';
+import { Sedra, HDate } from '@hebcal/core'
 
 import Image from "next/image"
 
@@ -62,6 +63,8 @@ export default function AllFields({ params }) {
         }
 
         setSunTimes(data);
+        console.log(await gregorianToHebrewDate(currentDate.toLocaleString()))
+
       } catch (error) {
         console.error(error);
         // Handle errors, e.g., setSunTimes to a default value or show an error message
@@ -80,6 +83,23 @@ export default function AllFields({ params }) {
   /* -------------------------------------------------------------------------- */
   /*                               FUNCTIONS START                              */
   /* -------------------------------------------------------------------------- */
+
+  async function gregorianToHebrewDate(gregorianDate) {
+    const parts = gregorianDate.split('/');
+    const year = parts[2];
+    const month = parts[0].padStart(2, '0'); // Ensure two digits for month
+    const day = parts[1].padStart(2, '0'); // Ensure two digits for day
+    
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+    
+    const response = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${formattedDate}&g2h=1&strict=1`)
+    const responseData = await response.json()
+    // console.log(responseData)
+    const { hd, hm, hy } = responseData
+    const hebrewDate = new HDate(hd, hm, hy)
+    return hebrewDate
+  }
     
   function calculateDifference(currentDate) {
     // Calculate the difference in days
@@ -173,6 +193,14 @@ export default function AllFields({ params }) {
       { "Sunset Psalm": hebrewDay.psalm },
       { "Choir": hebrewDay.choir },
       { "Archangel": hebrewDay.archangel },
+      { "Parsha": <a 
+            href="https://hebcal.com/s/?us=sedrot-diaspora"
+            target="_blank"
+            style={{color: "#0033EE"}}
+          >
+          Link to Parsha
+        </a>
+      },
       { "Hebrew Letter": `${hebrewDay.letter.name} - ${hebrewDay.letter.symbol}` }
     ],
   };

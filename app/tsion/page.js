@@ -14,6 +14,7 @@ export default function Tsion() {
   const desiredTimeZone = 'America/Phoenix'
   const [currentDate, setCurrentDate] = useState(DateTime.now().setZone(desiredTimeZone))
   const [startFlatpickrInstance, setStartFlatpickrInstance] = useState(null)
+  const [showDatePicker, setShowDatePicker] = useState(false)
   const currentDatePicker = useRef()
 
   const earliestDate = new Date(moonSigns[0].date)
@@ -25,11 +26,15 @@ export default function Tsion() {
   };
 
   const flatpickrCalendarOptions = {
-    inline: true,
+    inline: showDatePicker ? true : false,
     minDate: formatDate(earliestDate),
     maxDate: formatDate(latestDate),
     dateFormat: 'm-d-Y',
     timeZone: 'America/Phoenix'
+  }
+
+  const toggleDate = () => {
+    setShowDatePicker(prev => !prev)
   }
 
   useEffect(() => {
@@ -47,7 +52,8 @@ export default function Tsion() {
       })
       setStartFlatpickrInstance(fp)
     }
-  }, [])
+    console.log(showDatePicker)
+  }, [showDatePicker])
 
   const handleDateChange = (pickedDate) => {
     const newDate = new Date(pickedDate)
@@ -60,11 +66,13 @@ export default function Tsion() {
       <p>
         {earliestDate.toLocaleDateString()} - {latestDate.toLocaleDateString()}
       </p>
+      <button onClick={toggleDate} className={styles.toggleBtn}>Change time</button>
       <input
         type="text"
         ref={currentDatePicker}
         placeholder="Select Date"
         className={styles.datePicker}
+        // style={{ display: showDatePicker ? : "none"}}
       />
       <AllFields params={{currentDate, setCurrentDate}} />
     </main>
