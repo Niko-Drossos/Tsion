@@ -14,7 +14,7 @@ let postSchema = new Schema({
   content: { type: String, required: true },
   votes: { type: Array, required: false },
   voteCount: { type: Number, required: false },
-  imageUrl: { type: String, required: false },
+  images: { type: Array, required: false },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', required: false }]
 },{
   collection: 'posts',

@@ -26,6 +26,6 @@ export default function ImageUpload({ params }) {
   };
 
   return (
-    <input type="file" onChange={handleFileChange} multiple />
+    <input type="file" accept="image/*" onChange={handleFileChange} multiple />
   );
 }

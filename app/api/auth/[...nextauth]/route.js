@@ -6,7 +6,7 @@ import { connectUserDB } from "@/utils/db";
 import bcrypt from "bcryptjs";
 import { getIdWithName } from '@/utils/routeMethods.js'
 
-const handler = NextAuth({
+const handler = await NextAuth({
   providers: [
     CredentialsProvider({
       id: "credentials",

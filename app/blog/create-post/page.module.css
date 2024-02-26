@@ -1,11 +1,13 @@
 .container {
   display: flex;
+  width: 80vw;
   gap: 100px;
 }
 
 .form_container {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .posts {
@@ -38,7 +40,7 @@
   /* flex: 1; */
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 90vw;
   gap: 20px;
 }
 

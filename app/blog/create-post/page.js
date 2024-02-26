@@ -5,12 +5,14 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import cloudinaryConfig from "@/config/cloudinary";
+import ImageUpload from "@/components/forms/ImageUpload";
+import Carousel from "@/components/gallery/Carousel/page";
 
 const Blog = () => {
-  const [imageUrl, setImageUrl] = useState("");
   const session = useSession();
   const [user, setUser] = useState()
+  const [images, setImages] = useState([])
+
   //NEW WAY TO FETCH DATA
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, mutate, error, isLoading } = useSWR(
@@ -27,14 +29,14 @@ const Blog = () => {
     return <p>Loading...</p>;
   }
 
-  const handleImageUpload = (event) => {
+  /* const handleImageUpload = (event) => {
     const imageFile = event.target.files[0];
     console.log(`Image File: ${imageFile}`);
     const formData = new FormData();
     formData.append("file", imageFile);
     formData.append("upload_preset", "Blog_Images");
 
-    fetch(`https://api.cloudinary.com/v1_1/djez6nvh7/image/upload`, {
+    fetch(`/api/events`, {
       method: "POST",
       body: formData,
     })
@@ -44,30 +46,18 @@ const Blog = () => {
       setImageUrl(url);
     })
     .catch((err) => console.error(err));
-  };
-  // This does not upload the photo to cloudinary
-  /* const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      // Display the selected image
-      const url = URL.createObjectURL(file);
-      setImageUrl(url);
-    } else {
-      // Clear the image if no file is selected
-      setImageUrl('');
-    }
   }; */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //! Add images later
     const title = e.target[0].value;
     const content = e.target[2].value;
+    console.log("Blog post creation not yet available")
+    return
 
     try {
       //! FIX SESSION NOT CONTAINING DATA
-      /* await fetch("/api/posts/create", {
+      await fetch("/api/posts/create", {
         method: "POST",
         body: JSON.stringify({
           user: {
@@ -76,12 +66,12 @@ const Blog = () => {
             // avatar: 
           },
           title,
-          imageUrl,
+          images,
           content,
         }),
       });
       mutate();
-      e.target.reset(); */
+      e.target.reset();
     //! DEV LOGS
     console.log({
       user: {
@@ -90,7 +80,7 @@ const Blog = () => {
         // avatar: 
       },
       title,
-      imageUrl,
+      images,
       content,
     })
     } catch (err) {
@@ -98,7 +88,7 @@ const Blog = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  /* const handleDelete = async (id) => {
     try {
       await fetch(`/api/posts/delete/${id}`, {
         method: "POST",
@@ -107,7 +97,7 @@ const Blog = () => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }; */
 
   if (session.status === "authenticated") {
     return (
@@ -115,21 +105,12 @@ const Blog = () => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <h1>Add New Post</h1>
           <input type="text" placeholder="Title" className={styles.input} />
-          <input
-            type="file"
-            placeholder="image"
-            onChange={handleImageUpload}
-            accept="image/*"
-            className={styles.input}
-          />
-          {imageUrl && (
+          <div className={styles.input}>
+            <ImageUpload params={{images, setImages}}/>
+          </div>
+          {images[0] && (
             <div style={{ maxWidth: 200 }}>
-              <Image
-                src={imageUrl}
-                alt={"Just me"}
-                width={200}
-                height={200}
-              />
+              <Carousel />
             </div>
           )}
           <textarea

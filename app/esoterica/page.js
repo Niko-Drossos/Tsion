@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css'
 
-const Carousel = () => {
+const Esoterica = () => {
 
   const numImages = 226; // Replace with the actual number of images you have
   const [currentIndex, setCurrentIndex] = useState(Math.floor(Math.random() * numImages) + 1);
