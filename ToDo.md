@@ -2,7 +2,7 @@
 - Finish working on Parsha implementation
 - Add star data from https://api-ninjas.com/api/stars
 - Sirius data
-- Add enoch calender, moon calender
+- Add enoch calender, moon calender, Zadok calendar, 
 - add search functionality to Tsion page
 - check DB blog connections
 
@@ -13,7 +13,6 @@
 - Add comment functionality
 - Add like functionality
 - Add share functionality
-- Add links to channels, "God a minute" "Code Searcher" "torahcalendar.com" 
 - Add clocks, Purim, New year, Passover
 
 ## Additional pages to add
@@ -28,6 +27,7 @@
 - 144,000 Cap stones
  
 ## Updates
+- Add links to channels, "God a minute" "Code Searcher" "torahcalendar.com" 
 - Added "Clean" Timer & Timer Database
 - Fix bypass auth bug
 - Add Esoterica images

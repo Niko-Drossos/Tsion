@@ -38,16 +38,25 @@ const links = [
     link: "/esoterica",
   },
   {
-    // Placeholder for new page
-    name: "",
-    url: "/",
-    link: "/",
+    name: "Channels",
+    url: "/channels",
+    link: "/channels",
   },
   {
     name: "Tsion",
     url: "/tsion",
     link: "/tsion",
-  }
+  },
+  /* {
+    name: "Channels",
+    url: "/channels",
+    link: "/channels",
+  },
+  {
+    name: "Tsion",
+    url: "/tsion",
+    link: "/tsion",
+  } */
 ]
 
 const Navbar = () => {

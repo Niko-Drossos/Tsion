@@ -31,7 +31,7 @@ let holidaySchema = new Schema({
     type: Date, 
     required: true
   },
-  totalHolidayMS: { // Add totalTime field to store the calculated value
+  totalHolidayMS: { // Add field to store the duration of the event
     type: Number,
     required: false
   },
@@ -47,11 +47,11 @@ let holidaySchema = new Schema({
 // Define a pre-save hook to calculate and store the totalTime
 holidaySchema.pre('save', function(next) {
   const timeDiff = this.end - this.start;
-    // Create a new Date object with timeDiff milliseconds added to January 1, 1970
-    const totalTimeDate = new Date(0);
-    totalTimeDate.setMilliseconds(timeDiff);
-    this.totalHolidayMS = totalTimeDate;
-    next();
+  // Create a new Date object with timeDiff milliseconds added to January 1, 1970
+  const totalTimeDate = new Date(0);
+  totalTimeDate.setMilliseconds(timeDiff);
+  this.totalHolidayMS = totalTimeDate;
+  next();
 });
 
 const Holiday = eventsDB.model('Holiday', holidaySchema)

@@ -71,7 +71,6 @@ export default function Calender() {
           initialView="dayGridMonth"
           events={holidays}
           dateClick={handleDateClick}
-          // style={{fontSize: 10}}
           eventColor="#5a6ace"
         />
       </div>
