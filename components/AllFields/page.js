@@ -17,10 +17,23 @@ import moonSigns from "@/data/moonSign.json"
 /* -------------------------------------------------------------------------- */
 
 const desiredTimeZone = 'America/Phoenix'
-/* ---------------- Change this manually, I can't find an API --------------- */
-const lastEquinox = DateTime.fromObject({ year: 2023, month: 3, day: 20 }).setZone(desiredTimeZone);
-// Uncomment when past last equinox
-// const lastEquinox = DateTime.fromObject({ year: 2024, month: 3, day: 19 }).setZone(desiredTimeZone);
+
+/* --------------------------- Add dates manually --------------------------- */
+// const lastEquinox = DateTime.fromObject({ year: 2023, month: 3, day: 20 }).setZone(desiredTimeZone);
+const equinoxDates = [
+  { year: 2023, month: 3, day: 20 },
+  { year: 2024, month: 3, day: 19 }
+]
+
+function pickEquinox(currentDate) { 
+  const foundDate = equinoxDates.find(date => {
+    const newDate = DateTime.fromObject(date).setZone(desiredTimeZone)
+    console.log(newDate.diff(currentDate))
+    return newDate.diffNow().values.milliseconds > 0
+  })
+  return DateTime.fromObject(foundDate).setZone(desiredTimeZone)
+}
+
 /* ------------------------- For each Spring equinox ------------------------ */
 
 const familySigns = [
@@ -31,8 +44,16 @@ const familySigns = [
 ]
 
 export default function AllFields({ params }) {
+  const { currentDate } = params
   const [sunTimes, setSunTimes] = useState(null)
-  const { currentDate, setCurrentDate } = params
+  const [lastEquinox, setLastEquinox] = useState(pickEquinox(currentDate))
+
+  // ! FIX TO WORK WITH AS MANY YEARS AS POSSIBLE
+  /* useEffect(() => {
+    if (pickEquinox(currentDate.c.year - 1)) {
+      // setLastEquinox(pickEquinox(currentDate.c.year - 1))
+    }
+  }, [currentDate.c.year]) */
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -40,10 +61,6 @@ export default function AllFields({ params }) {
   
   const dayDifference = calculateDifference(currentDate);
   const angelOfDay = getAngel(dayDifference)
-
-  /* useEffect(() => {
-    console.log(currentDate)
-  }, [currentDate]) */
 
   useEffect(() => {
     async function fetchData() {
@@ -95,7 +112,7 @@ export default function AllFields({ params }) {
     
     const response = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${formattedDate}&g2h=1&strict=1`)
     const responseData = await response.json()
-    // console.log(responseData)
+
     const { hd, hm, hy } = responseData
     const hebrewDate = new HDate(hd, hm, hy)
     return hebrewDate
@@ -103,13 +120,19 @@ export default function AllFields({ params }) {
     
   function calculateDifference(currentDate) {
     // Calculate the difference in days
-    const daysPassed = Math.floor(currentDate.diff(lastEquinox, "day").days)
+    let daysPassed = Math.floor(currentDate.diff(lastEquinox, "day").days)
+    console.log(daysPassed)
+    /* if (daysPassed === 0) {
+      daysPassed = Math.floor(currentDate.diff(pickEquinox(currentDate), "day").days)
+    }  */
+    if (daysPassed > 365) daysPassed -= 365
     return daysPassed;
   }
 
   // Retrieve the angel that matches with the day of the year
   function getAngel(daysFromEquinox) {
     const angelNumber = Math.ceil(daysFromEquinox / 5)
+    console.log(angelNumber)
     const angel = angelData.find((angel) => angel.angel_number == angelNumber)
     return angel
   }

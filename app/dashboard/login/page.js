@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { getProviders, signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/components/AuthProvider/UserContext";
 import Link from "next/link";
 import Error from '@/components/Error/page'
 
 const Login = ({ url }) => {
-  const session = useSession();
+  const { user, login } = useUser()
   const router = useRouter();
   const params = useSearchParams();
   const [error, setError] = useState("");
@@ -19,10 +19,6 @@ const Login = ({ url }) => {
     setSuccess(params.get("success"));
   }, [params]);
 
-  if (session.status === "loading") {
-    return <h1>Loading...</h1>;
-  }
-
   function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
   
@@ -33,21 +29,32 @@ const Login = ({ url }) => {
     }
   }  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
     setLoading(true)
-    signIn("credentials", {
+    const signIn = await fetch(`/api/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+
+    console.log(await signIn.json())
+    /* login({
       email,
       password,
-    });
-    console.log(session)
-    if (session.status !== "authenticated" && session.status !== "loading") {
+    }); */
+    /* if (session.status !== "authenticated" && session.status !== "loading") {
       setError("Wrong username or password.");
     } else if (session.status === "authenticated") {
       router.push("/")
-    }
+    } */
     setLoading(false)
   };
 

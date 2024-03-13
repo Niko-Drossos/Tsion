@@ -1,18 +1,16 @@
-import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useUser } from '@/components/AuthProvider/UserContext';
 
 // Your component
 const LogoutButton = () => {
-  // Use the useSession hook to access the session data
-  const { data: session } = useSession();
-  
+  const { user, logout } = useUser();
   // Use the useRouter hook to access the router
   const router = useRouter();
 
   // Function to handle logout
   const handleLogout = async () => {
     // Sign out the user
-    await signOut();
+    logout();
 
     // Redirect to the homepage or any other desired page
     router.push('/');

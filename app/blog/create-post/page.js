@@ -1,33 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import useSWR from "swr";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/components/AuthProvider/UserContext";
 import Image from "next/image";
 import ImageUpload from "@/components/forms/ImageUpload";
 import Carousel from "@/components/gallery/Carousel/page";
 
 const Blog = () => {
-  const session = useSession();
-  const [user, setUser] = useState()
+  const { user } = useUser();
   const [images, setImages] = useState([])
-
-  //NEW WAY TO FETCH DATA
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, mutate, error, isLoading } = useSWR(
-    `/api/user/${user}`,
-    fetcher,
-    {
-      onSuccess: (fetchedData) => {
-        setUser(fetchedData);
-      },
-    }
-  );
-  
-  if (session.status === "loading") {
-    return <p>Loading...</p>;
-  }
 
   /* const handleImageUpload = (event) => {
     const imageFile = event.target.files[0];
@@ -56,13 +38,13 @@ const Blog = () => {
     return
 
     try {
-      //! FIX SESSION NOT CONTAINING DATA
+      //! FIX SESSION NOT CONTAINING DATA, USE THE useUser HOOK
       await fetch("/api/posts/create", {
         method: "POST",
         body: JSON.stringify({
           user: {
-            author: session.data.user.name,
-            posterID: session.data.user._id,
+            author: user.username,
+            posterID: user.id,
             // avatar: 
           },
           title,
@@ -99,33 +81,31 @@ const Blog = () => {
     }
   }; */
 
-  if (session.status === "authenticated") {
-    return (
-      <div className={styles.form_container}>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <h1>Add New Post</h1>
-          <input type="text" placeholder="Title" className={styles.input} />
-          <div className={styles.input}>
-            <ImageUpload params={{images, setImages}}/>
+  return (
+    <div className={styles.form_container}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h1>Add New Post</h1>
+        <input type="text" placeholder="Title" className={styles.input} />
+        <div className={styles.input}>
+          <ImageUpload params={{images, setImages}}/>
+        </div>
+        {images[0] && (
+          <div style={{ maxWidth: 200 }}>
+            <Carousel />
           </div>
-          {images[0] && (
-            <div style={{ maxWidth: 200 }}>
-              <Carousel />
-            </div>
-          )}
-          <textarea
-            placeholder="Content"
-            className={styles.textArea}
-            cols="30"
-            rows="10"
-          ></textarea>
-          <button type="submit" className={styles.button}>
-            Send
-          </button>
-        </form>
-      </div>
-    );
-  }
+        )}
+        <textarea
+          placeholder="Content"
+          className={styles.textArea}
+          cols="30"
+          rows="10"
+        ></textarea>
+        <button type="submit" className={styles.button}>
+          Send
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default Blog;

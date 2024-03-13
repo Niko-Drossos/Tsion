@@ -2,18 +2,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import useSWR from "swr";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Button from '@/components/Button/Button'
+import { useUser } from '@/components/AuthProvider/UserContext'
 import TestPhoto from '@/public/1.png'
 
 const Blog = () => {
   const [pageSize, setPageSize] = useState(5)
   const [pageNumber, setPageNumber] = useState(1)
   const [maxPages, setMaxPages] = useState(1)
-  const session = useSession();
+  const { user } = useUser()
 
   if (pageNumber < 1) setPageNumber(1)
   else if (pageNumber > maxPages) setPageNumber(pageNumber - 1)
@@ -30,10 +30,8 @@ const Blog = () => {
       },
     }
   );
+  
   console.log(data)
-  if (session.status === "loading") {
-    return <p>Loading posts...</p>;
-  }
   
   return (
     <div className={styles.container}>
