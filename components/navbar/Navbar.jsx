@@ -1,9 +1,8 @@
 "use client";
-import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image"
 import React, { useState, useEffect } from "react";
-import { useUser } from "@/components/AuthProvider/UserContext";
+// import { useUser } from "@/components/AuthProvider/UserContext";
 import styles from "./navbar.module.css";
 
 const links = [
@@ -60,18 +59,8 @@ const links = [
 ]
 
 const Navbar = () => {
-  const { user } = useUser();
+  // const { user } = useUser();
   const [showMenu, setShowMenu] = useState(false);
-  const router = useRouter()
-
-  // ! NEEDS FIXING, REDIRECTING TO LOGIN PAGE WITH BEING LOGGED IN 
-  /* useEffect(() => {
-    setShowMenu(false);
-    console.log(user.username)
-    if (!user.username) {
-      router.replace('/dashboard/login');
-    }
-  }, [user.id, user.username]) */
 
   return (
     <nav className={styles.nav}>
