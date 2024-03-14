@@ -34,7 +34,7 @@ const userSchema = new Schema({
     followerCount: { type: Number, default: 0, required: true },
   },
   admin: { type: Boolean, required: true },
-  userAuthID: { type: String, required: true },
+  userAuthId: { type: String, required: true },
   walletAddress: { type: String, unique: false, required: false }, //make unique true when posted
   tribe: {type: String, enum: tribes, default: "", required: false }
 },

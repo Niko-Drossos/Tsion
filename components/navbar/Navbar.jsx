@@ -65,51 +65,19 @@ const Navbar = () => {
   const router = useRouter()
 
   // ! TEST IF THIS WORKS
-  /* useEffect(() => {
+  useEffect(() => {
     setShowMenu(false);
-    if (!user.id || !user.username || !user) {
+    if (!user.username || !user) {
       router.replace('/dashboard/login');
     }
-  }, [user.id, user.username]) */
-
-  /* const handleSignOut = async () => {
-    try {
-      await signOut()
-      console.log("Signed out")
-    } catch (err) {
-      console.error(err)
-    }
-  } */
+  }, [user.id, user.username])
 
   return (
     <nav className={styles.nav}>
       <div className={`${styles.nav_items} ${styles.name_nav} ${styles.computer_nav}`}>
         <Link href="/">Tsion</Link>
       </div>
-      <div className={styles.links + (showMenu ? ` ${styles.show}` : '')}>
-        {links.map((link, index) => {
-          // For regular links, group them into pairs
-          if (index % 2 === 0) {
-            const nextLink = links[index + 1];
-            return (
-              <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
-                <h4 href={link.link} className={styles.link}>
-                    {link.name}
-                  </h4>
-                  {nextLink && (
-                    <h4 href={nextLink.link} className={styles.link}>
-                      {nextLink.name}
-                    </h4>
-                  )}
-              </div>
-              );
-            }
-
-            // Skip links that are already handled in pairs
-            return null;
-          })}
-        </div>
-      <div className={styles.mobileNav}>
+      <div className={styles.hamburgerNav}>
         <h4 className={styles.title}>
           Tsion
         </h4>
@@ -122,6 +90,30 @@ const Navbar = () => {
           alt={"Hamburger Menu"}
         />
       </div>
+
+      <div className={styles.links + (showMenu ? ` ${styles.show}` : '')}>
+        {links.map((link, index) => {
+          // For regular links, group them into pairs
+          if (index % 2 === 0) {
+            const nextLink = links[index + 1];
+            return (
+              <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
+                <a href={link.link} className={styles.link}>
+                    {link.name}
+                  </a>
+                  {nextLink && (
+                    <a href={nextLink.link} className={styles.link}>
+                      {nextLink.name}
+                    </a>
+                  )}
+              </div>
+              );
+            }
+
+            // Skip links that are already handled in pairs
+            return null;
+          })}
+        </div>
     </nav>
   );
 };

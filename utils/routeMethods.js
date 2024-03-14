@@ -86,8 +86,8 @@ import User from '@/models/user/User'
 /* ---------------------- Get a users auth with authID ---------------------- */
 
 async function getUserWithID(userID) {
-  const user = await User.findOne({ userAuthID: userID })
-  if (!user) throw new Error(`User with userAuthID: ${userID} has not been found`)
+  const user = await User.findOne({ userAuthId: userID })
+  if (!user) throw new Error(`User with userAuthId: ${userID} has not been found`)
   return user
 }
 
@@ -146,7 +146,7 @@ async function isAdmin(headerList) {
   throw new Error(`User not an admin and not allowed to preform API call`)
 }
 
-/* ----------------- Generate userAuthID on account creation ---------------- */
+/* ----------------- Generate userAuthId on account creation ---------------- */
 
 function generateUserAuthID() {
   const getRandomChar = () => {

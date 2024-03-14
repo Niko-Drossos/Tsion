@@ -12,13 +12,13 @@ export const POST = async (request) => {
     // Hashes the password to not store in plain text
     let hashedPassword = await hash(password)
 
-    const userAuthID = generateUserAuthID()
+    const userAuthId = generateUserAuthID()
 
     const newUser = await User.create({
       username: username, 
       email: email || "",
       password: hashedPassword,
-      userAuthID: userAuthID, 
+      userAuthId: userAuthId, 
       walletAddress: walletAddress,
       tribe: tribe,
       admin: false,

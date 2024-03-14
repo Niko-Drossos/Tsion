@@ -6,7 +6,7 @@ import { useUser } from "@/components/AuthProvider/UserContext";
 import Link from "next/link";
 import Error from '@/components/Error/page'
 
-const Login = ({ url }) => {
+const Login = () => {
   const { user, login } = useUser()
   const router = useRouter();
   const params = useSearchParams();
@@ -45,16 +45,18 @@ const Login = ({ url }) => {
       }),
     })
 
-    console.log(await signIn.json())
-    /* login({
-      email,
-      password,
-    }); */
-    /* if (session.status !== "authenticated" && session.status !== "loading") {
-      setError("Wrong username or password.");
-    } else if (session.status === "authenticated") {
-      router.push("/")
-    } */
+    const response = await signIn.json()
+    if (response.success) { 
+      login({
+        username: response.data.username,
+        id: response.data.userAuthId
+      });
+
+      router.push("/dashboard");
+    } else {
+      setError(response.errorMessage)
+    }
+      
     setLoading(false)
   };
 
