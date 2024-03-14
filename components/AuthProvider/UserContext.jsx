@@ -87,6 +87,7 @@ export const UserProvider = ({ children }) => {
       username: "",
       id: ""
     });
+    router.push('/dashboard/login');
   };
 
   // Provide the user context to children components
