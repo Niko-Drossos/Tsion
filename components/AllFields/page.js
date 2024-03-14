@@ -28,9 +28,11 @@ const equinoxDates = [
 function pickEquinox(currentDate) { 
   const foundDate = equinoxDates.find(date => {
     const newDate = DateTime.fromObject(date).setZone(desiredTimeZone)
-    console.log(newDate.diff(currentDate))
-    return newDate.diffNow().values.milliseconds > 0
+    // console.log(newDate.diff(currentDate).values)
+    // return newDate.diff(currentDate).values.milliseconds > 0
+    return true
   })
+
   return DateTime.fromObject(foundDate).setZone(desiredTimeZone)
 }
 
@@ -46,14 +48,16 @@ const familySigns = [
 export default function AllFields({ params }) {
   const { currentDate } = params
   const [sunTimes, setSunTimes] = useState(null)
-  const [lastEquinox, setLastEquinox] = useState(pickEquinox(currentDate))
+  const TEST_DATE = DateTime.fromObject({ year: 2024, month: 4, day: 19 }).setZone(desiredTimeZone)
+  const [lastEquinox, setLastEquinox] = useState(pickEquinox(TEST_DATE))
 
   // ! FIX TO WORK WITH AS MANY YEARS AS POSSIBLE
-  /* useEffect(() => {
-    if (pickEquinox(currentDate.c.year - 1)) {
+  useEffect(() => {
+    /* if (pickEquinox(currentDate.c.year - 1)) {
       // setLastEquinox(pickEquinox(currentDate.c.year - 1))
-    }
-  }, [currentDate.c.year]) */
+    } */
+    console.log(currentDate)
+  }, [currentDate])
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -231,11 +235,11 @@ export default function AllFields({ params }) {
   const angelOfDayData = {
     legend: { style: "angel", title: "Angel" },
     keys: [
-      { "Angel": angelOfDay.angel },
-      { "Meaning": angelOfDay.meaning },
-      { "Number": angelOfDay.angel_number },
-      { "Degrees": angelOfDay.degrees },
-      { "Purpose": angelOfDay.purpose }
+      { "Angel": angelOfDay?.angel },
+      { "Meaning": angelOfDay?.meaning },
+      { "Number": angelOfDay?.angel_number },
+      { "Degrees": angelOfDay?.degrees },
+      { "Purpose": angelOfDay?.purpose }
     ],
   };
     

@@ -64,13 +64,14 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter()
 
-  // ! TEST IF THIS WORKS
-  useEffect(() => {
+  // ! NEEDS FIXING, REDIRECTING TO LOGIN PAGE WITH BEING LOGGED IN 
+  /* useEffect(() => {
     setShowMenu(false);
-    if (!user.username || !user) {
+    console.log(user.username)
+    if (!user.username) {
       router.replace('/dashboard/login');
     }
-  }, [user.id, user.username])
+  }, [user.id, user.username]) */
 
   return (
     <nav className={styles.nav}>
