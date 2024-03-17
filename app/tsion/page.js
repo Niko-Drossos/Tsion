@@ -52,7 +52,6 @@ export default function Tsion() {
       })
       setStartFlatpickrInstance(fp)
     }
-    console.log(showDatePicker)
   }, [showDatePicker])
 
   const handleDateChange = (pickedDate) => {
@@ -67,13 +66,14 @@ export default function Tsion() {
         {earliestDate.toLocaleDateString()} - {latestDate.toLocaleDateString()}
       </p>
       <button onClick={toggleDate} className={styles.toggleBtn}>Change time</button>
+      <h2>Date: {currentDate.toISODate()}</h2>
       <input
         type="text"
         ref={currentDatePicker}
         placeholder="Select Date"
         className={styles.datePicker}
         // style={{ display: showDatePicker ? : "none"}}
-      />
+        />
       <AllFields params={{currentDate, setCurrentDate}} />
     </main>
   )

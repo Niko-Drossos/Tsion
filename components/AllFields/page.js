@@ -21,6 +21,12 @@ import moonSigns from "@/data/moonSign.json"
 const desiredTimeZone = 'America/Phoenix'
 
 const equinoxDates = [
+  { year: 2030, month: 3, day: 20 },
+  { year: 2029, month: 3, day: 20 },
+  { year: 2028, month: 3, day: 19 },
+  { year: 2027, month: 3, day: 20 },
+  { year: 2026, month: 3, day: 20 },
+  { year: 2025, month: 3, day: 20 },
   { year: 2024, month: 3, day: 19 },
   { year: 2023, month: 3, day: 20 },
 ]
@@ -30,7 +36,6 @@ function pickEquinox(currentDate) {
     const newDate = DateTime.fromObject(date).setZone(desiredTimeZone);
     return currentDate > newDate
   });
-  // console.log(foundDate)
   return DateTime.fromObject(foundDate).setZone(desiredTimeZone);
 }
 
@@ -54,21 +59,10 @@ export default function AllFields({ params }) {
     const newEquinox = pickEquinox(currentDate)
     const newDifference = calculateDifference(currentDate, newEquinox)
 
-    setLastEquinox(pickEquinox(currentDate))
+    setLastEquinox(() => pickEquinox(currentDate))
     setDayDifference(newDifference)
-    setAngelOfDay(getAngel(newDifference))
-  }, [currentDate])
+    setAngelOfDay(() => getAngel(newDifference))
 
-  useEffect(() => {
-    console.log(lastEquinox)
-  }, [lastEquinox])
-
-  // Get day of week number
-  let currentDay = currentDate.weekday
-  if (currentDay === 7) currentDay = 0
-  
-
-  useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(`https://api.sunrisesunset.io/json?lat=33.359710&lng=-112.036873&date=${currentDate.toLocaleString()}`);
@@ -95,7 +89,11 @@ export default function AllFields({ params }) {
     }
 
     fetchData();
-  }, [currentDate]);
+  }, [currentDate])
+
+  // Get day of week number
+  let currentDay = currentDate.weekday
+  if (currentDay === 7) currentDay = 0
   
   // Destructured data
   const { chakra, planet, geometry, element, hebrewDay, principle } = bulkData[currentDay]
@@ -124,6 +122,7 @@ export default function AllFields({ params }) {
     return hebrewDate
   }
     
+
   function calculateDifference(currentDate, lastEquinox) {
     // Calculate the difference in days
     let daysPassed = Math.floor(currentDate.diff(lastEquinox, "day").days)
@@ -147,7 +146,7 @@ export default function AllFields({ params }) {
     moonSigns.sort((a, b) => new Date(a.date) - new Date(b.date));
     let nextMoonSign, currentSign = null;
   
-    // Find the next and second-to-last signs
+    // Find the next and after-the-next signs
     for (let i = 0; i < moonSigns.length; i++) {
       const phase = moonSigns[i];
       const phaseDate = new Date(phase.date);
