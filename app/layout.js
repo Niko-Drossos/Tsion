@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar/Navbar";
 import { Inter, Roboto, Poppins } from "next/font/google";
 import Footer from "@/components/footer/Footer";
-import { UserProvider } from '@/components/AuthProvider/UserContext'
+import { AppWrapper } from '@/components/Wrappers/AppWrapper'
 import { Suspense } from 'react'
 
 import './globals.css'
@@ -17,13 +17,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-          <UserProvider>
-              <Suspense fallback={<div>Loading...</div>}>
-                <Navbar />
-                {children}
-                <Footer /> 
-              </Suspense>
-          </UserProvider>
+          <AppWrapper>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Navbar />
+              {children}
+              <Footer /> 
+            </Suspense>
+          </AppWrapper>
       </body>
     </html>
   )
