@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react" 
 import { Moon } from "lunarphase-js";
 import { DateTime } from 'luxon';
-import { Sedra, HDate } from '@hebcal/core'
+import { Sedra, HDate, gematriya } from '@hebcal/core'
 
 import Image from "next/image"
 
@@ -200,9 +200,10 @@ export default function AllFields({ params }) {
     legend: { style: "hebrewDay", title: "Hebrew Day" },
     keys: [
       /* ---- Hebrew Calendar Dates ---- */
-      { "Year": hebrewDate.getFullYear() },
-      { "Month": hebrewDate.getMonth() },
-      { "Day": hebrewDate.getDate() },
+      { "Year": `${hebrewDate.getFullYear()} - ${gematriya(hebrewDate.getFullYear())}` },
+      { "Month": `${hebrewDate.getMonth()} - ${gematriya(hebrewDate.getMonth())}` },
+      { "Day": `${hebrewDate.getDate()} - ${gematriya(hebrewDate.getDate())}` },
+      { "": "" },
       /* ------------------------------- */
       { "Hebrew Day": hebrewDay.day },
       { "Sephira": hebrewDay.sephira },
