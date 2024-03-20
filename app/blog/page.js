@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Button from '@/components/Button/Button'
-import { useUser } from '@/components/AuthProvider/UserContext'
+import { useUser } from '@/components/Context/UserContext'
 import TestPhoto from '@/public/1.png'
 
 const Blog = () => {

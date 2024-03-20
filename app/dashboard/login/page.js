@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useUser } from "@/components/AuthProvider/UserContext";
+import { useUser } from "@/components/Context/UserContext";
 import Link from "next/link";
 import Error from '@/components/Error/page'
 

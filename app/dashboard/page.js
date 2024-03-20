@@ -2,7 +2,8 @@
 // Import necessary modules
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
-import { useUser } from '@/components/AuthProvider/UserContext'; 
+import { useUser } from '@/components/Context/UserContext'; 
+import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle'
 
 // Your component
 const Dashboard = () => {
@@ -14,6 +15,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
+      Toggle Dark mode: <DarkModeToggle />
       { 
         user.username && 
         <div>

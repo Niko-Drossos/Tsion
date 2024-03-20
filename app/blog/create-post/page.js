@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/components/AuthProvider/UserContext";
+import { useUser } from "@/components/Context/UserContext";
 import Image from "next/image";
 import ImageUpload from "@/components/forms/ImageUpload";
 import Carousel from "@/components/gallery/Carousel/page";

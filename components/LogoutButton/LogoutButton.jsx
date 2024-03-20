@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useUser } from '@/components/AuthProvider/UserContext';
+import { useUser } from '@/components/Context/UserContext';
 
 // Your component
 const LogoutButton = () => {
