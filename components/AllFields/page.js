@@ -33,8 +33,8 @@ const equinoxDates = [
 
 function pickEquinox(currentDate) { 
   const foundDate = equinoxDates.find(date => {
-    const newDate = DateTime.fromObject(date).setZone(desiredTimeZone);
-    return currentDate > newDate
+    const equinoxDate = DateTime.fromObject(date).setZone(desiredTimeZone);
+    return currentDate > equinoxDate
   });
   return DateTime.fromObject(foundDate).setZone(desiredTimeZone);
 }
@@ -54,6 +54,7 @@ export default function AllFields({ params }) {
   const [lastEquinox, setLastEquinox] = useState(pickEquinox(currentDate))
   const [angelOfDay, setAngelOfDay] = useState(null)
   const [dayDifference, setDayDifference] = useState(calculateDifference(currentDate, lastEquinox))
+  const [hebrewDate, setHebrewDate] = useState(new HDate())
 
   useEffect(() => {
     const newEquinox = pickEquinox(currentDate)
@@ -130,7 +131,6 @@ export default function AllFields({ params }) {
       daysPassed = Math.floor(currentDate.diff(pickEquinox(currentDate), "day").days)
     }  */
     // if (daysPassed > 365) daysPassed -= 365
-    console.log(daysPassed)
     return daysPassed;
   }
 
@@ -215,6 +215,11 @@ export default function AllFields({ params }) {
   const hebrewDayData = {
     legend: { style: "hebrewDay", title: "Hebrew Day" },
     keys: [
+      /* ---- Hebrew Calendar Dates ---- */
+      { "Year": hebrewDate.getFullYear() },
+      { "Month": hebrewDate.getMonth() },
+      { "Day": hebrewDate.getDay() },
+      /* ------------------------------- */
       { "Hebrew Day": hebrewDay.day },
       { "Sephira": hebrewDay.sephira },
       { "Sunset Psalm": hebrewDay.psalm },

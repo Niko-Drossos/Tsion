@@ -11,6 +11,7 @@
   font-size: x-large;
   color: white;
   flex-direction: row;
+  margin-bottom: 25px;
 }
 
 .img {

@@ -50,11 +50,6 @@ export const UserProvider = ({ children }) => {
     fetchUserData()
   }, [isClient])
 
-  // Function to log in a user
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
   // Save user data to localStorage whenever it changes
   useEffect(() => {
     // Check if localStorage is available in the browser environment
