@@ -8,10 +8,14 @@ import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle'
 // Your component
 const Dashboard = () => {
   const { user, logout } = useUser();
+  const router = useRouter()
   const handleLogout = () => {
     // Sign out the user
     logout();
+    router.push('/dashboard/login')
   };
+
+  console.log(user)
 
   return (
     <div className={styles.container}>

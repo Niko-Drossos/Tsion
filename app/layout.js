@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar/Navbar";
 import { Inter, Roboto, Poppins } from "next/font/google";
 import Footer from "@/components/footer/Footer";
-import { AppWrapper } from '@/components/Wrappers/AppWrapper'
+import AppWrapper from '@/components/Wrappers/AppWrapper'
 import { Suspense } from 'react'
 
 import './globals.css'

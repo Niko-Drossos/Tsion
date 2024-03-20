@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 // Define the shape of the user object
 const UserContext = createContext({
@@ -19,15 +19,17 @@ export const useUser = () => useContext(UserContext);
 
 // UserProvider component manages user authentication state
 export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState({ username: "", id: "" });
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false)
+  const pathname = usePathname()
   const router = useRouter()
 
+  // This is needed to prevent problems with SSR
   useEffect(() => {
     setIsClient(true)
   }, [])
   
-  const [user, setUser] = useState({ username: "", id: "" });
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -59,17 +61,30 @@ export const UserProvider = ({ children }) => {
   }, [user, isClient]);
 
   // Redirect when not logged in
-  useEffect(() => {
+  /* useEffect(() => {
     if (!loading) {
       const timeout = setTimeout(() => {
         if (!user.username) {
           router.replace('/dashboard/login');
         }
-      }, 2000);
+      }, 100);
 
       return () => clearTimeout(timeout);
     }
-  }, [loading, user.username]);
+  }, [loading, user.username]); */
+  
+  useEffect(() => {
+    /* if (!loading) {
+      const timeout = setTimeout(() => {
+        if (!user.username) {
+          router.replace('/dashboard/login');
+        }
+      }, 100);
+
+      return () => clearTimeout(timeout);
+    } */
+    console.log(pathname)
+  }, [pathname])
 
   // Function to log in a user
   const login = (userData) => {
