@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-// import { UseGlobal } from '@/app/Context';
+import HolidayTimers from '@/components/Timers/HolidayTimers';
 import styles from './page.module.css';
 
 export default function CleanTimer() {
@@ -58,7 +58,8 @@ export default function CleanTimer() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.clock}>
+      {/* I might re-add this later */}
+      {/* <div className={styles.clock}>
         <div className={styles.inner_container}>
           <div>
             Started: { startTime ? startTime.toLocaleDateString() : "Loading..." }
@@ -76,7 +77,8 @@ export default function CleanTimer() {
           <br />
           <button className={styles.reset} onClick={resetTimer}>Reset Timer</button>
         </div>
-      </div>
+      </div> */}
+      <HolidayTimers />
     </div>
   );
 }

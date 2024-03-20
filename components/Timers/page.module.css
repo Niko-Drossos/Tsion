@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: fit-content;
+  width: 90%;
+}
+
+.formatTitle {
+  margin: 10px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.timer {
+  display: flex;
+  border-bottom: 2px solid var(--text-color);
+  justify-content: space-between;
+  padding: 7px;
+  width: 100%;
+}
+
+.timer > p {
+  display: flex;
+  align-items: center;
+}

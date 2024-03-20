@@ -12,9 +12,9 @@ const links = [
     link: "/dashboard",
   },
   {
-    name: "Timer",
-    url: "/timer",
-    link: "/timer",
+    name: "Timers",
+    url: "/timers",
+    link: "/timers",
   },
   {
     name: "About",

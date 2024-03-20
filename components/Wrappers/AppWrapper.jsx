@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 import { ThemeProvider } from '@/components/context/ThemeContext';
 import { UserProvider } from '@/components/context/UserContext';
 
