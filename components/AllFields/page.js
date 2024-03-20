@@ -81,7 +81,9 @@ export default function AllFields({ params }) {
         }
 
         setSunTimes(data);
-        console.log(await gregorianToHebrewDate(currentDate.toLocaleString()))
+        setHebrewDate(() => {
+          return new HDate(new Date(currentDate.toLocaleString()))
+        })
 
       } catch (error) {
         console.error(error);
@@ -105,24 +107,6 @@ export default function AllFields({ params }) {
   /* -------------------------------------------------------------------------- */
   /*                               FUNCTIONS START                              */
   /* -------------------------------------------------------------------------- */
-
-  async function gregorianToHebrewDate(gregorianDate) {
-    const parts = gregorianDate.split('/');
-    const year = parts[2];
-    const month = parts[0].padStart(2, '0'); // Ensure two digits for month
-    const day = parts[1].padStart(2, '0'); // Ensure two digits for day
-    
-    // Format the date as "yyyy-mm-dd"
-    const formattedDate = `${year}-${month}-${day}`;
-    
-    const response = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${formattedDate}&g2h=1&strict=1`)
-    const responseData = await response.json()
-
-    const { hd, hm, hy } = responseData
-    const hebrewDate = new HDate(hd, hm, hy)
-    return hebrewDate
-  }
-    
 
   function calculateDifference(currentDate, lastEquinox) {
     // Calculate the difference in days
@@ -218,7 +202,7 @@ export default function AllFields({ params }) {
       /* ---- Hebrew Calendar Dates ---- */
       { "Year": hebrewDate.getFullYear() },
       { "Month": hebrewDate.getMonth() },
-      { "Day": hebrewDate.getDay() },
+      { "Day": hebrewDate.getDate() },
       /* ------------------------------- */
       { "Hebrew Day": hebrewDay.day },
       { "Sephira": hebrewDay.sephira },

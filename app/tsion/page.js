@@ -66,7 +66,6 @@ export default function Tsion() {
         {earliestDate.toLocaleDateString()} - {latestDate.toLocaleDateString()}
       </p>
       <button onClick={toggleDate} className={styles.toggleBtn}>Change time</button>
-      <h2>Date: {currentDate.toISODate()}</h2>
       <input
         type="text"
         ref={currentDatePicker}
@@ -74,6 +73,7 @@ export default function Tsion() {
         className={styles.datePicker}
         // style={{ display: showDatePicker ? : "none"}}
         />
+      <h2>{currentDate.toISODate()}</h2>
       <AllFields params={{currentDate, setCurrentDate}} />
     </main>
   )
