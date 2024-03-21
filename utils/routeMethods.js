@@ -117,11 +117,22 @@ function generateRecoveryToken() {
   return token
 }
 
-/* ------------------------- Generate Recovery Token ------------------------ */
+/* --------------------------- Generate JWT Token --------------------------- */
 
 function generateJwtToken(payload) {
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' })
   return token
+}
+
+/* ---------------------------- Verify JWT Token ---------------------------- */
+
+function verifyJwtToken(token) {
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET)
+    return data
+  } catch (error) {
+    throw new Error('Invalid token')
+  }
 }
 
 /* ------------------------ Generate recovery token ----------------------- */
@@ -247,7 +258,6 @@ async function deleteImages(imageURL) {
   }
 }
 
-
 /* -------------------------------------------------------------------------- */
 
 // countVotes, 
@@ -263,5 +273,6 @@ export {
   uploadImages, 
   getIdWithName, 
   getUserWithID,
-  generateJwtToken 
+  generateJwtToken, 
+  verifyJwtToken, 
 }
