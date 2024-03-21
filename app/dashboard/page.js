@@ -19,13 +19,13 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
-      {/* Toggle Dark mode: <DarkModeToggle /> */}
       { 
         user?.username && 
         <div>
           <h1>{user.username}</h1>
         </div>
       }
+      Toggle Dark mode: <DarkModeToggle />
       <button onClick={handleLogout} className={styles.logout}>Logout</button>
     </div>
   );

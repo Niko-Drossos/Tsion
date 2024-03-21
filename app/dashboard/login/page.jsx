@@ -14,8 +14,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const passwordField = useRef()
+  const passwordField = useRef(null)
 
   /* useEffect(() => {
     setError(params.get("error"));
@@ -23,13 +24,8 @@ const Login = () => {
   }, [params]); */
 
   function togglePasswordVisibility() {
-    if (passwordField.current.type === 'password') {
-      console.log("Toggled")
-      passwordInput.type = 'text';
-    } else {
-      passwordField.type = 'password';
-    }
-  }  
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  }
 
   const handleSubmit = async (e) => {
     try {
@@ -54,7 +50,7 @@ const Login = () => {
       const response = await signIn.json()
       if (response.success) { 
         // Set the users login state
-        const { username, email, id: _id } = response.data
+        const { username, email, _id: id } = response.data
         login({ username, email, id })
 
         const maxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24
@@ -89,11 +85,12 @@ const Login = () => {
           className={styles.input}
         />
         <input
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder="Password"
           id="password"
           required
           className={styles.input}
+          ref={passwordField}
         />
         <div>
           <input
@@ -101,7 +98,6 @@ const Login = () => {
             id="showPassword"
             className={styles.showPassword}
             onClick={togglePasswordVisibility}
-            ref={passwordField}
           />
           <label>
             Show Password
