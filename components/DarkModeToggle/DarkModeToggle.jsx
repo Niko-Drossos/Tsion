@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import styles from "./darkModeToggle.module.css";
-import { useTheme } from "@/components/context/ThemeContext";
+import { useTheme } from "@/components/Context/ThemeContext";
 
 export default function DarkModeToggle() {
   const { toggle, mode } = useTheme()

@@ -1,7 +1,9 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image"
-import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
+import { getCookie } from 'cookies-next'
 import styles from "./navbar.module.css";
 
 const links = [
@@ -60,6 +62,14 @@ const links = [
 const Navbar = () => {
   // const { user } = useUser();
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter()
+  
+  useEffect(() => {
+    const token = getCookie("tsion")
+    if (!token) {
+      router.push('/dashboard/login')
+    }
+  }, [router])
 
   return (
     <nav className={styles.nav}>

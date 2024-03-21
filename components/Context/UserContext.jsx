@@ -36,7 +36,6 @@ export const UserProvider = ({ children }) => {
     if (isClient) {
       try {
         const storedUser = localStorage.getItem('tsion-user');
-        console.log("storedUser: ", storedUser)
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser);
           setUser(parsedUser);
