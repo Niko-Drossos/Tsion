@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-// import { hash } from '@/utils/routeMethods'
+import { generateJwtToken } from '@/utils/routeMethods'
 
 /* ----------------------------- MongoDB Schemas ---------------------------- */
 
@@ -28,7 +28,8 @@ export const POST = async (request) => {
       message: `Successfully verified user`,
       data: {
         _id, username, userAuthId, email, admin, tags
-      }
+      },
+      token: generateJwtToken({ username, userAuthId, _id })
     }, {
       status: 200
     })

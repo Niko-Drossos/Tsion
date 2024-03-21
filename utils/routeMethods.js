@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import cloudinaryConfig  from '@/connections/cloudinary'
 
 /* ----------------------------- MongoDB Schemas ---------------------------- */
@@ -113,6 +114,13 @@ function generateRecoveryToken() {
     token += getRandomChar()
   }
 
+  return token
+}
+
+/* ------------------------- Generate Recovery Token ------------------------ */
+
+function generateJwtToken(payload) {
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' })
   return token
 }
 
@@ -254,5 +262,6 @@ export {
   deleteImages, 
   uploadImages, 
   getIdWithName, 
-  getUserWithID 
+  getUserWithID,
+  generateJwtToken 
 }

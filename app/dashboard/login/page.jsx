@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/components/Context/UserContext";
+import { setCookie } from 'cookies-next';
 import Link from "next/link";
 import Error from '@/components/Error/page'
 
@@ -13,7 +14,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-
+  // console.log(useUser().login)
   useEffect(() => {
     setError(params.get("error"));
     setSuccess(params.get("success"));
@@ -30,36 +31,47 @@ const Login = () => {
   }  
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-    setLoading(true)
-    const signIn = await fetch(`/api/user/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
+    try {
 
-    const response = await signIn.json()
-    if (response.success) { 
-      login({
-        username: response.data.username,
-        id: response.data.userAuthId
-      });
+      e.preventDefault();
+      const email = e.target[0].value;
+      const password = e.target[1].value;
 
-      router.push("/dashboard");
-    } else {
-      setError(response.errorMessage)
-    }
+      setLoading(true)
       
-    setLoading(false)
-  };
+      const signIn = await fetch(`/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
 
+      const response = await signIn.json()
+      if (response.success) { 
+        login({
+          username: response.data.username,
+          id: response.data._id
+        })
+
+        setCookie('tsion', response.token, { expires: 1, path: "/" })
+
+        // router.push("/dashboard");
+      } else {
+        setError(response.errorMessage)
+      }
+        
+    } catch (error) {
+      // TODO: make proper error message 
+      console.log(error);
+    } finally {
+      setLoading(false)
+    }
+  };
+  
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{success ? success : "Welcome Back"}</h1>
