@@ -52,7 +52,7 @@ export default function Tsion() {
       })
       setStartFlatpickrInstance(fp)
     }
-  }, [showDatePicker])
+  }, [showDatePicker, currentDate])
 
   const handleDateChange = (pickedDate) => {
     const newDate = new Date(pickedDate)
@@ -71,8 +71,7 @@ export default function Tsion() {
         ref={currentDatePicker}
         placeholder="Select Date"
         className={styles.datePicker}
-        // style={{ display: showDatePicker ? : "none"}}
-        />
+      />
       <h2>{currentDate.toISODate()}</h2>
       <AllFields params={{currentDate, setCurrentDate}} />
     </main>

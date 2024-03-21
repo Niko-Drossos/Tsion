@@ -1,8 +1,7 @@
-"use client"
-import { ThemeProvider } from '@/components/context/ThemeContext';
-import { UserProvider } from '@/components/context/UserContext';
+import { ThemeProvider } from '@/components/Context/ThemeContext';
+import { UserProvider } from '@/components/Context/UserContext';
 
-export default function AppProvider({ children }) {
+export default function AppContext({ children }) {
   return (
     <ThemeProvider>
       <UserProvider>

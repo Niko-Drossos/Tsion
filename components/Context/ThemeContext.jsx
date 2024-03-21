@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
     if (isClient) localStorage.setItem('themeMode', mode)
 
     document.documentElement.setAttribute('color-scheme', mode || 'light');
-  }, [mode]);
+  }, [mode, isClient]);
 
   const toggle = () => {
     setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));

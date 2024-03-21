@@ -1,4 +1,5 @@
 # ToDO
+- Change user API system to use headers with cookies
 - Make a clock face for the calendar with holidays being the times 
 - Add star data from https://api-ninjas.com/api/stars
 - Sirius data

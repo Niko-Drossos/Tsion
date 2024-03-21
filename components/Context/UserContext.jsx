@@ -1,83 +1,71 @@
 "use client"
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { deleteCookie } from 'cookies-next';
+
 // UserProvider component manages user authentication state
 
 // Define the shape of the user object
 const UserContext = createContext({
   user: {
     username: "",
-    id: ""
+    email: "",
+    id: "",
   },
-  login: (userData) => {},
-  logout: () => {}
+  login: () => {},
+  logout: () => {},
 });
-// Custom hook to access the user context
-export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false)
-  const pathname = usePathname()
+  // const pathname = usePathname()
   const router = useRouter()
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    id: "",
+  });
   
   // This is needed to prevent problems with SSR
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  const [user, setUser] = useState(() => {
-    try {
-      // Check if localStorage is available in the browser environment
-      if (isClient) {
-        const storedUser = localStorage.getItem('tsion-user');
-        return storedUser ? JSON.parse(storedUser) : { username: "", id: "" }
-      } else {
-        return { username: "", id: "" }
-      }
-    } catch (error) {
-      console.error("Error parsing user data from localStorage:", error);
-      return { username: "", id: "" }
-    } finally {
-      setLoading(false);
-    }
-  })
-  
-  // Save user data to localStorage whenever it changes
   useEffect(() => {
-    // Check if localStorage is available in the browser environment
     if (isClient) {
-      localStorage.setItem('tsion-user', JSON.stringify(user));
-    }
-  }, [user, isClient]);
-
-  // Redirect when not logged in
-  useEffect(() => {
-    if (!loading) {
-      const timeout = setTimeout(() => {
-        if (!user.username) {
+      try {
+        const storedUser = localStorage.getItem('tsion-user');
+        console.log("storedUser: ", storedUser)
+        if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } else {
+          // Redirect to login page if no user data found in localStorage
           router.replace('/dashboard/login');
         }
-      }, 100);
-
-      return () => clearTimeout(timeout);
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [loading, user.username]);
+  }, [isClient, router]);
 
-  // Function to log in a user
-  // ! FIX THIS
-  const login = (userData) => {
-    console.log(userData)
+  const login = useCallback((userData) => {
     setUser(userData);
-  };
+    if (isClient) {
+      localStorage.setItem('tsion-user', JSON.stringify(userData));
+    }
+  }, [isClient]);
 
-  // Function to log out a user
   const logout = () => {
-    setUser({
-      username: "",
-      id: ""
-    });
-    router.push('/dashboard/login');
+    setUser(null);
+    if (isClient) {
+      localStorage.removeItem('tsion-user');
+      deleteCookie('tsion');
+      router.replace('/dashboard/login');
+    }
   };
 
   // Provide the user context to children components
@@ -87,3 +75,12 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+// Custom hook to access the user context
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+  return context;
+} 

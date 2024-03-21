@@ -1,5 +1,5 @@
 "use client"
-// Import necessary modules
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import { useUser } from '@/components/Context/UserContext'; 
@@ -15,13 +15,13 @@ const Dashboard = () => {
     router.push('/dashboard/login')
   };
 
-  console.log(user)
+  useEffect(() => {console.log(user)},[user])
 
   return (
     <div className={styles.container}>
-      Toggle Dark mode: <DarkModeToggle />
+      {/* Toggle Dark mode: <DarkModeToggle /> */}
       { 
-        user.username && 
+        user?.username && 
         <div>
           <h1>{user.username}</h1>
         </div>

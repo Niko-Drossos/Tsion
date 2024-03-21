@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image"
 import React, { useState, useEffect } from "react";
-// import { useUser } from "@/components/AuthProvider/UserContext";
 import styles from "./navbar.module.css";
 
 const links = [

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./page.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/components/Context/UserContext";
@@ -14,30 +14,31 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  // console.log(useUser().login)
-  useEffect(() => {
+
+  const passwordField = useRef()
+
+  /* useEffect(() => {
     setError(params.get("error"));
     setSuccess(params.get("success"));
-  }, [params]);
+  }, [params]); */
 
   function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('password');
-  
-    if (passwordInput.type === 'password') {
+    if (passwordField.current.type === 'password') {
+      console.log("Toggled")
       passwordInput.type = 'text';
     } else {
-      passwordInput.type = 'password';
+      passwordField.type = 'password';
     }
   }  
 
   const handleSubmit = async (e) => {
     try {
+      setLoading(true)
 
       e.preventDefault();
       const email = e.target[0].value;
       const password = e.target[1].value;
-
-      setLoading(true)
+      const rememberMe = e.target[3].checked
       
       const signIn = await fetch(`/api/user/login`, {
         method: "POST",
@@ -52,14 +53,15 @@ const Login = () => {
 
       const response = await signIn.json()
       if (response.success) { 
-        login({
-          username: response.data.username,
-          id: response.data._id
-        })
+        // Set the users login state
+        const { username, email, id: _id } = response.data
+        login({ username, email, id })
 
-        setCookie('tsion', response.token, { expires: 1, path: "/" })
+        const maxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24
 
-        // router.push("/dashboard");
+        setCookie('tsion', response.token, { maxAge: maxAge, path: "/" })
+
+        router.push("/dashboard");
       } else {
         setError(response.errorMessage)
       }
@@ -99,12 +101,24 @@ const Login = () => {
             id="showPassword"
             className={styles.showPassword}
             onClick={togglePasswordVisibility}
+            ref={passwordField}
           />
           <label>
             Show Password
           </label>
         </div>
-        <button className={styles.button}>Login</button>
+        <div>
+          <input
+            type="checkbox"
+            id="rememberMe"
+            className={styles.showPassword}
+            defaultChecked
+          />
+          <label>
+            Remember Me
+          </label>
+        </div>
+        <button className={styles.button} disabled={loading}>Login</button>
       </form>
       <span className={styles.or}>- OR -</span>
       <Link className={styles.link} href="/dashboard/register">
