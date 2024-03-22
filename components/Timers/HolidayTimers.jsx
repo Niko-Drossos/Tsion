@@ -42,7 +42,7 @@ export default function HolidayTimers() {
           </tr>
         </thead>
         <tbody>
-          {timers.map((timer, index) => (
+          {timers.map(timer => (
             <tr className={styles.timer} key={timer.name}>
               <td><h3>{timer.name}</h3></td>
               <td>{timer.weeks} - {timer.days}</td>

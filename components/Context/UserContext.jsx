@@ -26,6 +26,13 @@ export const UserProvider = ({ children }) => {
     email: "",
     id: "",
   })
+
+  // List of URL's that do not require user authentication
+  const unauthorizedAccess = [
+    "/dashboard/login",
+    "/dashboard/register",
+    "/"
+  ]
   
   // This is needed to prevent problems with SSR
   useEffect(() => {
@@ -35,9 +42,8 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isClient) {
       try {
-        if (pathname === '/' || '/dashboard/register') {
-          // Let people access the home page or to register
-          
+        if (unauthorizedAccess.includes(pathname)) {
+          // Let people access pages that don't need authentication
         } else if (localStorage.getItem('tsion-user') && getCookie("tsion")) {
           const parsedUser = JSON.parse(localStorage.getItem('tsion-user'))
           setUser(parsedUser)

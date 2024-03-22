@@ -1,10 +1,10 @@
-"use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+"use client"
+import { useState, useEffect } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { getCookie } from 'cookies-next'
-import styles from "./navbar.module.css";
+import styles from "./navbar.module.css"
 
 const links = [
   {
@@ -60,7 +60,7 @@ const links = [
 ]
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false)
   const router = useRouter()
 
   // TODO: I might change it to use the router
@@ -92,27 +92,27 @@ const Navbar = () => {
         {links.map((link, index) => {
           // For regular links, group them into pairs
           if (index % 2 === 0) {
-            const nextLink = links[index + 1];
+            const nextLink = links[index + 1]
             return (
               <div className={`${styles.nav_items} ${styles.sideNav}`} key={link.name}>
                 <a href={link.link} className={styles.link}>
-                    {link.name}
+                  {link.name}
+                </a>
+                {nextLink && (
+                  <a href={nextLink.link} className={styles.link}>
+                    {nextLink.name}
                   </a>
-                  {nextLink && (
-                    <a href={nextLink.link} className={styles.link}>
-                      {nextLink.name}
-                    </a>
-                  )}
-              </div>
-              );
-            }
+                )}
+            </div>
+            )
+          }
 
-            // Skip links that are already handled in pairs
-            return null;
-          })}
-        </div>
+          // Skip links that are already handled in pairs
+          return null
+        })}
+      </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
