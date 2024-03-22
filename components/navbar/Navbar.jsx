@@ -60,16 +60,14 @@ const links = [
 ]
 
 const Navbar = () => {
-  // const { user } = useUser();
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter()
-  
-  /* useEffect(() => {
-    const token = getCookie("tsion")
-    if (!token) {
-      router.push('/dashboard/login')
-    }
-  }, [router]) */
+
+  // TODO: I might change it to use the router
+  function goToLink(link) {
+    router.push(link)
+    setShowMenu(false)
+  }
 
   return (
     <nav className={styles.nav}>

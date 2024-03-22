@@ -35,8 +35,8 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isClient) {
       try {
-        if (pathname === '/') {
-          // Let people access the home page
+        if (pathname === '/' || '/dashboard/register') {
+          // Let people access the home page or to register
           
         } else if (localStorage.getItem('tsion-user') && getCookie("tsion")) {
           const parsedUser = JSON.parse(localStorage.getItem('tsion-user'))

@@ -123,6 +123,12 @@ const Register = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Create an Account</h1>
       <h2 className={styles.subtitle}>Please sign up to see the dashboard.</h2>
+      <h3>
+        You need to <a 
+          href="mailto:bethkavodinfo@gmail.com?subject=Request%20Access%20to%20Tsion&body=Name:%20your%20name%0D%0APhone:%20your%20phone%0D%0AEmail%20for%20sign-up:%20your%20email"
+          style={{ textDecoration: "underline", color: "purple" }}
+        >request access</a> with email
+      </h3>
       {/* Registration form */}
       { loading ? <h1>Loading...</h1> : "" }
       {/* Display error message if there is an error */}
