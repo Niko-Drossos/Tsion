@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/components/Context/UserContext";
 import { setCookie } from 'cookies-next';
 import Link from "next/link";
-import Error from '@/components/Error/page'
+import ErrorMessage from '@/components/Error/page'
 
 const Login = () => {
   const { user, login } = useUser()
@@ -18,20 +18,15 @@ const Login = () => {
 
   const passwordField = useRef(null)
 
-  /* useEffect(() => {
-    setError(params.get("error"));
-    setSuccess(params.get("success"));
-  }, [params]); */
-
   function togglePasswordVisibility() {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   }
 
   const handleSubmit = async (e) => {
     try {
+      e.preventDefault();
       setLoading(true)
 
-      e.preventDefault();
       const email = e.target[0].value;
       const password = e.target[1].value;
       const rememberMe = e.target[3].checked
@@ -63,8 +58,7 @@ const Login = () => {
       }
         
     } catch (error) {
-      // TODO: make proper error message 
-      console.log(error);
+      setError(error.message)
     } finally {
       setLoading(false)
     }
@@ -76,7 +70,7 @@ const Login = () => {
       <h2 className={styles.subtitle}>Please sign in to use Tsion.</h2>
       {/* Conditional loading and error components */}
       { loading ? <h1>Loading...</h1> : "" }
-      {error && <Error error={error} />}
+      {error && <ErrorMessage error={error} />}
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"

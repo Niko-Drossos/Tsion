@@ -25,7 +25,8 @@ const Dashboard = () => {
           <h1>{user.username}</h1>
         </div>
       }
-      Toggle Dark mode: <DarkModeToggle />
+      <br/>
+      Toggle Dark mode: <DarkModeToggle /> ( Coming Soon )
       <button onClick={handleLogout} className={styles.logout}>Logout</button>
     </div>
   );

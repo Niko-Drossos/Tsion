@@ -13,9 +13,9 @@ const links = [
     link: "/dashboard",
   },
   {
-    name: "Timers",
-    url: "/timers",
-    link: "/timers",
+    name: "Home",
+    url: "/",
+    link: "/",
   },
   {
     name: "About",
@@ -43,20 +43,20 @@ const links = [
     link: "/channels",
   },
   {
-    name: "Tsion",
-    url: "/tsion",
-    link: "/tsion",
+    name: "Timers",
+    url: "/timers",
+    link: "/timers",
   },
-  /* {
-    name: "Channels",
-    url: "/channels",
-    link: "/channels",
+  {
+    name: "",
+    url: "",
+    link: "",
   },
   {
     name: "Tsion",
     url: "/tsion",
     link: "/tsion",
-  } */
+  }
 ]
 
 const Navbar = () => {
