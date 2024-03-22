@@ -1,8 +1,9 @@
 .container {
   display: flex;
   align-items: center;
-  margin-left:20px;
-  margin-top:-80px;
+  flex-direction: column;
+  /* margin-left:20px; */
+  /* margin-top:-80px; */
   /* height:100vh; */
   gap: 100px;
 }

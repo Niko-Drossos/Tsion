@@ -3,7 +3,7 @@
   align-items: center;
   flex-direction: column;
   height: fit-content;
-  width: 90%;
+  width: 100vw;
 }
 
 .formatTitle {
@@ -12,9 +12,7 @@
   justify-content: center;
 }
 
-
 .timer {
-  display: flex;
   border-bottom: 2px solid var(--text-color);
   justify-content: space-between;
   padding: 7px;
@@ -24,4 +22,14 @@
 .timer > p {
   display: flex;
   align-items: center;
+}
+
+.table {
+  width: 95%
+}
+
+.table td {
+  box-sizing: border-box;
+  padding: 8px;
+  text-align: center;
 }

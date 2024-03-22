@@ -1,7 +1,7 @@
 "use client"
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { deleteCookie } from 'cookies-next';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import { deleteCookie, getCookie } from 'cookies-next'
 
 // UserProvider component manages user authentication state
 
@@ -14,18 +14,18 @@ const UserContext = createContext({
   },
   login: () => {},
   logout: () => {},
-});
+})
 
 export const UserProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
   const [isClient, setIsClient] = useState(false)
-  // const pathname = usePathname()
+  const pathname = usePathname()
   const router = useRouter()
   const [user, setUser] = useState({
     username: "",
     email: "",
     id: "",
-  });
+  })
   
   // This is needed to prevent problems with SSR
   useEffect(() => {
@@ -35,51 +35,53 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isClient) {
       try {
-        const storedUser = localStorage.getItem('tsion-user');
-        if (storedUser) {
-          const parsedUser = JSON.parse(storedUser);
-          setUser(parsedUser);
+        if (pathname === '/') {
+          // Let people access the home page
+          
+        } else if (localStorage.getItem('tsion-user') && getCookie("tsion")) {
+          const parsedUser = JSON.parse(localStorage.getItem('tsion-user'))
+          setUser(parsedUser)
         } else {
           // Redirect to login page if no user data found in localStorage
-          router.replace('/dashboard/login');
+          router.replace('/dashboard/login')
         }
       } catch (error) {
-        console.error("Error parsing user data from localStorage:", error);
+        console.error("Error parsing user data from localStorage:", error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-  }, [isClient, router]);
+  }, [isClient, pathname])
 
   const login = useCallback((userData) => {
-    setUser(userData);
+    setUser(userData)
     if (isClient) {
-      localStorage.setItem('tsion-user', JSON.stringify(userData));
+      localStorage.setItem('tsion-user', JSON.stringify(userData))
     }
-  }, [isClient]);
+  }, [isClient])
 
   const logout = () => {
-    setUser(null);
+    setUser(null)
     if (isClient) {
-      localStorage.removeItem('tsion-user');
-      deleteCookie('tsion');
-      router.replace('/dashboard/login');
+      localStorage.removeItem('tsion-user')
+      deleteCookie('tsion')
+      router.replace('/dashboard/login')
     }
-  };
+  }
 
   // Provide the user context to children components
   return (
     <UserContext.Provider value={{ user, login, logout }}>
       {children}
     </UserContext.Provider>
-  );
-};
+  )
+}
 
 // Custom hook to access the user context
 export const useUser = () => {
-  const context = useContext(UserContext);
+  const context = useContext(UserContext)
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error('useUser must be used within a UserProvider')
   }
-  return context;
+  return context
 } 

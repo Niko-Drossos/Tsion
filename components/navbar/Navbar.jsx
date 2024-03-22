@@ -64,12 +64,12 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter()
   
-  useEffect(() => {
+  /* useEffect(() => {
     const token = getCookie("tsion")
     if (!token) {
       router.push('/dashboard/login')
     }
-  }, [router])
+  }, [router]) */
 
   return (
     <nav className={styles.nav}>

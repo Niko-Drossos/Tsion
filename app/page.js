@@ -1,4 +1,6 @@
+"use client"
 import styles from './page.module.css'
+import HolidayTimers from '@/components/Timers/HolidayTimers'
 
 export default function Home() {
   return (
@@ -8,8 +10,7 @@ export default function Home() {
           Tsion
         </h1>
       </div>
-      <div className={styles.item}>
-      </div>
+      <HolidayTimers />
     </div>
 
   )
