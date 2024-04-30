@@ -65,5 +65,18 @@
   { "date": "Apr 23, 2024 15:19:00 GMT", "sign": "Scorpio" },
   { "date": "Apr 26, 2024 01:37:00 GMT", "sign": "Sagittarius" },
   { "date": "Apr 28, 2024 09:37:00 GMT", "sign": "Capricorn" },
-  { "date": "Apr 30, 2024 15:19:00 GMT", "sign": "Aquarius" }
+  { "date": "Apr 30, 2024 15:19:00 GMT-0700", "sign": "Aquarius" },
+  { "date": "May 2, 2024 18:51:00 GMT-0700", "sign": "Pisces" },
+  { "date": "May 4, 2024 20:40:00 GMT-0700", "sign": "Aries" },
+  { "date": "May 6, 2024 21:42:00 GMT-0700", "sign": "Taurus" },
+  { "date": "May 8, 2024 23:20:00 GMT-0700", "sign": "Gemini" },
+  { "date": "May 11, 2024 03:13:00 GMT-0700", "sign": "Cancer" },
+  { "date": "May 13, 2024 10:36:00 GMT-0700", "sign": "Leo" },
+  { "date": "May 15, 2024 21:32:00 GMT-0700", "sign": "Virgo" },
+  { "date": "May 18, 2024 10:22:00 GMT-0700", "sign": "Libra" },
+  { "date": "May 20, 2024 22:34:00 GMT-0700", "sign": "Scorpio" },
+  { "date": "May 23, 2024 08:24:00 GMT-0700", "sign": "Sagittarius" },
+  { "date": "May 25, 2024 15:35:00 GMT-0700", "sign": "Capricorn" },
+  { "date": "May 27, 2024 20:44:00 GMT-0700", "sign": "Aquarius" },
+  { "date": "May 30, 2024 00:32:00 GMT-0700", "sign": "Pisces" }
 ]
