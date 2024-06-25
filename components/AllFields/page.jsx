@@ -55,6 +55,7 @@ export default function AllFields({ params }) {
   const [angelOfDay, setAngelOfDay] = useState(null)
   const [dayDifference, setDayDifference] = useState(calculateDifference(currentDate, lastEquinox))
   const [hebrewDate, setHebrewDate] = useState(new HDate())
+  const [coordinates, setCoordinates] = useState(null)
 
   useEffect(() => {
     const newEquinox = pickEquinox(currentDate)
@@ -66,7 +67,7 @@ export default function AllFields({ params }) {
 
     async function fetchData() {
       try {
-        const response = await fetch(`https://api.sunrisesunset.io/json?lat=33.359710&lng=-112.036873&date=${currentDate.toLocaleString()}`);
+        const response = await fetch(`https://api.sunrisesunset.io/json?lat=${coordinates?.lat || 0}&lng=${coordinates?.lng || 0}&date=${currentDate.toLocaleString()}`);
         
         // Check if the response status is ok
         if (!response.ok) {
@@ -92,7 +93,7 @@ export default function AllFields({ params }) {
     }
 
     fetchData();
-  }, [currentDate])
+  }, [currentDate, coordinates]);
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -107,6 +108,28 @@ export default function AllFields({ params }) {
   /* -------------------------------------------------------------------------- */
   /*                               FUNCTIONS START                              */
   /* -------------------------------------------------------------------------- */
+
+  function setLocation() {
+    const successCallback = (position) => {
+      setCoordinates(() => ({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }))
+    }
+
+    const errorCallback = (error) => {
+      console.log(error)
+      alert("Error getting location")
+    }
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
+  }
 
   function calculateDifference(currentDate, lastEquinox) {
     // Calculate the difference in days
@@ -193,6 +216,9 @@ export default function AllFields({ params }) {
       { "Golden Hour": sunTimes?.results.golden_hour ?? "N/A" },
       { "Solar Noon": sunTimes?.results.solar_noon ?? "N/A" },
       { "Day Length": sunTimes?.results.day_length ?? "N/A" },
+      { "": "" },
+      { "Timezone": sunTimes?.results.timezone ?? "N/A" },
+      { "Use location": <button onClick={() => setLocation()}>Click</button> }
     ]
   }
   
