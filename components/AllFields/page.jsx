@@ -18,7 +18,7 @@ import moonSigns from "@/data/moonSign.json"
 
 /* --------------------------- Add dates manually --------------------------- */
 
-const desiredTimeZone = 'America/Phoenix'
+// const desiredTimeZone = 'America/Phoenix'
 
 const equinoxDates = [
   { year: 2030, month: 3, day: 20 },
@@ -31,7 +31,7 @@ const equinoxDates = [
   { year: 2023, month: 3, day: 20 },
 ]
 
-function pickEquinox(currentDate) { 
+function pickEquinox(currentDate, desiredTimeZone) { 
   const foundDate = equinoxDates.find(date => {
     const equinoxDate = DateTime.fromObject(date).setZone(desiredTimeZone);
     return currentDate > equinoxDate
@@ -49,19 +49,22 @@ const familySigns = [
 ]
 
 export default function AllFields({ params }) {
-  const { currentDate } = params
+  const { currentDate, coordinates, setCoordinates, desiredTimeZone } = params
   const [sunTimes, setSunTimes] = useState(null)
-  const [lastEquinox, setLastEquinox] = useState(pickEquinox(currentDate))
+  const [lastEquinox, setLastEquinox] = useState(pickEquinox(currentDate, desiredTimeZone))
   const [angelOfDay, setAngelOfDay] = useState(null)
   const [dayDifference, setDayDifference] = useState(calculateDifference(currentDate, lastEquinox))
   const [hebrewDate, setHebrewDate] = useState(new HDate())
-  const [coordinates, setCoordinates] = useState(null)
 
   useEffect(() => {
-    const newEquinox = pickEquinox(currentDate)
+    setLocation()
+  }, [])
+
+  useEffect(() => {
+    const newEquinox = pickEquinox(currentDate, desiredTimeZone)
     const newDifference = calculateDifference(currentDate, newEquinox)
 
-    setLastEquinox(() => pickEquinox(currentDate))
+    setLastEquinox(() => pickEquinox(currentDate, desiredTimeZone))
     setDayDifference(newDifference)
     setAngelOfDay(() => getAngel(newDifference))
 
@@ -119,7 +122,7 @@ export default function AllFields({ params }) {
 
     const errorCallback = (error) => {
       console.log(error)
-      alert("Error getting location")
+      alert(`Error getting location: ${error.message}`)
     }
 
     const options = {
@@ -386,7 +389,7 @@ export default function AllFields({ params }) {
       
       {/* Time data block */}
       { // Sometimes sunTimes is null :/
-        sunTimes && 
+        sunTimes && coordinates.lat && coordinates.lng &&
         <Fieldset params={timeData}/>
       }
       

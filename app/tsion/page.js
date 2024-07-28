@@ -11,7 +11,19 @@ import styles from "./page.module.css";
 import moonSigns from '@/data/moonSign.json'
 
 export default function Tsion() {
-  const desiredTimeZone = 'America/Phoenix'
+  const [coordinates, setCoordinates] = useState(null)
+  const [desiredTimeZone, setDesiredTimeZone] = useState('America/Phoenix')
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude
+      const lng = position.coords.longitude
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      setDesiredTimeZone(timeZone)
+      setCoordinates({ lat, lng })
+    })
+  }, [])
+
   const [currentDate, setCurrentDate] = useState(DateTime.now().setZone(desiredTimeZone))
   const [startFlatpickrInstance, setStartFlatpickrInstance] = useState(null)
   const [showDatePicker, setShowDatePicker] = useState(false)
@@ -30,7 +42,7 @@ export default function Tsion() {
     minDate: formatDate(earliestDate),
     maxDate: formatDate(latestDate),
     dateFormat: 'm-d-Y',
-    timeZone: 'America/Phoenix'
+    timeZone: desiredTimeZone
   }
 
   const toggleDate = () => {
@@ -73,7 +85,10 @@ export default function Tsion() {
         className={styles.datePicker}
       />
       <h2>{currentDate.toISODate()}</h2>
-      <AllFields params={{currentDate, setCurrentDate}} />
+      { 
+        desiredTimeZone && coordinates &&
+        <AllFields params={{currentDate, setCurrentDate, coordinates, setCoordinates, desiredTimeZone}} />
+      }
     </main>
   )
 }
