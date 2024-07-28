@@ -105,5 +105,19 @@
   { "date": "July 23, 2024 13:23:00 GMT-0700", "sign": "Pisces" },
   { "date": "July 25, 2024 14:52:00 GMT-0700", "sign": "Aries" },
   { "date": "July 27, 2024 17:22:00 GMT-0700", "sign": "Taurus" },
-  { "date": "July 29, 2024 21:27:00 GMT-0700", "sign": "Gemini" }
+  { "date": "July 29, 2024 21:27:00 GMT-0700", "sign": "Gemini" },
+  { "date": "Aug 1, 2024 03:19:00 GMT-0700", "sign": "Cancer" },
+  { "date": "Aug 3, 2024 11:09:00 GMT-0700", "sign": "Leo" },
+  { "date": "Aug 5, 2024 21:16:00 GMT-0700", "sign": "Virgo" },
+  { "date": "Aug 8, 2024 09:31:00 GMT-0700", "sign": "Libra" },
+  { "date": "Aug 10, 2024 22:33:00 GMT-0700", "sign": "Scorpio" },
+  { "date": "Aug 13, 2024 10:00:00 GMT-0700", "sign": "Sagittarius" },
+  { "date": "Aug 15, 2024 17:51:00 GMT-0700", "sign": "Capricorn" },
+  { "date": "Aug 17, 2024 21:44:00 GMT-0700", "sign": "Aquarius" },
+  { "date": "Aug 19, 2024 22:51:00 GMT-0700", "sign": "Pisces" },
+  { "date": "Aug 21, 2024 23:01:00 GMT-0700", "sign": "Aries" },
+  { "date": "Aug 24, 2024 00:00:00 GMT-0700", "sign": "Taurus" },
+  { "date": "Aug 26, 2024 03:04:00 GMT-0700", "sign": "Gemini" },
+  { "date": "Aug 28, 2024 08:47:00 GMT-0700", "sign": "Cancer" },
+  { "date": "Aug 30, 2024 17:09:00 GMT-0700", "sign": "Leo" }
 ]
