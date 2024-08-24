@@ -9,6 +9,7 @@ import 'flatpickr/dist/themes/dark.css'
 import styles from "./page.module.css";
 
 import moonSigns from '@/data/moonSign.json'
+import timezones from '@/data/timezones.json'
 
 export default function Tsion() {
   const [coordinates, setCoordinates] = useState(null)
@@ -21,6 +22,8 @@ export default function Tsion() {
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       setDesiredTimeZone(timeZone)
       setCoordinates({ lat, lng })
+    }, (error) => {
+      console.error(error)
     })
   }, [])
 
@@ -86,8 +89,31 @@ export default function Tsion() {
       />
       <h2>{currentDate.toISODate()}</h2>
       { 
-        desiredTimeZone && coordinates &&
+        desiredTimeZone && coordinates /* &&false  *///! Just for testing 
+        ?
         <AllFields params={{currentDate, setCurrentDate, coordinates, setCoordinates, desiredTimeZone}} />
+        :
+        <div>
+          <h3>Please enable location</h3>
+          <h4>or set your time zone:</h4>
+          <div>
+            <select id="timezoneSelect">
+              {
+                Object.keys(timezones).map((key) => {
+                  return <option key={key} value={timezones[key].timezone} id={key}>{timezones[key].timezone}</option>
+                })
+              }
+            </select>
+            <button onClick={() => {
+              const timezone = document.getElementById('timezoneSelect')
+              const key = timezone.options[timezone.selectedIndex].id
+              setDesiredTimeZone(timezone.value)
+              setCoordinates(timezones[key].coordinates)
+            }}>
+              Choose timezone
+            </button>
+          </div>
+        </div>
       }
     </main>
   )
