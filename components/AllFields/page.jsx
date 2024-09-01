@@ -18,8 +18,6 @@ import moonSigns from "@/data/moonSign.json"
 
 /* --------------------------- Add dates manually --------------------------- */
 
-// const desiredTimeZone = 'America/Phoenix'
-
 const equinoxDates = [
   { year: 2030, month: 3, day: 20 },
   { year: 2029, month: 3, day: 20 },
