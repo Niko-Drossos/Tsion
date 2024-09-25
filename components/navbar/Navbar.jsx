@@ -17,16 +17,16 @@ const links = [
     url: "/",
     link: "/",
   },
-  {
+  /* {
     name: "About",
     url: "/about",
     link: "/about"
-  },
-  {
+  }, */
+  /* {
     name: "Calender",
     url: "/calender",
     link: "/calender",
-  },
+  }, */
   {
     name: "Blog",
     url: "/blog",
@@ -42,16 +42,16 @@ const links = [
     url: "/channels",
     link: "/channels",
   },
-  {
+  /* {
     name: "Timers",
     url: "/timers",
     link: "/timers",
-  },
-  {
+  }, */
+  /* {
     name: "",
     url: "",
     link: "",
-  },
+  }, */
   {
     name: "Tsion",
     url: "/tsion",
