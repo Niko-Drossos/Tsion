@@ -5,9 +5,9 @@ export async function POST(request) {
   const requestBody = await request.json()
 
   try {
-    const { info, start, end, images } = requestBody
+    const { info, start, end } = requestBody
     const createEvent = await Holiday.create({  
-      info, start, end, images
+      info, start, end
     })
     
     return NextResponse.json({

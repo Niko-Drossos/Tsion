@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getUserWithID } from "@/utils/routeMethods";
 import Post from '@/models/blog/Post'
 import Comment from '@/models/blog/Comment'
-import cloudinaryConfig from "@/config/cloudinary"
 
 export async function POST(request, context) {
   const { postID } = context.params
@@ -34,15 +33,7 @@ export async function POST(request, context) {
       Post.findByIdAndDelete(postID),
       Comment.deleteMany({ postID: postID })
     ]
-    
-    if (post.imageUrl) {
-      const publicId = post.imageUrl.split('/').pop().split('.')[0]
-      await cloudinary.v2.api.delete_resources(
-        [`BlogImages/${publicId}`], 
-        { type: 'upload', resource_type: 'image' }
-      )
-    }
-    
+
     await Promise.all(deletePromises)
 
     return NextResponse.json({

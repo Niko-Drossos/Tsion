@@ -1,19 +1,12 @@
 import Post from "@/models/blog/Post"
 import { NextResponse } from "next/server"
 import filter from 'leo-profanity'
-import { uploadImages } from "@/utils/routeMethods"
 
 export async function POST(request) {
   let requestBody = await request.json()
   try {
     // Improve filtering later
-    const { user, images, content, title} = requestBody
-
-    let uploadedImages
-    if (requestBody.images[0]) {
-      uploadedImages = await uploadImages(images)
-    }
-
+    const { user, content, title} = requestBody
 
     requestBody.content = filter.clean(content);
     requestBody.title = filter.clean(title);
@@ -22,7 +15,6 @@ export async function POST(request) {
       user,
       title: title,
       content: content,
-      images: uploadedImages
     });
     
     return NextResponse.json({

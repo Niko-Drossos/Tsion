@@ -4,12 +4,9 @@
 
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import cloudinaryConfig  from '@/connections/cloudinary'
 
 /* ----------------------------- MongoDB Schemas ---------------------------- */
 
-// import Festival from '../models/events/Festivals'
-// import User from '@/models/users/User'
 import User from '@/models/user/User'
 
 /* ------------------------------- Count votes ------------------------------ */
@@ -196,68 +193,6 @@ async function hash(input) {
   return hashedOutput
 }
 
-/* ----------------------- Upload Image to Cloudinary ----------------------- */
-
-async function uploadImages(images) {
-  const imageData = new FormData()
-  
-  images.forEach(image => {
-    imageData.append(`file`, image.file);
-  })
-
-  const imageUpload = await fetch(`/api/image/upload`, {
-      method: 'POST',
-      body: imageData,
-      duplex: true 
-  }); 
-
-  if (!imageUpload.ok) {
-    throw new Error(`Failed to upload images to Cloudinary: ${imageUpload.status} - ${imageUpload.statusText}`);
-  }
-
-  const imageResponse = await imageUpload.json();
-  console.log(imageResponse);
-  return imageResponse
-}
-
-/* --------------------- Delete an image from Cloudinary -------------------- */
-
-async function deleteImages(imageURL) {
-  try {
-
-      const parts = imageURL.split('/');
-      // Find the last part of the URL, which contains the filename
-      const filename = parts[parts.length - 1];
-      // Split the filename by ".", and get the part before ".jpg"
-      const publicId = filename.split('.')[0];
-
-      // const encryptKeys = btoa(`${cloudinaryConfig.cloud.api_key}:${cloudinaryConfig.cloud.api_secret}`);
-      const response = await fetch(
-          `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloud.cloud_name}/resources/image/destroy`,
-          {
-              method: 'POST',
-              headers: {
-                  'Authorization': `Basic ${cloudinaryConfig.cloud.api_key}:${cloudinaryConfig.cloud.api_secret}`,
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ public_ids: [publicId] })
-          }
-      );
-
-      if (response.ok) {
-          const data = await response.json();
-          console.log('Image deleted successfully:', data);
-          return data;
-      } else {
-          console.error('Failed to delete image');
-          throw new Error('Failed to delete image');
-      }
-  } catch (error) {
-      console.error('Error occurred while deleting image:', error);
-      throw error;
-  }
-}
-
 /* -------------------------------------------------------------------------- */
 
 // countVotes, 
@@ -269,8 +204,6 @@ export {
   hash, 
   generateRecoveryToken, 
   generateExpiryDate, 
-  deleteImages, 
-  uploadImages, 
   getIdWithName, 
   getUserWithID,
   generateJwtToken, 
