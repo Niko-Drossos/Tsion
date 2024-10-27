@@ -146,6 +146,18 @@
   { "date": "Oct 24, 2024 5:24 AM GMT-0700", "sign": "Leo" },
   { "date": "Oct 26, 2024 3:47 PM GMT-0700", "sign": "Virgo" },
   { "date": "Oct 29, 2024 4:29 AM GMT-0700", "sign": "Libra" },
-  { "date": "Oct 31, 2024 5:29 PM GMT-0700", "sign": "Scorpio" }
-  
+  { "date": "Oct 31, 2024 5:29 PM GMT-0700", "sign": "Scorpio" },
+  { "date": "Nov 3, 2024 5:19 AM GMT-0700", "sign": "Sagittarius" },
+  { "date": "Nov 5, 2024 3:17 PM GMT-0700", "sign": "Capricorn" },
+  { "date": "Nov 7, 2024 10:57 PM GMT-0700", "sign": "Aquarius" },
+  { "date": "Nov 10, 2024 4:00 AM GMT-0700", "sign": "Pisces" },
+  { "date": "Nov 12, 2024 6:25 AM GMT-0700", "sign": "Aries" },
+  { "date": "Nov 14, 2024 6:59 AM GMT-0700", "sign": "Taurus" },
+  { "date": "Nov 16, 2024 7:08 AM GMT-0700", "sign": "Gemini" },
+  { "date": "Nov 18, 2024 8:49 AM GMT-0700", "sign": "Cancer" },
+  { "date": "Nov 20, 2024 1:50 PM GMT-0700", "sign": "Leo" },
+  { "date": "Nov 22, 2024 11:01 PM GMT-0700", "sign": "Virgo" },
+  { "date": "Nov 25, 2024 11:19 AM GMT-0700", "sign": "Libra" },
+  { "date": "Nov 28, 2024 12:20 AM GMT-0700", "sign": "Scorpio" },
+  { "date": "Nov 30, 2024 11:52 AM GMT-0700", "sign": "Sagittarius" }
 ]
