@@ -32,7 +32,6 @@ export default function HolidayTimers() {
   return (
     <div className={styles.container}>
       <h1>Holiday Timers</h1>
-      <span className={styles.formatTitle}>Timer (Weeks - Days)</span>
       <table className={styles.table} border="1">
         <thead>
           <tr>
@@ -45,7 +44,7 @@ export default function HolidayTimers() {
           {timers.map(timer => (
             <tr className={styles.timer} key={timer.name}>
               <td><h3>{timer.name}</h3></td>
-              <td>{timer.weeks} - {timer.days}</td>
+              <td>{timer.weeks} weeks - {timer.days} days</td>
               <td>{new Date(timer.date).toLocaleDateString()}</td>
             </tr>
           ))}
