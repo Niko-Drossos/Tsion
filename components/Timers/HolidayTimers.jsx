@@ -3,11 +3,11 @@ import styles from './page.module.css'
 import { DateTime } from 'luxon'
 
 const holidayDates = [
-  { name: "Purim", date: "2024-03-24" },
-  { name: "Passover", date: "2024-04-22" },
-  { name: "Shavuot", date: "2024-06-13" },
-  { name: "Yom Teruah", date: "2024-10-04" },
-  { name: "Yom Kippur", date: "2024-11-04" },
+  { name: "Purim", date: "2025-03-14" },
+  { name: "Passover", date: "2025-04-12" },
+  { name: "Shavuot", date: "2025-06-01" },
+  { name: "Yom Teruah", date: "2025-09-21" },
+  { name: "Yom Kippur", date: "2025-10-01" },
 ]
 
 export default function HolidayTimers() {
