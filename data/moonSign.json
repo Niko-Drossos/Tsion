@@ -225,5 +225,19 @@
   { "date": "Apr 23, 2025 5:06 AM GMT-0700", "sign": "Pisces" },
   { "date": "Apr 25, 2025 7:24 AM GMT-0700", "sign": "Aries" },
   { "date": "Apr 27, 2025 7:16 AM GMT-0700", "sign": "Taurus" },
-  { "date": "Apr 29, 2025 6:34 AM GMT-0700", "sign": "Gemini" }
+  { "date": "Apr 29, 2025 6:34 AM GMT-0700", "sign": "Gemini" },
+  { "date": "May 1, 2025 7:22 AM GMT-0700", "sign": "Cancer" },
+  { "date": "May 3, 2025 11:29 AM GMT-0700", "sign": "Leo" },
+  { "date": "May 5, 2025 7:39 PM GMT-0700", "sign": "Virgo" },
+  { "date": "May 8, 2025 7:06 AM GMT-0700", "sign": "Libra" },
+  { "date": "May 10, 2025 7:58 PM GMT-0700", "sign": "Scorpio" },
+  { "date": "May 13, 2025 8:34 AM GMT-0700", "sign": "Sagittarius" },
+  { "date": "May 15, 2025 7:57 PM GMT-0700", "sign": "Capricorn" },
+  { "date": "May 18, 2025 5:29 AM GMT-0700", "sign": "Aquarius" },
+  { "date": "May 20, 2025 12:28 PM GMT-0700", "sign": "Pisces" },
+  { "date": "May 22, 2025 4:25 PM GMT-0700", "sign": "Aries" },
+  { "date": "May 24, 2025 5:38 PM GMT-0700", "sign": "Taurus" },
+  { "date": "May 26, 2025 5:21 PM GMT-0700", "sign": "Gemini" },
+  { "date": "May 28, 2025 5:32 PM GMT-0700", "sign": "Cancer" },
+  { "date": "May 30, 2025 8:16 PM GMT-0700", "sign": "Leo" }
 ]
