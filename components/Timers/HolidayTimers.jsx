@@ -32,6 +32,10 @@ export default function HolidayTimers() {
         const upcoming = data.items
           .filter(item => {
             if (!item.date || !item.title || item.category !== 'holiday') return false
+            
+            // Filter out "Erev" (eve of) holidays
+            if (item.title.startsWith('Erev ')) return false
+            
             const holidayDate = DateTime.fromISO(item.date)
             return holidayDate.isValid && holidayDate > now
           })
@@ -45,8 +49,15 @@ export default function HolidayTimers() {
             const diff = holidayDate.diff(now)
             const { weeks, days, hours } = diff.shiftTo('weeks', 'days', 'hours').toObject()
             
+            // Custom name mapping
+            let displayName = item.title
+            if (item.title.includes('Rosh Hashana')) {
+              displayName = item.title.replace(/Rosh Hashana/g, 'Yom Teruah')
+            }
+            
             return {
-              name: item.title,
+              name: displayName,
+              originalName: item.title, // Keep original for API links
               date: item.date,
               weeks: Math.floor(weeks || 0),
               days: Math.floor(days || 0),
