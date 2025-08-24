@@ -1,35 +1,671 @@
 .container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: fit-content;
-  width: 100vw;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.formatTitle {
-  margin: 10px 0px;
+.container h1 {
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.holidayCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 3rem;
+}
+
+.holidayCard h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.countdown {
   display: flex;
   justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-.timer {
-  border-bottom: 2px solid var(--text-color);
-  justify-content: space-between;
-  padding: 7px;
-  width: 100%;
-}
-
-.timer > p {
+.timeUnit {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  min-width: 100px;
+}
+
+.number {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1;
+}
+
+.label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+.date {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Holidays Table Styles */
+.holidaysTable {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.holidaysTable h3 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.tableContainer {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e1e5e9;
 }
 
 .table {
-  width: 95%
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  min-width: 600px; /* Ensure table doesn't get too cramped */
+}
+
+.table th {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #495057;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .table td {
-  box-sizing: border-box;
-  padding: 8px;
-  text-align: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s;
+}
+
+.nextHoliday {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  border-left: 4px solid #2196f3;
+}
+
+.holidayName {
+  font-weight: 500;
+  color: #333;
+  position: relative;
+}
+
+.holidayLink {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  display: inline-block;
+  padding: 0.25rem 0;
+  border-radius: 4px;
+}
+
+.holidayLink:hover {
+  color: #667eea;
+  transform: translateY(-1px);
+  text-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.holidayLink:active {
+  transform: translateY(0);
+}
+
+.holidayLink strong {
+  position: relative;
+}
+
+.holidayLink:hover strong::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1px;
+  animation: linkUnderline 0.3s ease;
+}
+
+@keyframes linkUnderline {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.nextBadge {
+  background: #2196f3;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.holidayDate {
+  color: #666;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.timeUntil {
+  color: #495057;
+  font-weight: 500;
+  font-family: 'Courier New', monospace;
+}
+
+.countdownBar {
+  width: 120px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.hebrewName {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+  font-family: 'Arial', sans-serif;
+  direction: rtl;
+}
+
+.holidayMemo {
+  max-width: 200px;
+}
+
+.memoText {
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.3;
+  cursor: help;
+}
+
+.memoText:hover {
+  color: #333;
+}
+
+/* Keep existing styles for backward compatibility */
+.timer {
+  padding: 1rem;
+}
+
+.timer h3 {
+  margin: 0;
+  color: #333;
+}
+
+.retryButton {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background: #5a6fd8;
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .holidayCard {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .holidaysTable {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .holidayCard {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .holidayCard h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .countdown {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .timeUnit {
+    min-width: 70px;
+  }
+  
+  .number {
+    font-size: 2.2rem;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+  }
+  
+  .date {
+    font-size: 1rem;
+  }
+  
+  .holidaysTable {
+    padding: 1rem;
+  }
+  
+  .holidaysTable h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .countdownBar {
+    width: 80px;
+  }
+  
+  .nextBadge {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+  }
+  
+  .hebrewName {
+    font-size: 0.7rem;
+  }
+  
+  .memoText {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0.75rem;
+  }
+  
+  .container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .holidayCard {
+    padding: 1.5rem 0.75rem;
+    border-radius: 15px;
+  }
+  
+  .holidayCard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .countdown {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .timeUnit {
+    min-width: 60px;
+  }
+  
+  .number {
+    font-size: 1.8rem;
+  }
+  
+  .label {
+    font-size: 0.7rem;
+  }
+  
+  .date {
+    font-size: 0.9rem;
+  }
+  
+  .holidaysTable {
+    padding: 0.75rem;
+    border-radius: 15px;
+  }
+  
+  .holidaysTable h3 {
+    font-size: 1.3rem;
+  }
+  
+  .table {
+    min-width: 500px;
+    font-size: 0.75rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  .countdownBar {
+    width: 60px;
+  }
+  
+  .progressBar {
+    height: 6px;
+  }
+  
+  .nextBadge {
+    display: block;
+    margin: 0.25rem 0 0 0;
+    width: fit-content;
+    font-size: 0.5rem;
+    padding: 0.1rem 0.3rem;
+  }
+  
+  .hebrewName {
+    font-size: 0.6rem;
+    margin-top: 0.15rem;
+  }
+  
+  .memoText {
+    font-size: 0.65rem;
+  }
+  
+  .holidayMemo {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .container h1 {
+    font-size: 1.6rem;
+  }
+  
+  .holidayCard {
+    padding: 1.25rem 0.5rem;
+    border-radius: 12px;
+  }
+  
+  .holidayCard h2 {
+    font-size: 1.3rem;
+  }
+  
+  .countdown {
+    gap: 0.5rem;
+  }
+  
+  .timeUnit {
+    min-width: 50px;
+  }
+  
+  .number {
+    font-size: 1.5rem;
+  }
+  
+  .label {
+    font-size: 0.6rem;
+  }
+  
+  .holidaysTable {
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+  
+  .holidaysTable h3 {
+    font-size: 1.2rem;
+  }
+  
+  .table {
+    min-width: 450px;
+    font-size: 0.7rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.7rem;
+  }
+  
+  .countdownBar {
+    width: 50px;
+  }
+  
+  .progressBar {
+    height: 5px;
+  }
+  
+  .nextBadge {
+    font-size: 0.45rem;
+    padding: 0.08rem 0.25rem;
+  }
+  
+  .hebrewName {
+    font-size: 0.55rem;
+  }
+  
+  .memoText {
+    font-size: 0.6rem;
+  }
+  
+  .holidayMemo {
+    max-width: 120px;
+  }
+}
+
+/* Hide countdown timer and progress bar on mobile */
+@media (max-width: 600px) {
+  /* Keep the main countdown visible for the next holiday */
+  .holidayCard .countdown {
+    display: flex !important;
+  }
+  
+  /* Hide countdown in the table only */
+  .table .countdownBar {
+    display: none !important;
+  }
+  
+  /* Adjust table headers for mobile */
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    display: none;
+  }
+  
+  /* Adjust table headers for mobile */
+  .table th:nth-child(3),
+  .table td:nth-child(3) {
+    display: none;
+  }
+  
+  /* Make the table more compact on mobile */
+  .table {
+    min-width: 300px;
+  }
+  
+  .holidayCard {
+    padding: 1rem 0.75rem;
+  }
+  
+  .holidayCard h2 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Even more compact for very small screens */
+@media (max-width: 400px) {
+  .container {
+    padding: 0.3rem;
+  }
+  
+  .holidayCard {
+    padding: 0.75rem 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .holidayCard h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .holidaysTable {
+    padding: 0.4rem;
+    border-radius: 8px;
+  }
+  
+  .holidaysTable h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .table {
+    min-width: 250px;
+    font-size: 0.6rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.3rem 0.15rem;
+    font-size: 0.6rem;
+  }
+  
+  .nextBadge {
+    font-size: 0.4rem;
+    padding: 0.05rem 0.2rem;
+  }
+  
+  .hebrewName {
+    font-size: 0.45rem;
+  }
+  
+  .memoText {
+    font-size: 0.5rem;
+  }
+  
+  .holidayMemo {
+    max-width: 80px;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .container {
+    padding: 1rem 2rem;
+  }
+  
+  .holidayCard {
+    padding: 1.5rem 2rem;
+  }
+  
+  .countdown {
+    gap: 1.5rem;
+  }
+  
+  .timeUnit {
+    min-width: 80px;
+  }
+  
+  .number {
+    font-size: 2.5rem;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .holidayCard {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .holidaysTable {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Print styles */
+@media print {
+  .holidayCard {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: 2px solid #333;
+  }
+  
+  .holidaysTable {
+    box-shadow: none !important;
+    border: 1px solid #333;
+  }
+  
+  .nextBadge {
+    background: #333 !important;
+    color: white !important;
+  }
 }
