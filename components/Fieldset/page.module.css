@@ -2,9 +2,13 @@
 .fieldset {
   display: grid;
   border-radius: 10px;
-  width: 333px;
-  height: fit-content;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
   padding: 10px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #111111;
 }
 
 .legendText {

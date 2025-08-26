@@ -12,7 +12,7 @@ export default function HolidayTimers() {
     const fetchHolidays = async () => {
       try {
         setLoading(true)
-        const now = DateTime.local()
+      const now = DateTime.local()
         const year = now.year
         
         // Fetch holidays for current year from Hebcal API
@@ -46,7 +46,7 @@ export default function HolidayTimers() {
           })
           .map(item => {
             const holidayDate = DateTime.fromISO(item.date)
-            const diff = holidayDate.diff(now)
+        const diff = holidayDate.diff(now)
             const { weeks, days, hours } = diff.shiftTo('weeks', 'days', 'hours').toObject()
             
             // Custom name mapping
@@ -158,16 +158,16 @@ export default function HolidayTimers() {
         <h3>Upcoming Holidays</h3>
         <div className={styles.tableContainer}>
           <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Holiday</th>
-                <th>Date</th>
+        <thead>
+          <tr>
+            <th>Holiday</th>
+            <th>Date</th>
                 <th>Time Until</th>
                 <th>Countdown</th>
                 <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
+          </tr>
+        </thead>
+        <tbody>
               {upcomingHolidays.map((holiday, index) => (
                 <tr key={holiday.date} className={index === 0 ? styles.nextHoliday : ''}>
                   <td className={styles.holidayName}>
@@ -218,10 +218,10 @@ export default function HolidayTimers() {
                       </span>
                     </td>
                   )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
         </div>
       </div>
     </div>

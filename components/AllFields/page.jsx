@@ -8,6 +8,7 @@ import Image from "next/image"
 
 import angelData from "@/data/angels.json"
 import bulkData from "@/data/data.json"
+import timezones from "@/data/timezones.json"
 
 import ImageField from "../ImageField/page"
 import Fieldset from "../Fieldset/page";
@@ -29,12 +30,12 @@ const equinoxDates = [
   { year: 2023, month: 3, day: 20 },
 ]
 
-function pickEquinox(currentDate, desiredTimeZone) { 
+function pickEquinox(currentDate, tz) { 
   const foundDate = equinoxDates.find(date => {
-    const equinoxDate = DateTime.fromObject(date).setZone(desiredTimeZone);
+    const equinoxDate = DateTime.fromObject(date).setZone(tz);
     return currentDate > equinoxDate
   });
-  return DateTime.fromObject(foundDate).setZone(desiredTimeZone);
+  return DateTime.fromObject(foundDate).setZone(tz);
 }
 
 /* ------------------------- For each Spring equinox ------------------------ */
@@ -49,52 +50,69 @@ const familySigns = [
 export default function AllFields({ params }) {
   const { currentDate, coordinates, setCoordinates, desiredTimeZone } = params
   const [sunTimes, setSunTimes] = useState(null)
-  const [lastEquinox, setLastEquinox] = useState(pickEquinox(currentDate, desiredTimeZone))
+  const [effectiveTimeZone, setEffectiveTimeZone] = useState(null)
+  const [lastEquinox, setLastEquinox] = useState(null)
   const [angelOfDay, setAngelOfDay] = useState(null)
-  const [dayDifference, setDayDifference] = useState(calculateDifference(currentDate, lastEquinox))
+  const [dayDifference, setDayDifference] = useState(null)
   const [hebrewDate, setHebrewDate] = useState(new HDate())
+  const [locationFailed, setLocationFailed] = useState(false)
+  const [isLocating, setIsLocating] = useState(false)
+  const [isFetchingSun, setIsFetchingSun] = useState(false)
+
+  // keep local timezone in sync if parent changes (only if not yet set locally)
+  useEffect(() => {
+    if (!effectiveTimeZone && desiredTimeZone) {
+      setEffectiveTimeZone(desiredTimeZone)
+    }
+  }, [desiredTimeZone, effectiveTimeZone])
 
   useEffect(() => {
     setLocation()
   }, [])
 
   useEffect(() => {
-    const newEquinox = pickEquinox(currentDate, desiredTimeZone)
+    // Do nothing until we have a user timezone
+    if (!effectiveTimeZone) return
+
+    const newEquinox = pickEquinox(currentDate, effectiveTimeZone)
     const newDifference = calculateDifference(currentDate, newEquinox)
 
-    setLastEquinox(() => pickEquinox(currentDate, desiredTimeZone))
+    setLastEquinox(() => pickEquinox(currentDate, effectiveTimeZone))
     setDayDifference(newDifference)
     setAngelOfDay(() => getAngel(newDifference))
 
+    // Only fetch when we have real coords
+    if (!coordinates?.lat || !coordinates?.lng) return
+
     async function fetchData() {
+      setIsFetchingSun(true)
       try {
-        const response = await fetch(`https://api.sunrisesunset.io/json?lat=${coordinates?.lat || 0}&lng=${coordinates?.lng || 0}&date=${currentDate.toLocaleString()}`);
+        const response = await fetch(`https://api.sunrisesunset.io/json?lat=${coordinates.lat}&lng=${coordinates.lng}&date=${currentDate.toLocaleString('en-US', { timeZone: effectiveTimeZone })}`);
         
-        // Check if the response status is ok
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-
-        // Check if the response contains valid JSON data
         if (!data) {
           throw new Error('Invalid JSON data in the response');
         }
 
         setSunTimes(data);
         setHebrewDate(() => {
-          return new HDate(new Date(currentDate.toLocaleString()))
+          const zoned = DateTime.fromISO(currentDate.toISO(), { zone: effectiveTimeZone }).toJSDate()
+          return new HDate(zoned)
         })
 
       } catch (error) {
         console.error(error);
-        // Handle errors, e.g., setSunTimes to a default value or show an error message
+      } finally {
+        setIsFetchingSun(false)
       }
     }
 
     fetchData();
-  }, [currentDate, coordinates]);
+  }, [currentDate, coordinates, effectiveTimeZone])
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -111,16 +129,21 @@ export default function AllFields({ params }) {
   /* -------------------------------------------------------------------------- */
 
   function setLocation() {
+    setIsLocating(true)
+    setLocationFailed(false)
     const successCallback = (position) => {
       setCoordinates(() => ({
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }))
+      setLocationFailed(false)
+      setIsLocating(false)
     }
 
     const errorCallback = (error) => {
       console.log(error)
-      alert(`Error getting location: ${error.message}`)
+      setLocationFailed(true)
+      setIsLocating(false)
     }
 
     const options = {
@@ -152,42 +175,42 @@ export default function AllFields({ params }) {
   function getMoonSigns(currentDate) {
     // Sort moonSigns array based on date in ascending order
     moonSigns.sort((a, b) => new Date(a.date) - new Date(b.date));
-    let nextMoonSign, currentSign = null;
-  
+    let nextMoonSign = null, currentSign = null;
+
     // Find the next and after-the-next signs
     for (let i = 0; i < moonSigns.length; i++) {
       const phase = moonSigns[i];
       const phaseDate = new Date(phase.date);
-  
+
       if (phaseDate > currentDate) {
-        /* const tempDate = new Date(phaseDate.date) */
-        nextMoonSign = { date: phaseDate.toLocaleString("en-us",  { timeZone: 'MST' }), sign: phase.sign };
+        const tz = effectiveTimeZone || 'UTC';
+        nextMoonSign = { date: phaseDate.toLocaleString('en-us', { timeZone: tz }), sign: phase.sign };
         // Get the second-to-last moon sign without using an index
         const lastSignIndex = i - 1;
         if (lastSignIndex >= 0) {
           const currentMoonSign = moonSigns[lastSignIndex];
           const tempDate = new Date(currentMoonSign.date);
-          currentSign = { date: tempDate.toLocaleString("en-us", { timeZone: 'MST' }), sign: currentMoonSign.sign };
+          currentSign = { date: tempDate.toLocaleString('en-us', { timeZone: tz }), sign: currentMoonSign.sign };
         }
         break;
       }
     }
 
-    let familyMember = { name: "Nobody" }
-    const matchingPerson = familySigns.find(person => person.sign === currentSign.sign);
+    let familyMember = { name: 'Nobody' }
+    const matchingPerson = currentSign && familySigns.find(person => person.sign === currentSign.sign);
     if (matchingPerson) familyMember = matchingPerson
 
-    let nextFamilyMember = { name: "Nobody" }
-    const nextMatchingPerson = familySigns.find(person => person.sign === nextMoonSign.sign);
+    let nextFamilyMember = { name: 'Nobody' }
+    const nextMatchingPerson = nextMoonSign && familySigns.find(person => person.sign === nextMoonSign.sign);
     if (nextMatchingPerson) nextFamilyMember = nextMatchingPerson
 
     // If currentDate is beyond the last known moon phase, return an appropriate message
     if (!nextMoonSign) return { currentSign, nextMoonSign: 'No upcoming moon phase found', familyMember: familyMember.name }
 
-    return { 
-      currentSign, 
-      nextMoonSign, 
-      familyMember: familyMember.name, 
+    return {
+      currentSign,
+      nextMoonSign,
+      familyMember: familyMember.name,
       nextFamilyMember: nextFamilyMember.name
     };
   }
@@ -209,8 +232,8 @@ export default function AllFields({ params }) {
   const timeData = {
     legend: { style: "time", title: "Time"},
     keys: [
-      { "Day": dayDifference},
-      { "Day Of The Week": currentDate.toLocaleString({ weekday: "long" })},
+      { "Day": dayDifference ?? "—"},
+      { "Day Of The Week": effectiveTimeZone ? currentDate.toLocaleString({ weekday: "long" }) : "—"},
       { "First Light": sunTimes?.results.first_light ?? "N/A" },
       { "Sunrise": sunTimes?.results.sunrise ?? "N/A" },
       { "Sunset": sunTimes?.results.sunset ?? "N/A" },
@@ -218,8 +241,7 @@ export default function AllFields({ params }) {
       { "Solar Noon": sunTimes?.results.solar_noon ?? "N/A" },
       { "Day Length": sunTimes?.results.day_length ?? "N/A" },
       { "": "" },
-      { "Timezone": sunTimes?.results.timezone ?? "N/A" },
-      { "Use location": <button onClick={() => setLocation()}>Click</button> }
+      { "Timezone": effectiveTimeZone ?? sunTimes?.results.timezone ?? "N/A" },
     ]
   }
   
@@ -276,7 +298,7 @@ export default function AllFields({ params }) {
       alt={moonSign}
       height={20}
       width={20}
-      style={{ verticalAlign: 'middle' }} 
+      style={{ verticalAlign: 'middle', filter: 'brightness(0) saturate(100%)' }} 
       />
       </span>},
       { "At": moonDate 
@@ -288,7 +310,7 @@ export default function AllFields({ params }) {
         alt={nextSign} 
         height={20}
         width={20}
-        style={{ verticalAlign: 'middle' }} 
+        style={{ verticalAlign: 'middle', filter: 'brightness(0) saturate(100%)' }} 
         />
         </span> },
       { "At": nextDate },
@@ -385,36 +407,131 @@ export default function AllFields({ params }) {
         onChange={handleSearch}
       /> */}
       
-      {/* Time data block */}
-      { // Sometimes sunTimes is null :/
-        sunTimes && coordinates.lat && coordinates.lng &&
-        <Fieldset params={timeData}/>
-      }
-      
-
-      {/* Hebrew Day */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(333px, 1fr))', gap: '16px', alignItems: 'stretch' }}>
+        {/* Time data block - skeleton until sunTimes is available */}
+        {sunTimes && effectiveTimeZone && coordinates?.lat && coordinates?.lng ? (
+          <Fieldset params={timeData}/>
+        ) : (
+          <div style={{
+            background: '#ffffff',
+            color: '#111111',
+            borderRadius: 10,
+            padding: 10,
+            boxSizing: 'border-box',
+            width: '100%',
+            height: '100%',
+            display: 'grid',
+            gridAutoRows: 'min-content',
+            gap: 8
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <div style={{ height: 27, width: '40%', background: '#eee', borderRadius: 6 }} />
+              {/* Inline SVG spinner */}
+              {(!locationFailed && (isLocating || isFetchingSun)) && (
+                <svg width="20" height="20" viewBox="0 0 50 50" aria-label="Loading">
+                  <circle cx="25" cy="25" r="20" fill="none" stroke="#e5e7eb" strokeWidth="6"/>
+                  <circle cx="25" cy="25" r="20" fill="none" stroke="#667eea" strokeWidth="6" strokeLinecap="round" strokeDasharray="31.4 125.6">
+                    <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite" />
+                  </circle>
+                </svg>
+              )}
+            </div>
+            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '85%' }} />
+            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '70%' }} />
+            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '60%' }} />
+            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '75%' }} />
+            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '50%' }} />
+            <div style={{ display: 'grid', gap: 8, alignItems: 'center', marginTop: 10 }}>
+              {(locationFailed && !isLocating) && (
+                <button
+                  onClick={() => setLocation()}
+                  style={{
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    cursor: 'pointer',
+                    fontSize: 14
+                  }}
+                >
+                  Enable Location
+                </button>
+              )}
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <select
+                  onChange={(e) => {
+                    const key = e.target.options[e.target.selectedIndex].id
+                    if (key && timezones[key]) {
+                      setEffectiveTimeZone(timezones[key].timezone)
+                      setCoordinates(timezones[key].coordinates)
+                    }
+                  }}
+                  style={{ padding: '8px', borderRadius: 8, border: '1px solid #e1e5e9' }}
+                >
+                  <option value="">Select a timezone…</option>
+                  {Object.keys(timezones).map((key) => (
+                    <option key={key} id={key} value={timezones[key].timezone}>
+                      {timezones[key].timezone}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <span style={{ fontSize: 12, color: '#555' }}>
+                  Location is required. Allow location or choose a timezone to load sun times.
+                </span>
+                <button
+                  onClick={() => {
+                    alert(
+`How to enable location permissions:\n\n` +
+`Chrome: Click the lock icon → Site settings → Location → Allow, then refresh.\n\n` +
+`Firefox: Click the shield icon → Permissions → Location → Allow, then refresh.\n\n` +
+`Safari (macOS): Safari → Settings → Websites → Location → Allow.\n\n` +
+`Edge: Click the lock icon → Permissions for this site → Location → Allow, then refresh.`
+                    )
+                  }}
+                  style={{
+                    background: '#e2e8f0',
+                    color: '#111',
+                    border: '1px solid #cbd5e1',
+                    padding: '6px 10px',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    fontSize: 12
+                  }}
+                >
+                  How to enable
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Hebrew Day - loads immediately */}
       <Fieldset params={hebrewDayData} />
 
-      {/* Angel data block */}
+        {/* Angel data block - loads immediately */}
       <Fieldset params={angelOfDayData} />
 
-      {/* Moon Signs */}
+        {/* Moon Signs - loads immediately */}
       <Fieldset params={moonData} />
 
-      {/* Chakra gate data */}
+        {/* Chakra gate data - loads immediately */}
       <ImageField params={chakraGateData} />
 
-      {/* Aura field */}
+        {/* Aura field - loads immediately */}
       <ImageField params={auraData} />
 
-      {/* Planet for day */}
+        {/* Planet for day - loads immediately */}
       <ImageField params={planetData} />
 
-      {/* Geometry */}
+        {/* Geometry - loads immediately */}
       <ImageField params={geometryData} />
 
-      {/* Law */}
+        {/* Law - loads immediately */}
       <Fieldset params={principleData} />
+      </div>
     </>
   )
 }
