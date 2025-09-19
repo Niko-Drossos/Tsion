@@ -292,5 +292,19 @@
   { "date": "Sep 21, 2025 9:40 PM GMT-0700", "sign": "Libra" },
   { "date": "Sep 24, 2025 9:00 AM GMT-0700", "sign": "Scorpio" },
   { "date": "Sep 26, 2025 9:37 PM GMT-0700", "sign": "Sagittarius" },
-  { "date": "Sep 29, 2025 9:55 AM GMT-0700", "sign": "Capricorn" }
+  { "date": "Sep 29, 2025 9:55 AM GMT-0700", "sign": "Capricorn" },
+  { "date": "Oct 1, 2025 7:51 PM GMT-0700", "sign": "Aquarius" },
+  { "date": "Oct 4, 2025 2:07 AM GMT-0700", "sign": "Pisces" },
+  { "date": "Oct 6, 2025 4:48 AM GMT-0700", "sign": "Aries" },
+  { "date": "Oct 8, 2025 5:12 AM GMT-0700", "sign": "Taurus" },
+  { "date": "Oct 10, 2025 5:12 AM GMT-0700", "sign": "Gemini" },
+  { "date": "Oct 12, 2025 6:37 AM GMT-0700", "sign": "Cancer" },
+  { "date": "Oct 14, 2025 10:47 AM GMT-0700", "sign": "Leo" },
+  { "date": "Oct 16, 2025 6:05 PM GMT-0700", "sign": "Virgo" },
+  { "date": "Oct 19, 2025 4:01 AM GMT-0700", "sign": "Libra" },
+  { "date": "Oct 21, 2025 3:42 PM GMT-0700", "sign": "Scorpio" },
+  { "date": "Oct 24, 2025 4:18 AM GMT-0700", "sign": "Sagittarius" },
+  { "date": "Oct 26, 2025 4:53 PM GMT-0700", "sign": "Capricorn" },
+  { "date": "Oct 29, 2025 3:55 AM GMT-0700", "sign": "Aquarius" },
+  { "date": "Oct 31, 2025 11:46 AM GMT-0700", "sign": "Pisces" }
 ]
