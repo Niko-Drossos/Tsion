@@ -46,7 +46,7 @@ const familySigns = [
   { name: "Dimetri", sign: "Aries" },
   { name: "Niko", sign: "Virgo" },
   { name: "Stephan", sign: "Virgo" },
-  { name: "Adriana", sign: "Libra" },
+  { name: "Adriana", sign: "Pisces" },
 ]
 
 export default function AllFields({ params }) {
