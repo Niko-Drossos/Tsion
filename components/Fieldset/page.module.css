@@ -12,14 +12,18 @@
 }
 
 .legendText {
-  white-space: nowrap;
-  font-size: 27px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  display: block;
+  font-size: 1.5rem;
 }
 
 /* ------------------------------ Color Coding ------------------------------ */
 
 .time {
-  color: aqua;
+  color: rgb(14, 87, 170)
 }
 
 .planet {
@@ -58,6 +62,6 @@
 
 @media screen and (max-width: 768px) {
   .legendText {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }

@@ -13,13 +13,14 @@ import timezones from '@/data/timezones.json'
 
 export default function Tsion() {
   const [coordinates, setCoordinates] = useState(null)
-  const [desiredTimeZone, setDesiredTimeZone] = useState('America/Phoenix')
+  const [desiredTimeZone, setDesiredTimeZone] = useState(null)
 
   useEffect(() => {
     // Set timezone from browser without requesting geolocation
     if (typeof window !== 'undefined') {
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       if (timeZone) setDesiredTimeZone(timeZone)
+        console.log(timeZone)
     }
   }, [])
 

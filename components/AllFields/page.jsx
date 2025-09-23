@@ -55,8 +55,6 @@ export default function AllFields({ params }) {
   const [angelOfDay, setAngelOfDay] = useState(null)
   const [dayDifference, setDayDifference] = useState(null)
   const [hebrewDate, setHebrewDate] = useState(new HDate())
-  const [locationFailed, setLocationFailed] = useState(false)
-  const [isLocating, setIsLocating] = useState(false)
   const [isFetchingSun, setIsFetchingSun] = useState(false)
 
   // keep local timezone in sync if parent changes (only if not yet set locally)
@@ -66,13 +64,24 @@ export default function AllFields({ params }) {
     }
   }, [desiredTimeZone, effectiveTimeZone])
 
-  useEffect(() => {
-    setLocation()
-  }, [])
+  // useEffect(() => {
+  //   setLocation()
+  // }, [])
 
   useEffect(() => {
     // Do nothing until we have a user timezone
     if (!effectiveTimeZone) return
+
+    // If we have a timezone but no coordinates, try to derive from timezones.json
+    if ((!coordinates || !coordinates.lat || !coordinates.lng)) {
+      const matchKey = Object.keys(timezones).find(k => timezones[k].timezone === effectiveTimeZone)
+      if (matchKey) {
+        const coords = timezones[matchKey].coordinates
+        if (coords && typeof setCoordinates === 'function') {
+          setCoordinates(coords)
+        }
+      }
+    }
 
     const newEquinox = pickEquinox(currentDate, effectiveTimeZone)
     const newDifference = calculateDifference(currentDate, newEquinox)
@@ -81,38 +90,46 @@ export default function AllFields({ params }) {
     setDayDifference(newDifference)
     setAngelOfDay(() => getAngel(newDifference))
 
-    // Only fetch when we have real coords
-    if (!coordinates?.lat || !coordinates?.lng) return
+    // Require coordinates to fetch sun times
+    if (!coordinates || coordinates.lat == null || coordinates.lng == null) {
+      return
+    }
 
     async function fetchData() {
       setIsFetchingSun(true)
       try {
-        const response = await fetch(`https://api.sunrisesunset.io/json?lat=${coordinates.lat}&lng=${coordinates.lng}&date=${currentDate.toLocaleString('en-US', { timeZone: effectiveTimeZone })}`);
+        // Use coordinates with timezone
+        const lat = coordinates.lat
+        const lng = coordinates.lng
+        const dateStr = DateTime.fromISO(currentDate.toISO(), { zone: effectiveTimeZone }).toISODate()
+        const url = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${lng}&date=${encodeURIComponent(dateStr)}&timezone=${encodeURIComponent(effectiveTimeZone)}`
+
+        const response = await fetch(url)
         
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`)
         }
 
-        const data = await response.json();
-        if (!data) {
-          throw new Error('Invalid JSON data in the response');
+        const data = await response.json()
+        if (!data || !data.results) {
+          throw new Error('Invalid JSON data in the response')
         }
 
-        setSunTimes(data);
+        setSunTimes(data)
         setHebrewDate(() => {
           const zoned = DateTime.fromISO(currentDate.toISO(), { zone: effectiveTimeZone }).toJSDate()
           return new HDate(zoned)
         })
 
       } catch (error) {
-        console.error(error);
+        console.error(error)
       } finally {
         setIsFetchingSun(false)
       }
     }
 
-    fetchData();
-  }, [currentDate, coordinates, effectiveTimeZone])
+    fetchData()
+  }, [currentDate, effectiveTimeZone, coordinates])
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -262,7 +279,7 @@ export default function AllFields({ params }) {
       { "Parsha": <a 
             href="https://hebcal.com/s/?us=sedrot-diaspora"
             target="_blank"
-            style={{color: "#0033EE"}}
+            style={{color: "#0033EE", wordBreak: 'break-word'}}
           >
           Link to Parsha
         </a>
@@ -293,7 +310,7 @@ export default function AllFields({ params }) {
       { "Phase": Moon.lunarPhaseEmoji() }, 
       { "Lunar Phase": Moon.lunarPhase() },
       { "": ""},
-      { "Moon Entered": <span>{moonSign} - <Image 
+      { "Moon Entered": <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', maxWidth: '100%' }}>{moonSign} - <Image 
       src={`/images/zodiac/${moonSign}.png`} 
       alt={moonSign}
       height={20}
@@ -305,7 +322,7 @@ export default function AllFields({ params }) {
       },
       { "Family Sign": moonSignData.familyMember },
       { "": ""},
-      { "Next Sign": <span>{nextSign} - <Image 
+      { "Next Sign": <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', maxWidth: '100%' }}>{nextSign} - <Image 
         src={`/images/zodiac/${nextSign}.png`} 
         alt={nextSign} 
         height={20}
@@ -367,7 +384,7 @@ export default function AllFields({ params }) {
   };
 
   const geometryData = {
-    legend: { style: "shape", title: "Geometry" },
+    legend: { style: "shape", title: "Shape" },
     keys: [
       { "Name": geometry.name },
       { "Element": element.name },
@@ -407,9 +424,9 @@ export default function AllFields({ params }) {
         onChange={handleSearch}
       /> */}
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(333px, 1fr))', gap: '16px', alignItems: 'stretch' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', alignItems: 'stretch', maxWidth: '100%', overflowX: 'hidden', boxSizing: 'border-box', overflowWrap: 'anywhere' }}>
         {/* Time data block - skeleton until sunTimes is available */}
-        {sunTimes && effectiveTimeZone && coordinates?.lat && coordinates?.lng ? (
+        {sunTimes && effectiveTimeZone ? (
           <Fieldset params={timeData}/>
         ) : (
           <div style={{
@@ -426,14 +443,20 @@ export default function AllFields({ params }) {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <div style={{ height: 27, width: '40%', background: '#eee', borderRadius: 6 }} />
-              {/* Inline SVG spinner */}
-              {(!locationFailed && (isLocating || isFetchingSun)) && (
-                <svg width="20" height="20" viewBox="0 0 50 50" aria-label="Loading">
-                  <circle cx="25" cy="25" r="20" fill="none" stroke="#e5e7eb" strokeWidth="6"/>
-                  <circle cx="25" cy="25" r="20" fill="none" stroke="#667eea" strokeWidth="6" strokeLinecap="round" strokeDasharray="31.4 125.6">
-                    <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite" />
-                  </circle>
-                </svg>
+              {/* Status: show detection error or loading spinner */}
+              {!effectiveTimeZone ? (
+                <span style={{ color: '#b91c1c', fontSize: 12, background: '#fee2e2', border: '1px solid #fecaca', padding: '4px 8px', borderRadius: 6 }}>
+                  Couldn't detect your timezone. Please select it below.
+                </span>
+              ) : (
+                isFetchingSun && (
+                  <svg width="20" height="20" viewBox="0 0 50 50" aria-label="Loading">
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="#e5e7eb" strokeWidth="6"/>
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="#667eea" strokeWidth="6" strokeLinecap="round" strokeDasharray="31.4 125.6">
+                      <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite" />
+                    </circle>
+                  </svg>
+                )
               )}
             </div>
             <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '85%' }} />
@@ -442,29 +465,15 @@ export default function AllFields({ params }) {
             <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '75%' }} />
             <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '50%' }} />
             <div style={{ display: 'grid', gap: 8, alignItems: 'center', marginTop: 10 }}>
-              {(locationFailed && !isLocating) && (
-                <button
-                  onClick={() => setLocation()}
-                  style={{
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: '#fff',
-                    border: 'none',
-                    padding: '8px 12px',
-                    borderRadius: 8,
-                    cursor: 'pointer',
-                    fontSize: 14
-                  }}
-                >
-                  Enable Location
-                </button>
-              )}
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <select
                   onChange={(e) => {
                     const key = e.target.options[e.target.selectedIndex].id
                     if (key && timezones[key]) {
                       setEffectiveTimeZone(timezones[key].timezone)
-                      setCoordinates(timezones[key].coordinates)
+                      if (typeof setCoordinates === 'function' && timezones[key].coordinates) {
+                        setCoordinates(timezones[key].coordinates)
+                      }
                     }
                   }}
                   style={{ padding: '8px', borderRadius: 8, border: '1px solid #e1e5e9' }}
@@ -479,7 +488,7 @@ export default function AllFields({ params }) {
               </div>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <span style={{ fontSize: 12, color: '#555' }}>
-                  Location is required. Allow location or choose a timezone to load sun times.
+                  Choose a timezone to load sun times.
                 </span>
                 <button
                   onClick={() => {
@@ -509,28 +518,28 @@ export default function AllFields({ params }) {
         )}
         
         {/* Hebrew Day - loads immediately */}
-      <Fieldset params={hebrewDayData} />
+        <Fieldset params={hebrewDayData} />
 
         {/* Angel data block - loads immediately */}
-      <Fieldset params={angelOfDayData} />
+        <Fieldset params={angelOfDayData} />
 
         {/* Moon Signs - loads immediately */}
-      <Fieldset params={moonData} />
+        <Fieldset params={moonData} />
 
         {/* Chakra gate data - loads immediately */}
-      <ImageField params={chakraGateData} />
+        <ImageField params={chakraGateData} />
 
         {/* Aura field - loads immediately */}
-      <ImageField params={auraData} />
+        <ImageField params={auraData} />
 
         {/* Planet for day - loads immediately */}
-      <ImageField params={planetData} />
+        <ImageField params={planetData} />
 
         {/* Geometry - loads immediately */}
-      <ImageField params={geometryData} />
+        <ImageField params={geometryData} />
 
         {/* Law - loads immediately */}
-      <Fieldset params={principleData} />
+        <Fieldset params={principleData} />
       </div>
     </>
   )

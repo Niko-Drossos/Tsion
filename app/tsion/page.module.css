@@ -2,12 +2,16 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 1rem;
+  overflow-x: hidden;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .container h1 {
@@ -27,6 +31,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
   text-align: center;
+  overflow: hidden;
 }
 
 .infoCard h2 {
@@ -64,6 +69,7 @@
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   text-align: center;
+  overflow: hidden;
 }
 
 .selectionCard h3 {
@@ -120,6 +126,7 @@
   display: flex;
   justify-content: center;
   min-height: 300px;
+  overflow: hidden;
 }
 
 .flatpickrWrapper {
@@ -145,6 +152,7 @@
   padding: 1rem;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .currentDateLabel {
@@ -169,6 +177,7 @@
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   text-align: center;
+  overflow: hidden;
 }
 
 .setupCard h3 {
@@ -313,6 +322,7 @@
   margin-bottom: 2rem;
   text-align: center;
   border-left: 4px solid #28a745;
+  overflow: hidden;
 }
 
 .successCard h3 {
@@ -334,6 +344,7 @@
   padding: 2rem;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  overflow-x: hidden;
 }
 
 /* Responsive Design */
