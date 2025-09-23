@@ -127,7 +127,7 @@ export default function AllFields({ params }) {
     }
 
     fetchData()
-  }, [currentDate, effectiveTimeZone, coordinates])
+  }, [currentDate, effectiveTimeZone, coordinates, setCoordinates])
 
   // Get day of week number
   let currentDay = currentDate.weekday
@@ -443,7 +443,7 @@ export default function AllFields({ params }) {
               {/* Status: show detection error or loading spinner */}
               {!effectiveTimeZone ? (
                 <span style={{ color: '#b91c1c', fontSize: 12, background: '#fee2e2', border: '1px solid #fecaca', padding: '4px 8px', borderRadius: 6 }}>
-                  Couldn't detect your timezone. Please select it below.
+                  Couldn&apos;t detect your timezone. Please select it below.
                 </span>
               ) : (
                 isFetchingSun && (

@@ -16,6 +16,12 @@ const UserContext = createContext({
   logout: () => {},
 })
 
+const UNAUTHORIZED_ACCESS_PATHS = [
+  "/dashboard/login",
+  "/dashboard/register",
+  "/"
+]
+
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [isClient, setIsClient] = useState(false)
@@ -27,13 +33,6 @@ export const UserProvider = ({ children }) => {
     id: "",
   })
 
-  // List of URL's that do not require user authentication
-  const unauthorizedAccess = [
-    "/dashboard/login",
-    "/dashboard/register",
-    "/"
-  ]
-  
   // This is needed to prevent problems with SSR
   useEffect(() => {
     setIsClient(true)
@@ -42,7 +41,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isClient) {
       try {
-        if (unauthorizedAccess.includes(pathname)) {
+        if (UNAUTHORIZED_ACCESS_PATHS.includes(pathname)) {
           // Let people access pages that don't need authentication
         } else if (localStorage.getItem('tsion-user') && getCookie("tsion")) {
           const parsedUser = JSON.parse(localStorage.getItem('tsion-user'))
@@ -57,7 +56,7 @@ export const UserProvider = ({ children }) => {
         setLoading(false)
       }
     }
-  }, [isClient, pathname])
+  }, [isClient, pathname, router])
 
   const login = useCallback((userData) => {
     setUser(userData)

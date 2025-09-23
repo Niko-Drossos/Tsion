@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { DateTime } from 'luxon';
 import flatpickr from 'flatpickr'
 import AllFields from "@/components/AllFields/page"
@@ -29,23 +29,30 @@ export default function Tsion() {
   const [showDatePicker, setShowDatePicker] = useState(false)
   const currentDatePicker = useRef()
 
-  const earliestDate = new Date(moonSigns[0].date)
-  const latestDate = new Date(moonSigns[moonSigns.length - 1].date)
+  const earliestDate = useMemo(() => new Date(moonSigns[0].date), [])
+  const latestDate = useMemo(() => new Date(moonSigns[moonSigns.length - 1].date), [])
   
   const formatDate = (date) => {
     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
   };
 
-  const flatpickrCalendarOptions = {
+  const flatpickrCalendarOptions = useMemo(() => ({
     inline: showDatePicker ? true : false,
     minDate: formatDate(earliestDate),
     maxDate: formatDate(latestDate),
     dateFormat: 'Y-m-d'
-  }
+  }), [showDatePicker, earliestDate, latestDate])
 
   const toggleDate = () => {
     setShowDatePicker(prev => !prev)
   }
+
+  const handleDateChange = useCallback((pickedDate) => {
+    // pickedDate is a string like '2025-01-14'
+    const selectedDate = DateTime.fromFormat(pickedDate, 'yyyy-MM-dd', { zone: desiredTimeZone })
+      .set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
+    setCurrentDate(selectedDate);
+  }, [desiredTimeZone])
 
   useEffect(() => {
     if (showDatePicker) {
@@ -71,7 +78,7 @@ export default function Tsion() {
         setStartFlatpickrInstance(null);
       }
     }
-  }, [showDatePicker, currentDate])
+  }, [showDatePicker, currentDate, flatpickrCalendarOptions, handleDateChange, startFlatpickrInstance])
 
   // Clean up on unmount
   useEffect(() => {
@@ -81,13 +88,6 @@ export default function Tsion() {
       }
     }
   }, [startFlatpickrInstance])
-
-  const handleDateChange = (pickedDate) => {
-    // pickedDate is a string like '2025-01-14'
-    const selectedDate = DateTime.fromFormat(pickedDate, 'yyyy-MM-dd', { zone: desiredTimeZone })
-      .set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
-    setCurrentDate(selectedDate);
-  };
 
   return (
     <main className={styles.main}>
