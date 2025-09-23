@@ -45,6 +45,8 @@ const familySigns = [
   { name: "Malki", sign: "Gemini" },
   { name: "Dimetri", sign: "Aries" },
   { name: "Niko", sign: "Virgo" },
+  { name: "Stephan", sign: "Virgo" },
+  { name: "Adriana", sign: "Libra" },
 ]
 
 export default function AllFields({ params }) {
@@ -63,10 +65,6 @@ export default function AllFields({ params }) {
       setEffectiveTimeZone(desiredTimeZone)
     }
   }, [desiredTimeZone, effectiveTimeZone])
-
-  // useEffect(() => {
-  //   setLocation()
-  // }, [])
 
   useEffect(() => {
     // Do nothing until we have a user timezone
@@ -145,7 +143,8 @@ export default function AllFields({ params }) {
   /*                               FUNCTIONS START                              */
   /* -------------------------------------------------------------------------- */
 
-  function setLocation() {
+  // No longer needed
+  /* function setLocation() {
     setIsLocating(true)
     setLocationFailed(false)
     const successCallback = (position) => {
@@ -170,7 +169,7 @@ export default function AllFields({ params }) {
     }
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
-  }
+  } */
 
   function calculateDifference(currentDate, lastEquinox) {
     // Calculate the difference in days
@@ -213,22 +212,20 @@ export default function AllFields({ params }) {
       }
     }
 
-    let familyMember = { name: 'Nobody' }
-    const matchingPerson = currentSign && familySigns.find(person => person.sign === currentSign.sign);
-    if (matchingPerson) familyMember = matchingPerson
+    const matchingPeople = currentSign ? familySigns.filter(person => person.sign === currentSign.sign) : []
+    const familyMemberNames = matchingPeople.length ? matchingPeople.map(person => person.name).join(', ') : 'Nobody'
 
-    let nextFamilyMember = { name: 'Nobody' }
-    const nextMatchingPerson = nextMoonSign && familySigns.find(person => person.sign === nextMoonSign.sign);
-    if (nextMatchingPerson) nextFamilyMember = nextMatchingPerson
+    const nextMatchingPeople = nextMoonSign ? familySigns.filter(person => person.sign === nextMoonSign.sign) : []
+    const nextFamilyMemberNames = nextMatchingPeople.length ? nextMatchingPeople.map(person => person.name).join(', ') : 'Nobody'
 
     // If currentDate is beyond the last known moon phase, return an appropriate message
-    if (!nextMoonSign) return { currentSign, nextMoonSign: 'No upcoming moon phase found', familyMember: familyMember.name }
+    if (!nextMoonSign) return { currentSign, nextMoonSign: 'No upcoming moon phase found', familyMember: familyMemberNames }
 
     return {
       currentSign,
       nextMoonSign,
-      familyMember: familyMember.name,
-      nextFamilyMember: nextFamilyMember.name
+      familyMember: familyMemberNames,
+      nextFamilyMember: nextFamilyMemberNames
     };
   }
 
@@ -424,7 +421,7 @@ export default function AllFields({ params }) {
         onChange={handleSearch}
       /> */}
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', alignItems: 'stretch', maxWidth: '100%', overflowX: 'hidden', boxSizing: 'border-box', overflowWrap: 'anywhere' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px', alignItems: 'stretch', maxWidth: '100%', overflowX: 'hidden', boxSizing: 'border-box', overflowWrap: 'anywhere' }}>
         {/* Time data block - skeleton until sunTimes is available */}
         {sunTimes && effectiveTimeZone ? (
           <Fieldset params={timeData}/>

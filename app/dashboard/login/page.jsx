@@ -52,7 +52,7 @@ const Login = () => {
 
         setCookie('tsion', response.token, { maxAge: maxAge, path: "/" })
 
-        router.push("/dashboard");
+        router.push("/tsion");
       } else {
         setError(response.errorMessage)
       }
