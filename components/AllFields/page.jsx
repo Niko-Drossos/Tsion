@@ -12,6 +12,7 @@ import timezones from "@/data/timezones.json"
 
 import ImageField from "../ImageField/page"
 import Fieldset from "../Fieldset/page";
+import styles from "./page.module.css";
 
 /* -- Manual import of data from https://moontracks.com/lunar_ingress.html -- */
 
@@ -421,28 +422,17 @@ export default function AllFields({ params }) {
         onChange={handleSearch}
       /> */}
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px', alignItems: 'stretch', maxWidth: '100%', overflowX: 'hidden', boxSizing: 'border-box', overflowWrap: 'anywhere' }}>
+      <div className={styles.grid}>
         {/* Time data block - skeleton until sunTimes is available */}
         {sunTimes && effectiveTimeZone ? (
           <Fieldset params={timeData}/>
         ) : (
-          <div style={{
-            background: '#ffffff',
-            color: '#111111',
-            borderRadius: 10,
-            padding: 10,
-            boxSizing: 'border-box',
-            width: '100%',
-            height: '100%',
-            display: 'grid',
-            gridAutoRows: 'min-content',
-            gap: 8
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <div style={{ height: 27, width: '40%', background: '#eee', borderRadius: 6 }} />
+          <div className={styles.skeleton}>
+            <div className={styles.skeletonHeader}>
+              <div className={styles.skeletonTitle} />
               {/* Status: show detection error or loading spinner */}
               {!effectiveTimeZone ? (
-                <span style={{ color: '#b91c1c', fontSize: 12, background: '#fee2e2', border: '1px solid #fecaca', padding: '4px 8px', borderRadius: 6 }}>
+                <span className={styles.skeletonError}>
                   Couldn&apos;t detect your timezone. Please select it below.
                 </span>
               ) : (
@@ -456,13 +446,13 @@ export default function AllFields({ params }) {
                 )
               )}
             </div>
-            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '85%' }} />
-            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '70%' }} />
-            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '60%' }} />
-            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '75%' }} />
-            <div style={{ height: 12, background: '#f0f0f0', borderRadius: 6, width: '50%' }} />
-            <div style={{ display: 'grid', gap: 8, alignItems: 'center', marginTop: 10 }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <div className={styles.skeletonLine} style={{ width: '85%' }} />
+            <div className={styles.skeletonLine} style={{ width: '70%' }} />
+            <div className={styles.skeletonLine} style={{ width: '60%' }} />
+            <div className={styles.skeletonLine} style={{ width: '75%' }} />
+            <div className={styles.skeletonLine} style={{ width: '50%' }} />
+            <div className={styles.skeletonControls}>
+              <div className={styles.skeletonSelectRow}>
                 <select
                   onChange={(e) => {
                     const key = e.target.options[e.target.selectedIndex].id
@@ -473,7 +463,7 @@ export default function AllFields({ params }) {
                       }
                     }
                   }}
-                  style={{ padding: '8px', borderRadius: 8, border: '1px solid #e1e5e9' }}
+                  className={styles.skeletonSelect}
                 >
                   <option value="">Select a timezone…</option>
                   {Object.keys(timezones).map((key) => (
@@ -483,8 +473,8 @@ export default function AllFields({ params }) {
                   ))}
                 </select>
               </div>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <span style={{ fontSize: 12, color: '#555' }}>
+              <div className={styles.skeletonHintRow}>
+                <span className={styles.skeletonHint}>
                   Choose a timezone to load sun times.
                 </span>
                 <button
@@ -497,15 +487,7 @@ export default function AllFields({ params }) {
 `Edge: Click the lock icon → Permissions for this site → Location → Allow, then refresh.`
                     )
                   }}
-                  style={{
-                    background: '#e2e8f0',
-                    color: '#111',
-                    border: '1px solid #cbd5e1',
-                    padding: '6px 10px',
-                    borderRadius: 6,
-                    cursor: 'pointer',
-                    fontSize: 12
-                  }}
+                  className={styles.skeletonButton}
                 >
                   How to enable
                 </button>
