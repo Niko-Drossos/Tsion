@@ -5,7 +5,10 @@
       "sephira": "Tifereth (Glory/ Equilibrium)",
       "choir": "Malakim (Messengers)",
       "archangel": "Mikael (He who is like Unto EL)",
-      "psalm": "24",
+      "psalm": {
+        "chapter": "24",
+        "link": "https://www.youtube.com/watch?v=7JDmT01jnOU"
+      },
       "letter": {
         "symbol": "כ",
         "name": "Kaf"
@@ -19,7 +22,8 @@
       "number": "4th",
       "name": "Anahata",
       "frequency": "639hz",
-      "note": "F"
+      "note": "F",
+      "link": "https://www.youtube.com/watch?v=Ga4cD8WYH3k"
     },
     "aura": "Astral Body",
     "geometry": {
@@ -46,7 +50,10 @@
       "sephira": "Yesod (Foundation)",
       "choir": "Elim (gods)",
       "archangel": "Gabriel (EL is My Strength)",
-      "psalm": "48",
+      "psalm": {
+        "chapter": "48",
+        "link": "https://www.youtube.com/watch?v=5WPw_ThUVyI"
+      },
       "letter": {
         "symbol": "ת",
         "name": "Tav"
@@ -60,7 +67,8 @@
       "number": "1st",
       "name": "Muladhara",
       "frequency": "396hz",
-      "note": "C"
+      "note": "C",
+      "link": "https://www.youtube.com/watch?v=0ylIVQrqnZY"
     },
     "aura": "Etheric Body",
     "geometry": {
@@ -87,7 +95,10 @@
       "sephira": "Gevurah (Strength)",
       "choir": "Seraphim (Burning Ones)",
       "archangel": "Remiel (EL is My Thunder)",
-      "psalm": "82",
+      "psalm": {
+        "chapter": "82",
+        "link": "https://www.youtube.com/watch?v=w-v1N4uSDrQ"
+      },
       "letter": {
         "symbol": "ד",
         "name": "Dalet"
@@ -101,7 +112,8 @@
       "number": "5th",
       "name": "Vishuddha",
       "frequency": "741hz",
-      "note": "G"
+      "note": "G",
+      "link": "https://www.youtube.com/watch?v=s09XzKoFp6Q"
     },
     "aura": "Etheric Template",
     "geometry": {
@@ -128,7 +140,10 @@
       "sephira": "Hod (Splendour)",
       "choir": "Arelim (Valiant Ones)",
       "archangel": "Raphael (Healing of EL)",
-      "psalm": "94",
+      "psalm": {
+        "chapter": "94",
+        "link": "https://www.youtube.com/watch?v=Wt4J1qYTbsY"
+      },
       "letter": {
         "symbol": "ר",
         "name": "Resh"
@@ -142,7 +157,8 @@
       "number": "2nd",
       "name": "Svadhishthana",
       "frequency": "417hz",
-      "note": "D"
+      "note": "D",
+      "link": "https://www.youtube.com/watch?v=R3M22PduzO0"
     },
     "aura": "Emotional Body",
     "geometry": {
@@ -169,7 +185,10 @@
       "sephira": "Hesed (Benevolence)",
       "choir": "Ophanim (Wheels)",
       "archangel": "Uriel (EL is My Light)",
-      "psalm": "81",
+      "psalm": {
+        "chapter": "81",
+        "link": "https://www.youtube.com/watch?v=t22JYeDZnBM"
+      },
       "letter": {
         "symbol": "ג",
         "name": "Gimel"
@@ -183,7 +202,8 @@
       "number": "6th",
       "name": "Ajna",
       "frequency": "852hz",
-      "note": "A"
+      "note": "A",
+      "link": "https://www.youtube.com/watch?v=B4DUeb3prZY"
     },
     "aura": "Celestial Body",
     "geometry": {
@@ -210,7 +230,10 @@
       "sephira": "Netzach (Endurance)",
       "choir": "Hashmalim (Electric Ones)",
       "archangel": "Yophiel (EL is My Beauty)",
-      "psalm": "93",
+      "psalm": {
+        "chapter": "93",
+        "link": "https://www.youtube.com/watch?v=ZswBewGyGTg"
+      },
       "letter": {
         "symbol": "פ",
         "name": "Peh"
@@ -224,7 +247,8 @@
       "number": "3rd",
       "name": "Manipura",
       "frequency": "528hz",
-      "note": "E"
+      "note": "E",
+      "link": "https://www.youtube.com/watch?v=qgSb8QdFU7k"
     },
     "aura": "Mental Body",
     "geometry": {
@@ -251,7 +275,10 @@
       "sephira": "Daat (Genosis)",
       "choir": "B'nai Elohim, Hyos Ha Koidesh (Holy Living creatures)",
       "archangel": "Phanuel (Facing EL)",
-      "psalm": "92",
+      "psalm": {
+        "chapter": "92",
+        "link": "https://www.youtube.com/watch?v=VdNxaN_Hyw8"
+      },
       "letter": {
         "symbol": "ב",
         "name": "Bet"
@@ -265,7 +292,8 @@
       "number": "7th",
       "name": "Sahasrara",
       "frequency": "963hz",
-      "note": "B"
+      "note": "B",
+      "link": "https://www.youtube.com/watch?v=uSH3m-vU22c"
     },
     "aura": "Ketheric Template",
     "geometry": {

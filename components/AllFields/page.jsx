@@ -249,6 +249,7 @@ export default function AllFields({ params }) {
     keys: [
       { "Day": dayDifference ?? "—"},
       { "Day Of The Week": effectiveTimeZone ? currentDate.toLocaleString({ weekday: "long" }) : "—"},
+      { "": "" },
       { "First Light": sunTimes?.results.first_light ?? "N/A" },
       { "Sunrise": sunTimes?.results.sunrise ?? "N/A" },
       { "Sunset": sunTimes?.results.sunset ?? "N/A" },
@@ -271,7 +272,13 @@ export default function AllFields({ params }) {
       /* ------------------------------- */
       { "Hebrew Day": hebrewDay.day },
       { "Sephira": hebrewDay.sephira },
-      { "Sunset Psalm": hebrewDay.psalm },
+      { "Sunset Psalm": <a
+            href={hebrewDay.psalm.link}
+            target="_blank"
+            style={{color: "#0033EE", wordBreak: 'break-word'}}
+          >
+            Psalm {hebrewDay.psalm.chapter}
+          </a> },
       { "Choir": hebrewDay.choir },
       { "Archangel": hebrewDay.archangel },
       { "Parsha": <a 
@@ -321,11 +328,11 @@ export default function AllFields({ params }) {
       { "Family Sign": moonSignData.familyMember },
       { "": ""},
       { "Next Sign": <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', maxWidth: '100%' }}>{nextSign} - <Image 
-        src={`/images/zodiac/${nextSign}.png`} 
-        alt={nextSign} 
-        height={20}
-        width={20}
-        style={{ verticalAlign: 'middle', filter: 'brightness(0) saturate(100%)' }} 
+          src={`/images/zodiac/${nextSign}.png`} 
+          alt={nextSign} 
+          height={20}
+          width={20}
+          style={{ verticalAlign: 'middle', filter: 'brightness(0) saturate(100%)' }} 
         />
         </span> },
       { "At": nextDate },
@@ -337,7 +344,14 @@ export default function AllFields({ params }) {
     legend: { style: "chakra", title: `${chakra.number} Gate` },
     keys: [
       { "Name": chakra.name },
-      { "Frequency": chakra.frequency }
+      { "Frequency": <a
+          href={chakra.link}
+          target="_blank"
+          style={{ color: "#0033EE", wordBreak: 'break-word' }}
+        >
+          {chakra.frequency}
+        </a>
+      }
     ],
     image: {
       src: `/images/chakras/${chakra.name}.png`,
